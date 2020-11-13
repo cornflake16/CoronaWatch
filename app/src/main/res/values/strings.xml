@@ -1,14 +1,29 @@
 <resources>
+
     <string name="app_name">CoronaWatch</string>
     <string name="login_title">Corona Watch</string>
 
+    <string name="tv_increase_expression_label">▲</string>
+    <string name="tv_rate_of_increase_label">increase ▲</string>
+    <string name="tv_confirmed_label">confirmed</string>
+    <string name="tv_testing_label">testing</string>
+    <string name="tv_recovered_label">recovered</string>
+    <string name="tv_deaths_label">deaths</string>
+    <string name="tv_virus_name">COVID - 19</string>
+    <string name="tv_virus_level1">CONCERN</string>
+    <string name="tv_virus_level2">CAUTION</string>
+    <string name="tv_virus_level3">WARNING</string>
+    <string name="tv_virus_level4">DANGER</string>
+
     <string name="hint_signIn_id">Email address</string>
     <string name="hint_signIn_pw">Password</string>
-    <string name="btn_signIn_txt">SIGN IN</string>
 
+    <string name="btn_signIn_txt">SIGN IN</string>
     <string name="btn_signOut_txt">SIGN OUT</string>
     <string name="btn_signUp_txt">REGISTER</string>
     <string name="btn_delete_txt">DELETE ACCOUNT</string>
+    <string name="btn_korea_txt">Korea</string>
+    <string name="btn_world_txt">World</string>
 
     <string name="login_google_txt">Sign in with Google</string>
 
@@ -19,7 +34,6 @@
     <string name="toast_auth_txt2">Authentication failed</string>
     <string name="toast_signOut_txt">sign out completed</string>
     <string name="toast_check_network_msg">Please check your network connected</string>
-
     <string name="toast_permission_check_msg">Location authority is required to provide normal service.</string>
 
     <string name="dialog_location_title_txt">Location Services Required</string>
@@ -48,7 +62,7 @@
     <string name="ERROR_INVALID_CUSTOM_TOKEN">The custom token format is incorrect. Please check the documentation.</string>
     <string name="ERROR_CUSTOM_TOKEN_MISMATCH">The custom token corresponds to a different audience.</string>
     <string name="ERROR_INVALID_CREDENTIAL">The supplied auth credential is malformed or has expired.</string>
-<!--    <string name="ERROR_INVALID_EMAIL">The email address is badly formatted.</string>-->
+    <!--    <string name="ERROR_INVALID_EMAIL">The email address is badly formatted.</string>-->
     <string name="ERROR_WRONG_PASSWORD">The password is invalid or the user does not have a password.</string>
     <string name="ERROR_WRONG_PASSWORD_TXT">The password is invalid or the user does not have a password.</string>
     <string name="ERROR_USER_MISMATCH">The supplied credentials do not correspond to the previously signed in user.</string>
@@ -61,5 +75,8 @@
     <string name="ERROR_USER_NOT_FOUND">There is no user record corresponding to this identifier. The user may have been deleted.</string>
     <string name="ERROR_INVALID_USER_TOKEN">The users credential is no longer valid. The user must sign in again.</string>
     <string name="ERROR_OPERATION_NOT_ALLOWED">This operation is not allowed. You must enable this service in the console.</string>
+
     <string name="or">or</string>
+    <string name="_0">0</string>
+
 </resources>

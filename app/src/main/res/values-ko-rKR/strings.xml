@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">코로나왓치</string>
     <string name="login_title">코로나 왓치</string>
 
+    <string name="tv_increase_expression_label">▲</string>
+    <string name="tv_rate_of_increase_label">전일 대비 증가 ▲</string>
+    <string name="tv_confirmed_label">확진환자</string>
+    <string name="tv_testing_label">검사중</string>
+    <string name="tv_recovered_label">격리해제</string>
+    <string name="tv_deaths_label">사망자</string>
+    <string name="tv_virus_name">COVID - 19</string>
+    <string name="tv_virus_level1">관심</string>
+    <string name="tv_virus_level2">주의</string>
+    <string name="tv_virus_level3">경고</string>
+    <string name="tv_virus_level4">위험</string>
+
     <string name="hint_signIn_id">이메일 계정</string>
     <string name="hint_signIn_pw">비밀번호</string>
+
     <string name="btn_signIn_txt">로그인</string>
     <string name="btn_signOut_txt">로그아웃</string>
     <string name="btn_signUp_txt">이메일 등록</string>
     <string name="btn_delete_txt">계정 삭제</string>
+    <string name="btn_korea_txt">국내</string>
+    <string name="btn_world_txt">세계</string>
+
     <string name="login_google_txt">구글 로그인</string>
 
     <string name="err_login_msg">이메일 형식으로 입력해주세요.</string>
@@ -46,7 +63,7 @@
     <string name="ERROR_INVALID_CUSTOM_TOKEN">인증 오류: 사용자 정의 토큰 형식이 잘못되었습니다. 해당 에러가 지속되면 개발자에게 문의해주세요.</string>
     <string name="ERROR_CUSTOM_TOKEN_MISMATCH">인증 오류: 사용자 정의 토큰이 다른 대상에 해당합니다. 해당 에러가 지속되면 개발자에게 문의해주세요.</string>
     <string name="ERROR_INVALID_CREDENTIAL">인증 오류: 제공된 인증 자격 증명의 형식이 잘못되었거나 만료되었습니다. 해당 에러가 지속되면 개발자에게 문의해주세요.</string>
-<!--    <string name="ERROR_INVALID_EMAIL">인증 오류: 이메일 주소의 형식이 잘못되었습니다.</string>-->
+    <!--    <string name="ERROR_INVALID_EMAIL">인증 오류: 이메일 주소의 형식이 잘못되었습니다.</string>-->
     <string name="ERROR_WRONG_PASSWORD_TXT">패스워드가 일치하지 않습니다.</string>
     <string name="ERROR_WRONG_PASSWORD">로그인 오류: 비밀번호가 잘못 입력되었거나 해당 계정에 존재하지 않습니다. 비밀번호를 잊어버리신 경우 개발자에게 문의해주세요.</string>
     <string name="ERROR_USER_MISMATCH">로그인 오류: 제공된 자격 증명이 이전에 로그인한 사용자와 일치하지 않습니다. 해당 에러가 지속되면 개발자에게 문의해주세요.</string>
@@ -59,5 +76,8 @@
     <string name="ERROR_USER_NOT_FOUND">해당 계정을 찾을 수 없습니다.</string>
     <string name="ERROR_INVALID_USER_TOKEN">사용자 자격 증명이 더 이상 유효하지 않으므로, 재인증이 필요합니다.</string>
     <string name="ERROR_OPERATION_NOT_ALLOWED">허용되지 않은 작업이므로, 개발자에게 문의해주세요.</string>
+
     <string name="or">또는</string>
+    <string name="_0">0</string>
+
 </resources>
