@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mapsFragment"
+        android:icon="@drawable/icon_maps"
+        android:title="Maps" />
+    <item
+        android:id="@+id/statFragment"
+        android:icon="@drawable/icon_statistics"
+        android:title="Statistics" />
+    <item
+        android:id="@+id/graphFragment"
+        android:icon="@drawable/icon_graph"
+        android:title="Graph" />
+</menu>
