@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:context=".StatFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".StatFragment">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -69,26 +68,26 @@
             app:layout_constraintTop_toBottomOf="@id/view">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_korea"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_stroke_checked"
                 android:text="@string/btn_korea_txt"
-                app:layout_constraintEnd_toStartOf="@id/button2"
+                app:layout_constraintEnd_toStartOf="@id/btn_world"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.4" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_world"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_stroke"
                 android:text="@string/btn_world_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/button"
+                app:layout_constraintStart_toEndOf="@+id/btn_korea"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.4" />
 
@@ -115,7 +114,7 @@
                 app:layout_constraintTop_toTopOf="@id/constraintLayout3" />
 
             <TextView
-                android:id="@+id/total"
+                android:id="@+id/tv_decideCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -127,7 +126,7 @@
                 app:layout_constraintTop_toBottomOf="@id/totalTextView" />
 
             <TextView
-                android:id="@+id/totalIncrease"
+                android:id="@+id/tv_decideIncrease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -136,7 +135,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/total" />
+                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt" />
 
             <View
                 android:id="@+id/view2"
@@ -144,13 +143,13 @@
                 android:layout_height="75dp"
                 android:layout_centerInParent="true"
                 android:background="#555555"
-                app:layout_constraintBottom_toTopOf="@+id/DeadTextView"
-                app:layout_constraintEnd_toStartOf="@+id/release"
-                app:layout_constraintStart_toEndOf="@+id/inspect"
-                app:layout_constraintTop_toBottomOf="@+id/totalIncrease" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_death_label"
+                app:layout_constraintEnd_toStartOf="@+id/tv_clearCnt"
+                app:layout_constraintStart_toEndOf="@+id/tv_examCnt"
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
 
             <TextView
-                android:id="@+id/inspectTextView"
+                android:id="@+id/tv_exam_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -160,35 +159,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/totalIncrease" />
+                app:layout_constraintTop_toBottomOf="@id/tv_decideIncrease" />
 
             <TextView
-                android:id="@+id/inspect"
+                android:id="@+id/tv_examCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="@string/_0"
                 android:textColor="#FFC107"
                 android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/inspectTextView"
+                app:layout_constraintEnd_toEndOf="@id/tv_exam_label"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@id/inspectTextView"
-                app:layout_constraintTop_toBottomOf="@id/inspectTextView" />
+                app:layout_constraintStart_toStartOf="@id/tv_exam_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_exam_label" />
 
             <TextView
-                android:id="@+id/inspectIncrease"
+                android:id="@+id/tv_examIncrease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/tv_increase_expression_label"
                 android:textColor="#FFC107"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/inspect"
-                app:layout_constraintStart_toStartOf="@id/inspect"
-                app:layout_constraintTop_toBottomOf="@id/inspect" />
+                app:layout_constraintEnd_toEndOf="@id/tv_examCnt"
+                app:layout_constraintStart_toStartOf="@id/tv_examCnt"
+                app:layout_constraintTop_toBottomOf="@id/tv_examCnt" />
 
             <TextView
-                android:id="@+id/releaseTextView"
+                android:id="@+id/tv_clear_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -198,35 +197,35 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.75"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalIncrease" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
 
             <TextView
-                android:id="@+id/release"
+                android:id="@+id/tv_clearCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="@string/_0"
                 android:textColor="#3F51B5"
                 android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/releaseTextView"
+                app:layout_constraintEnd_toEndOf="@id/tv_clear_label"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@id/releaseTextView"
-                app:layout_constraintTop_toBottomOf="@id/releaseTextView" />
+                app:layout_constraintStart_toStartOf="@id/tv_clear_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_clear_label" />
 
             <TextView
-                android:id="@+id/releaseIncrease"
+                android:id="@+id/tv_clearIncrease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/tv_increase_expression_label"
                 android:textColor="#3F51B5"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/release"
-                app:layout_constraintStart_toStartOf="@id/release"
-                app:layout_constraintTop_toBottomOf="@id/release" />
+                app:layout_constraintEnd_toEndOf="@id/tv_clearCnt"
+                app:layout_constraintStart_toStartOf="@id/tv_clearCnt"
+                app:layout_constraintTop_toBottomOf="@id/tv_clearCnt" />
 
             <TextView
-                android:id="@+id/DeadTextView"
+                android:id="@+id/tv_death_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="130dp"
@@ -236,32 +235,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalIncrease" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
 
             <TextView
-                android:id="@+id/dead"
+                android:id="@+id/tv_deathCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="@string/_0"
                 android:textColor="#000000"
                 android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/DeadTextView"
+                app:layout_constraintEnd_toEndOf="@id/tv_death_label"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@id/DeadTextView"
-                app:layout_constraintTop_toBottomOf="@id/DeadTextView" />
+                app:layout_constraintStart_toStartOf="@id/tv_death_label"
+                app:layout_constraintTop_toBottomOf="@id/tv_death_label" />
 
             <TextView
-                android:id="@+id/deadIncrease"
+                android:id="@+id/tv_deathIncrease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/tv_increase_expression_label"
                 android:textColor="#000000"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/dead"
-                app:layout_constraintStart_toStartOf="@id/dead"
-                app:layout_constraintTop_toBottomOf="@id/dead" />
+                app:layout_constraintEnd_toEndOf="@id/tv_deathCnt"
+                app:layout_constraintStart_toStartOf="@id/tv_deathCnt"
+                app:layout_constraintTop_toBottomOf="@id/tv_deathCnt" />
 
             <TextView
                 android:id="@+id/textView"

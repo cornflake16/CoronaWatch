@@ -78,6 +78,6 @@
     <string name="ERROR_OPERATION_NOT_ALLOWED">허용되지 않은 작업이므로, 개발자에게 문의해주세요.</string>
 
     <string name="or">또는</string>
-    <string name="_0">0</string>
+    <string name="_0">-</string>
 
 </resources>

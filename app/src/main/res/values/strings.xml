@@ -50,7 +50,7 @@
     <string name="dialog_confirm_msg">The authentication account has been deleted.</string>
     <string name="dialog_cancel_msg">Deletion of authentication account has been cancelled.</string>
 
-    <string name="sbar_again_back_press_msg">If you press the back button again, the app closes.</string>
+    <string name="sbar_again_back_press_msg">If you press the back button again, the app will be destroyed.</string>
     <string name="sbar_email_password_msg">please input your email and password</string>
     <string name="sbar_email_msg">Please input your email</string>
     <string name="sbar_password_msg">Please input your password</string>
@@ -77,6 +77,6 @@
     <string name="ERROR_OPERATION_NOT_ALLOWED">This operation is not allowed. You must enable this service in the console.</string>
 
     <string name="or">or</string>
-    <string name="_0">0</string>
+    <string name="_0">-</string>
 
 </resources>
