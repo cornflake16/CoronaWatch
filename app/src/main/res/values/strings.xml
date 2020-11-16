@@ -14,6 +14,7 @@
     <string name="tv_virus_level2">CAUTION</string>
     <string name="tv_virus_level3">WARNING</string>
     <string name="tv_virus_level4">DANGER</string>
+    <string name="tv_virus_level5">!DANGER!</string>
 
     <string name="hint_signIn_id">Email address</string>
     <string name="hint_signIn_pw">Password</string>

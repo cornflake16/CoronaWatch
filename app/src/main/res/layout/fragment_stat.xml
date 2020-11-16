@@ -15,21 +15,21 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="50dp"
-            android:background="@drawable/circle_orange"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/circle_level_5">
 
             <TextView
                 android:id="@+id/tv_phase"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tv_virus_level3"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/tv_virus_level5" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -89,7 +89,8 @@
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/btn_korea"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.4" />
+                app:layout_constraintWidth_percent="0.4"
+                tools:ignore="OnClick" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -117,7 +118,7 @@
                 android:id="@+id/tv_decideCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/_0"
                 android:textColor="#FF0000"
                 android:textSize="30sp"
@@ -165,12 +166,11 @@
                 android:id="@+id/tv_examCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/_0"
                 android:textColor="#FFC107"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_exam_label"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@id/tv_exam_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_exam_label" />
 
@@ -203,12 +203,11 @@
                 android:id="@+id/tv_clearCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/_0"
                 android:textColor="#3F51B5"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_clear_label"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@id/tv_clear_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_clear_label" />
 
@@ -233,7 +232,6 @@
                 android:textColor="#000000"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
 
@@ -241,12 +239,11 @@
                 android:id="@+id/tv_deathCnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/_0"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_death_label"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@id/tv_death_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_death_label" />
 
@@ -272,7 +269,7 @@
                 android:text="@string/tv_rate_of_increase_label"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

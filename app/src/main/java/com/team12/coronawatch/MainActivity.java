@@ -5,9 +5,15 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -42,10 +48,39 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isNetworkConnected(Context context)
+    {
+        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        NetworkInfo wifi = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo wimax = manager.getNetworkInfo(ConnectivityManager.TYPE_WIMAX); //태블릿 네트워크
+        boolean bwimax = false;
+
+        if (wimax != null)
+            bwimax = wimax.isConnected();
+        if (mobile != null) {
+            return !mobile.isConnected() && !wifi.isConnected() && !bwimax;
+        } else {
+            return !wifi.isConnected() && !bwimax;
+        }
+    }
+
+    private void networkCheck()
+    {
+        if (isNetworkConnected(getApplicationContext())) {
+            Log.i("Network connection: ", "disconnected");
+            Toast.makeText(getApplicationContext(), R.string.toast_check_network_msg,
+                    Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        networkCheck(); //사용자에게 네트워크 연결을 요청 -> 미 연결시 앱 종료
         init();
     }
 
