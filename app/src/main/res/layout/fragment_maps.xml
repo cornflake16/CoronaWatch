@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:visibility="visible">
 
         <com.naver.maps.map.MapView
             android:id="@+id/map_view"
@@ -64,21 +65,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_address" />
 
-        <View
-            android:id="@+id/view"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_centerInParent="true"
-            android:background="#555555"
-            app:layout_constraintBottom_toTopOf="@+id/lv_area"
-            tools:layout_editor_absoluteX="30dp" />
-
-        <ListView
-            android:id="@+id/lv_area"
-            android:layout_width="match_parent"
-            android:layout_height="275dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="23dp"
+            android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="63dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_areaCnt">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ListView
+                    android:id="@+id/lv_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF">
+
+                </ListView>
+            </LinearLayout>
+        </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

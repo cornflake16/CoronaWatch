@@ -1,302 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GraphFragment">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="In the last 7 days"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="44dp"
-        tools:ignore="MissingConstraints" />
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:entries="@array/graph_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:ignore="MissingConstraints" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="185dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="164dp">
-
-        <ProgressBar
-            android:id="@+id/pb_1"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="-20dp"
-            tools:layout_editor_absoluteY="67dp" />
-
-        <ProgressBar
-            android:id="@+id/pb_2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="30dp"
-            tools:layout_editor_absoluteY="67dp" />
-
-        <ProgressBar
-            android:id="@+id/pb_3"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="80dp"
-            tools:layout_editor_absoluteY="67dp" />
-
-        <ProgressBar
-            android:id="@+id/pb_4"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="67dp" />
-
-        <ProgressBar
-            android:id="@+id/pb_5"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="180dp"
-            tools:layout_editor_absoluteY="67dp" />
-
-        <ProgressBar
-            android:id="@+id/pb_6"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="230dp"
-            tools:layout_editor_absoluteY="67dp" />
-
-        <ProgressBar
-            android:id="@+id/pb_7"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="100"
-            android:progressBackgroundTint="##000000"
-            android:progressTint="#FF9800"
-            android:rotation="-90"
-            tools:layout_editor_absoluteX="280dp"
-            tools:layout_editor_absoluteY="66dp" />
-
+        android:layout_height="match_parent">
         <TextView
-            android:id="@+id/tv_day1"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginStart="153dp"
+            android:layout_marginLeft="153dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="153dp"
+            android:layout_marginRight="153dp"
             android:gravity="center"
-            android:text="Day1"
+            android:text="In the last 7 days"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pb_1" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/tv_day2"
+        <Spinner
+            android:id="@+id/spinner"
+            android:entries="@array/graph_tab"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="185dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner"
+            tools:ignore="MissingConstraints">
+
+            <ProgressBar
+                android:id="@+id/pb_1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day1"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day1"
+                app:layout_constraintStart_toStartOf="@+id/tv_day1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day2"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day2"
+                app:layout_constraintStart_toStartOf="@+id/tv_day2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_3"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day3"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day3"
+                app:layout_constraintStart_toStartOf="@+id/tv_day3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_4"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day4"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day4"
+                app:layout_constraintStart_toStartOf="@+id/tv_day4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_5"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day5"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day5"
+                app:layout_constraintStart_toStartOf="@+id/tv_day5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_6"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day6"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day6"
+                app:layout_constraintStart_toStartOf="@+id/tv_day6"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/pb_7"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="65dp"
+                android:layout_marginBottom="84dp"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="#00000000"
+                android:progressTint="#FF9800"
+                android:rotation="-90"
+                app:layout_constraintBottom_toTopOf="@+id/tv_day7"
+                app:layout_constraintEnd_toEndOf="@+id/tv_day7"
+                app:layout_constraintStart_toStartOf="@+id/tv_day7"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_day1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="Day1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_day2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="Day2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_day1" />
+
+            <TextView
+                android:id="@+id/tv_day3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="Day3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_day2" />
+
+            <TextView
+                android:id="@+id/tv_day4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="Day4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_day3" />
+
+            <TextView
+                android:id="@+id/tv_day5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="Day5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_day4" />
+
+            <TextView
+                android:id="@+id/tv_day6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="Day6"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_day5" />
+
+            <TextView
+                android:id="@+id/tv_day7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:gravity="center"
+                android:text="Day7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_day6" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/pb_average"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:text="Day2"
-            app:layout_constraintStart_toStartOf="@id/tv_day1"
-            app:layout_constraintTop_toBottomOf="@+id/pb_2" />
+            android:layout_marginTop="100dp"
+            android:max="100"
+            android:progress="100"
+            android:progressBackgroundTint="#00000000"
+            android:progressTint="#FF9800"
+            android:rotation="-90"
+            app:layout_constraintEnd_toStartOf="@+id/tv_changeAmt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="MissingConstraints" />
+
+        <ProgressBar
+            android:id="@+id/pb_today"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginRight="50dp"
+            android:max="100"
+            android:progress="100"
+            android:progressBackgroundTint="#00000000"
+            android:progressTint="#FF9800"
+            android:rotation="-90"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_changeAmt"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/tv_day3"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:text="Day3"
-            app:layout_constraintStart_toStartOf="@id/tv_day2"
-            app:layout_constraintTop_toBottomOf="@+id/pb_3" />
+            android:layout_marginTop="61dp"
+            android:text="Average"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/pb_average"
+            app:layout_constraintStart_toStartOf="@+id/pb_average"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/tv_day4"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:text="Day4"
-            app:layout_constraintStart_toStartOf="@id/tv_day3"
-            app:layout_constraintTop_toBottomOf="@+id/pb_4" />
+            android:layout_marginTop="61dp"
+            android:text="Today"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/pb_today"
+            app:layout_constraintStart_toStartOf="@+id/pb_today"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/tv_day5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:text="Day5"
-            app:layout_constraintStart_toStartOf="@id/tv_day4"
-            app:layout_constraintTop_toBottomOf="@+id/pb_5" />
+            android:id="@+id/tv_average"
+            android:layout_width="8dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="75dp"
+            android:text="0"
+            android:textColor="#FF9800"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/pb_average"
+            app:layout_constraintStart_toStartOf="@+id/pb_average"
+            app:layout_constraintTop_toBottomOf="@+id/pb_average"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/tv_day6"
+            android:id="@+id/tv_today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:text="Day6"
-            app:layout_constraintStart_toStartOf="@id/tv_day5"
-            app:layout_constraintTop_toBottomOf="@+id/pb_6" />
+            android:layout_marginTop="75dp"
+            android:text="0"
+            android:textColor="#FF9800"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/pb_today"
+            app:layout_constraintStart_toStartOf="@+id/pb_today"
+            app:layout_constraintTop_toBottomOf="@+id/pb_today"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/tv_day7"
+            android:id="@+id/tv_changeAmt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
-            android:text="Day7"
-            app:layout_constraintStart_toStartOf="@id/tv_day6"
-            app:layout_constraintTop_toBottomOf="@+id/pb_7" />
+            android:text="+0"
+            android:textColor="#FF9800"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/pb_today"
+            app:layout_constraintEnd_toStartOf="@+id/pb_today"
+            app:layout_constraintStart_toEndOf="@+id/pb_average"
+            app:layout_constraintTop_toTopOf="@+id/pb_average" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ProgressBar
-        android:id="@+id/pb_average"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:max="100"
-        android:progress="100"
-        android:progressBackgroundTint="##000000"
-        android:progressTint="#FF9800"
-        android:rotation="-90"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="530dp"
-        tools:ignore="MissingConstraints" />
-
-    <ProgressBar
-        android:id="@+id/pb_today"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
-        android:max="100"
-        android:progress="100"
-        android:progressBackgroundTint="##000000"
-        android:progressTint="#FF9800"
-        android:rotation="-90"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="530dp"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Average"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/pb_average"
-        app:layout_constraintStart_toStartOf="@+id/pb_average"
-        tools:layout_editor_absoluteY="410dp"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Today"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/pb_today"
-        app:layout_constraintStart_toStartOf="@+id/pb_today"
-        tools:layout_editor_absoluteY="410dp"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tv_average"
-        android:layout_width="8dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="75dp"
-        android:text="0"
-        android:textColor="#FF9800"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/pb_average"
-        app:layout_constraintStart_toStartOf="@+id/pb_average"
-        app:layout_constraintTop_toBottomOf="@+id/pb_average"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tv_today"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
-        android:text="0"
-        android:textColor="#FF9800"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="@+id/pb_today"
-        app:layout_constraintStart_toStartOf="@+id/pb_today"
-        app:layout_constraintTop_toBottomOf="@+id/pb_today"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/tv_changeAmt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+0"
-        android:textColor="#FF9800"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/pb_today"
-        app:layout_constraintEnd_toStartOf="@+id/pb_today"
-        app:layout_constraintStart_toEndOf="@+id/pb_average"
-        app:layout_constraintTop_toTopOf="@+id/pb_average" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
