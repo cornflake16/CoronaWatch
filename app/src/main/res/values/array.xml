@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="graph_tab">
+        <item>Confirmed</item>
+        <item>Testing</item>
+        <item>Recovered</item>
+        <item>Deaths</item>
+    </string-array>
+</resources>
