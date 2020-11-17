@@ -11,10 +11,11 @@
     <string name="tv_recovered_label">격리해제</string>
     <string name="tv_deaths_label">사망자</string>
     <string name="tv_virus_name">COVID - 19</string>
-    <string name="tv_virus_level1">관심</string>
-    <string name="tv_virus_level2">주의</string>
-    <string name="tv_virus_level3">경고</string>
-    <string name="tv_virus_level4">위험</string>
+    <string name="tv_virus_level1">1단계</string>
+    <string name="tv_virus_level2">1.5단계</string>
+    <string name="tv_virus_level3">2단계</string>
+    <string name="tv_virus_level4">2.5단계</string>
+    <string name="tv_virus_level5">3단계</string>
 
     <string name="hint_signIn_id">이메일 계정</string>
     <string name="hint_signIn_pw">비밀번호</string>
@@ -79,5 +80,10 @@
 
     <string name="or">또는</string>
     <string name="_0">-</string>
+    <string name="item_maps_label">지도</string>
+    <string name="item_stat_label">통계</string>
+    <string name="item_graph_label">그래프</string>
+    <string name="tv_source_label_kr">출처: 공공데이터포털</string>
+    <string name="tv_source_label_world">출처: 존스 홉킨스 CSSE</string>
 
 </resources>
