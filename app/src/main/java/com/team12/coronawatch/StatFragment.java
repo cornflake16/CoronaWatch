@@ -4,39 +4,30 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -45,24 +36,24 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class StatFragment extends Fragment {
-    protected final static int SUBTRACT_DAY = 7;   //금일 기준으로 n일 전까지의 데이터를 얻기 위한 빼기 연산에 사용하는 상수 값
-    String UTF, urlBuilder;
-    String SERVICE_URL, SERVICE_KEY;
-
+    final static int SUBTRACT_DAY = 7;
+    String UTF, krUrlBuilder, natUrlBuilder;
+    String natSERVICE_URL, natSERVICE_KEY,
+            krSERVICE_URL, krSERVICE_KEY;
+    MyViewModel vm;
     ConstraintLayout conLayoutKorea, conLayoutWorld;
-    Button btnKorea, btnWorld;
     final DecimalFormat formatter;
-    private SaveViewModel saveViewModel;
+    long totalNatDefCnt, totalNatDeathCnt;
 
     SimpleDateFormat dateFormat_year, dateFormat_month, dateFormat_day;
     Date time;
-    String sYear, sMonth, sDay, dayAgo, yesterday, today, where;
+    String sYear, sMonth, sDay, today;
     int nYear, nMonth, nDay;
-    int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    private TextView tv_decideCnt, tv_examCnt, tv_clearCnt, tv_deathCnt;
-    private TextView tv_decideIncrease, tv_examIncrease, tv_clearIncrease, tv_deathIncrease;
-    TextView tv_decideCnt_world, tv_clearCnt_world, tv_deathCnt_world;
-    TextView tv_decideIncrease_world, tv_clearIncrease_world, tv_deathIncrease_world;
+    static int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    TextView tv_decideCnt, tv_examCnt, tv_clearCnt, tv_deathCnt;
+    TextView tv_decideIncrease, tv_examIncrease, tv_clearIncrease, tv_deathIncrease;
+    TextView tv_decideCnt_world, tv_deathCnt_world;
+    TextView tv_decideIncrease_world, tv_deathIncrease_world;
 
     private void viewInit(View v) {
         tv_decideCnt = v.findViewById(R.id.tv_decideCnt_kr);
@@ -75,14 +66,12 @@ public class StatFragment extends Fragment {
         tv_deathIncrease = v.findViewById(R.id.tv_deathIncrease_kr);
 
         tv_decideCnt_world = v.findViewById(R.id.tv_decideCnt_world);
-        tv_clearCnt_world = v.findViewById(R.id.tv_clearCnt_world);
         tv_deathCnt_world = v.findViewById(R.id.tv_deathCnt_world);
         tv_decideIncrease_world = v.findViewById(R.id.tv_decideIncrease_world);
-        tv_clearIncrease_world = v.findViewById(R.id.tv_clearIncrease_world);
         tv_deathIncrease_world = v.findViewById(R.id.tv_deathIncrease_world);
 
-        btnKorea = v.findViewById(R.id.btn_korea);
-        btnWorld = v.findViewById(R.id.btn_world);
+        vm.btnKorea = v.findViewById(R.id.btn_korea);
+        vm.btnWorld = v.findViewById(R.id.btn_world);
         conLayoutKorea = v.findViewById(R.id.constraintLayout_kr);
         conLayoutWorld = v.findViewById(R.id.constraintLayout_world);
     }
@@ -90,10 +79,18 @@ public class StatFragment extends Fragment {
     public StatFragment() {
         // Required empty public constructor
         UTF = "UTF-8";
-        SERVICE_URL = "http://openapi.data.go.kr/openapi/service/" +
+
+        //보건 복지부_코로나_국내 발생현황 - 엔드 포인트(URL) + 일반 인증키(UTF-8)
+        krSERVICE_URL = "http://openapi.data.go.kr/openapi/service/" +
                 "rest/Covid19/getCovid19InfStateJson";
-        SERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdlVu" +
+        krSERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdlVu" +
                 "%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";
+        //보건 복지부_코로나_해외 발생현황 - 엔드 포인트(URL) + 일반 인증키(UTF-8)
+        natSERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/" +
+                "getCovid19NatInfStateJson";
+        natSERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdlVu" +
+                "%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D"; //보건복지부_코로나19해외발생_현황 일반 인증키(UTF-8)
+
         dateFormat_year = new SimpleDateFormat("yyyy", Locale.getDefault());
         dateFormat_month = new SimpleDateFormat("MM", Locale.getDefault());
         dateFormat_day = new SimpleDateFormat("dd", Locale.getDefault());
@@ -110,7 +107,10 @@ public class StatFragment extends Fragment {
         nDay = Integer.parseInt(sDay);
 
         today = sYear + sMonth + sDay;
-        dayAgo = calDate(nYear, nMonth, nDay, SUBTRACT_DAY);
+    }
+
+    public String dayAgo(int subNum) {
+        return calDate(nYear, nMonth, nDay, subNum);
     }
 
     private String calDate(int year, int month, int day, int subNumber) {   //n일 전의 date 반환하는 함수
@@ -167,6 +167,7 @@ public class StatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        vm = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
     }
 
     @Override
@@ -179,30 +180,34 @@ public class StatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stat, container, false);
-        saveViewModel = new ViewModelProvider(this).get(SaveViewModel.class);
         viewInit(view);
         XMLParse();
 
-        final Drawable eraseBg = getResources().getDrawable(R.drawable.btn_stroke);
-        final Drawable drawBg = getResources().getDrawable(R.drawable.btn_stroke_checked);
-        btnKorea.setOnClickListener(new View.OnClickListener() {
+        final Drawable eraseBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke);
+        final Drawable drawBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke_checked);
+        vm.btnKorea.setSelected(true);
+        vm.btnWorld.setSelected(true);
+
+        vm.btnKorea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnKorea.setBackground(drawBg);
-                btnWorld.setBackground(eraseBg);
+                vm.btnKorea.setBackground(drawBg);
+                vm.btnWorld.setBackground(eraseBg);
                 conLayoutWorld.setVisibility(View.INVISIBLE);
                 conLayoutKorea.setVisibility(View.VISIBLE);
+                vm.btnFlag = false;
+
             }
         });
 
-        btnWorld.setOnClickListener(new View.OnClickListener() {
+        vm.btnWorld.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnKorea.setBackground(eraseBg);
-                btnWorld.setBackground(drawBg);
+                vm.btnKorea.setBackground(eraseBg);
+                vm.btnWorld.setBackground(drawBg);
                 conLayoutKorea.setVisibility(View.INVISIBLE);
                 conLayoutWorld.setVisibility(View.VISIBLE);
-                where = "world";
+                vm.btnFlag = true;
             }
         });
         return view;
@@ -215,125 +220,115 @@ public class StatFragment extends Fragment {
     }
 
     private void XMLParse() {
-        Log.i("TTT", "hi");
         try {
-            urlBuilder = SERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + SERVICE_KEY + /*Service Key*/
+            krUrlBuilder = krSERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + krSERVICE_KEY + /*Service Key*/
                     "&" + URLEncoder.encode("pageNo", UTF) + "=" + URLEncoder.encode("1", UTF) + /*페이지번호*/
                     "&" + URLEncoder.encode("numOfRows", UTF) + "=" + URLEncoder.encode("10", UTF) + /*한 페이지 결과 수*/
-                    "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo, UTF) + /*검색할 생성일 범위의 시작*/
-                    "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(today, UTF);/*URL*//*검색할 생성일 범위의 종료*/
-            Log.i("INFO_URL", "URL:" + urlBuilder);
-            Thread threadKr, threadWorld;
+                    "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(7), UTF) + /*검색할 생성일 범위의 시작*/
+                    "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(0), UTF);/*URL*//*검색할 생성일 범위의 종료*/
+            natUrlBuilder = natSERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + natSERVICE_KEY + /*Service Key*/
+                    "&" + URLEncoder.encode("pageNo", UTF) + "=" + URLEncoder.encode("1", UTF) + /*페이지번호*/
+                    "&" + URLEncoder.encode("numOfRows", UTF) + "=" + URLEncoder.encode("10", UTF) + /*한 페이지 결과 수*/
+                    "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(1), UTF) + /*검색할 생성일 범위의 시작*/
+                    "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(0), UTF);/*URL*//*검색할 생성일 범위의 종료*/
+
+            Log.i("XMLParse()", "URL:" + natUrlBuilder);
+            Thread threadKr, threadNat;
             threadKr = new KoreaXMLParser();
-            threadWorld = new WorldXMLParser();
+            threadNat = new NationalXMLParser();
             threadKr.start();
-            threadWorld.start();
+            threadNat.start();
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    class WorldXMLParser extends Thread {
+    class NationalXMLParser extends Thread {
+        String totalDefNum, totalDeathNum;
+
         @Override
         public void run() {
-            yesterday = calDate(nYear, nMonth, nDay, 1);
-            URL url = null;
-            HttpURLConnection urlConnection = null;
+            Document doc = null;
             try {
-                //웹서버 URL 지정
-                url = new URL("https://disease.sh/v3/covid-19/historical/all?lastdays=2");
-                //URL 접속
-                urlConnection = (HttpURLConnection) url.openConnection();
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        urlConnection.getInputStream(), UTF));
-
-                String line;
-                StringBuilder page = new StringBuilder();
-
-                while ((line = br.readLine()) != null) {
-                    Log.d("line:", line);
-                    page.append(line);
-                }
-
-                JSONObject json = new JSONObject(page.toString());
-
-
-                JSONArray cases = json.getJSONArray("cases");
-                for (int i = 0; i < cases.length(); i++) {
-                    json = cases.getJSONObject(i);
-
-                    String[] casesArr = new String[2];
-
-                    //  ((m)m/d(d)/(y)y 형식 <- 괄호는 없어질 수도 있는 부분
-                    casesArr[0] = json.getString(Integer.parseInt(sMonth)
-                            + "/" + Integer.parseInt(sDay) + "/" + Integer.parseInt(sYear.substring(1, 3)));
-                    Log.i("WORLD", "itemArr[" + i + "] = " + casesArr[0]);
-                    casesArr[1] = Integer.parseInt(yesterday.substring(4, 5))
-                            + "/" + Integer.parseInt(yesterday.substring(6, 7)) + "/" + Integer.parseInt(yesterday.substring(0, 3));
-                    Log.i("WORLD", "itemArr[" + i + "] = " + casesArr[1]);
-                }
-
-                JSONArray recovered = json.getJSONArray("recovered");
-                for (int i = 0; i < recovered.length(); i++) {
-                    json = recovered.getJSONObject(i);
-
-                    String[] recoveredArr = new String[2];
-
-                    //  ((m)m/d(d)/(y)y 형식 <- 괄호는 없어질 수도 있는 부분
-                    recoveredArr[0] = json.getString(Integer.parseInt(sMonth)
-                            + "/" + Integer.parseInt(sDay) + "/" + Integer.parseInt(sYear.substring(1, 3)));
-                    Log.i("WORLD", "itemArr[" + i + "] = " + recoveredArr[0]);
-                    recoveredArr[1] = Integer.parseInt(yesterday.substring(4, 5))
-                            + "/" + Integer.parseInt(yesterday.substring(6, 7)) + "/" + Integer.parseInt(yesterday.substring(0, 3));
-                    Log.i("WORLD", "itemArr[" + i + "] = " + recoveredArr[1]);
-                }
-
-                JSONArray deaths = json.getJSONArray("deaths");
-                for (int i = 0; i < deaths.length(); i++) {
-                    json = deaths.getJSONObject(i);
-
-                    String[] deathsArr = new String[2];
-
-                    //  ((m)m/d(d)/(y)y 형식 <- 괄호는 없어질 수도 있는 부분
-                    deathsArr[0] = json.getString(Integer.parseInt(sMonth)
-                            + "/" + Integer.parseInt(sDay) + "/" + Integer.parseInt(sYear.substring(1, 3)));
-                    Log.i("WORLD", "itemArr[" + i + "] = " + deathsArr[0]);
-                    deathsArr[1] = Integer.parseInt(yesterday.substring(4, 5))
-                            + "/" + Integer.parseInt(yesterday.substring(6, 7)) + "/" + Integer.parseInt(yesterday.substring(0, 3));
-                    Log.i("WORLD", "itemArr[" + i + "] = " + deathsArr[1]);
-                }
-//                if (getActivity() != null) {
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            ArrayList<String> strList = new ArrayList<>();
-//                            ArrayList<TextView> tvList = new ArrayList<>();
-//                            tvList.add(tv_decideCnt_world);
-//                            tvList.add(tv_decideIncrease_world);
-//                            tvList.add(tv_clearCnt_world);
-//                            tvList.add(tv_clearIncrease_world);
-//                            tvList.add(tv_deathCnt_world);
-//                            tvList.add(tv_deathIncrease_world);
-//
-//                            tvList.add(tv_decideCnt_world);
-//                            for (String[] strArr : itemArrList) {
-//                                strList.addAll(Arrays.asList(strArr));
-//                            }
-//                            for (int i = 0; i < strList.size(); i++) {
-//                                tvList.get(i).setText(strList.get(i));
-//                            }
-//                        }
-//                    });
-//                }
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            } finally {
-                //URL 연결 해제
-                assert urlConnection != null;
-                urlConnection.disconnect();
+                URL url = new URL(natUrlBuilder);
+                Log.i("INFO_URL", "URL: " + url);
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(new InputSource(url.openStream()));
+                doc.getDocumentElement().normalize();
+            } catch (IOException | SAXException | ParserConfigurationException e) {
+                Log.d("KoreaXMLParser()", e.getMessage());
             }
 
-            Log.i("INFO_URL", "URL: " + url);
+            assert doc != null;
+            Element body = (Element) doc.getElementsByTagName("body").item(0);
+            Element items = (Element) body.getElementsByTagName("items").item(0);
+
+            Node areaNm, areaNmEn, nationNm, nationNmEn, natDefCnt, natDeathCnt, natDeathRate, stdDt;
+            ArrayList<NationInfo> natInfoList = new ArrayList<>();
+            String standardDate = "-";
+            int i = 0;
+            while (true) {
+                NationInfo nationInfo = new NationInfo();
+                Element item = (Element) items.getElementsByTagName("item").item(i);
+                if (i++ == 0) {
+                    stdDt = item.getElementsByTagName("stdDay").item(0);
+                    standardDate = stdDt.getChildNodes().item(0).getNodeValue();
+                }
+                if (item == null) {
+                    break;
+                }
+                areaNm = item.getElementsByTagName("areaNm").item(0);    //지역명
+                areaNmEn = item.getElementsByTagName("areaNmEn").item(0);    //지역명(영문)
+                nationNm = item.getElementsByTagName("nationNm").item(0);    //국가명
+                nationNmEn = item.getElementsByTagName("nationNmEn").item(0);    //국가명(영문)
+                natDefCnt = item.getElementsByTagName("natDefCnt").item(0);    //확진자 수(국가별)
+                natDeathCnt = item.getElementsByTagName("natDeathCnt").item(0);    //사망자 수(국가별
+                natDeathRate = item.getElementsByTagName("natDeathRate").item(0);    //확진자 대비 사망률
+
+                nationInfo.setAreaNm(areaNm.getChildNodes().item(0).getNodeValue());
+                nationInfo.setAreaNmEn(areaNmEn.getChildNodes().item(0).getNodeValue());
+                nationInfo.setNationNm(nationNm.getChildNodes().item(0).getNodeValue());
+                nationInfo.setNationNmEn(nationNmEn.getChildNodes().item(0).getNodeValue());
+                nationInfo.setNatDefCnt(natDefCnt.getChildNodes().item(0).getNodeValue());
+                nationInfo.setNatDeathCnt(natDeathCnt.getChildNodes().item(0).getNodeValue());
+                nationInfo.setNatDeathRate(natDeathRate.getChildNodes().item(0).getNodeValue());
+
+                natInfoList.add(nationInfo);
+            }
+            int n = 0;
+            totalNatDefCnt = totalNatDeathCnt = 0;
+            for (NationInfo natInfo : natInfoList) {
+                //파싱 정상적으로 안되는 경우, 주석 풀고 테스트
+//                Log.i("NationalStat", "----------------------------------------");
+//                Log.i("NationalStat", "#" + ++n);
+//                Log.i("NationalStat", "지역명: " + natInfo.getAreaNm());
+//                Log.i("NationalStat", "지역명_영문: " + natInfo.getAreaNmEn());
+//                Log.i("NationalStat", "국가명: " + natInfo.getNationNm());
+//                Log.i("NationalStat", "국가명_영문: " + natInfo.getNationNmEn());
+//                Log.i("NationalStat", "확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
+//                Log.i("NationalStat", "사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
+//                Log.i("NationalStat", "확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100 + "%");
+                totalNatDefCnt += natInfo.getNatDefCnt();
+                totalNatDeathCnt += natInfo.getNatDeathCnt();
+            }
+            totalDefNum = formatter.format(totalNatDefCnt);
+            totalDeathNum = formatter.format(totalNatDeathCnt);
+//            Log.i("NationalStat", "----------------------------------------");
+//            Log.i("NationalStat", "기준 일시: " + standardDate);
+//            Log.i("NationalStat", "총 확진자 수: " + totalDefNum + "명");
+//            Log.i("NationalStat", "총 사망자 수: " + totalDeathNum + "명");
+
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void run() {
+                        tv_decideCnt_world.setText("" + totalDefNum);
+                        tv_deathCnt_world.setText("" + totalDeathNum);
+                    }
+                });
+            }
         }
     }
 
@@ -350,17 +345,17 @@ public class StatFragment extends Fragment {
         @Override
         public void run() {
             Log.i("INFO_IS_JOIN", "is in doInBackground? => yes");
-            Log.i("INFO_PARAMETER", "strings[0] => " + urlBuilder);
+            Log.i("INFO_PARAMETER", "strings[0] => " + krUrlBuilder);
             Document doc = null;
             try {
-                URL url = new URL(urlBuilder);
+                URL url = new URL(krUrlBuilder);
                 Log.i("INFO_URL", "URL: " + url);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 doc = dBuilder.parse(new InputSource(url.openStream()));
                 doc.getDocumentElement().normalize();
             } catch (IOException | SAXException | ParserConfigurationException e) {
-                e.printStackTrace();
+                Log.d("KoreaXMLParser()", e.getMessage());
             }
 
             assert doc != null;
@@ -388,18 +383,19 @@ public class StatFragment extends Fragment {
             increaseClearCnt = clearCntArr[0] - clearCntArr[1];
             increaseDeathCnt = deathCntArr[0] - deathCntArr[1];
 
-            for (int i = 0; i < SUBTRACT_DAY; i++) {
-                Log.i("STAT_", "--- [ " + stateDateArr[i] + " ] ---");
-                Log.i("STAT_", "확진환자: " + decideCntArr[i]);
-                Log.i("STAT_", "검사중: " + examCntArr[i]);
-                Log.i("STAT_", "격리해제: " + clearCntArr[i]);
-                Log.i("STAT_", "사망자: " + deathCntArr[i]);
-                Log.i("STAT_", "-----------------------------------");
-            }
-            Log.i("STAT_", "확진환자 증가수: " + increaseDecideCnt);
-            Log.i("STAT_", "검사중 증가수: " + increaseExamCnt);
-            Log.i("STAT_", "격리해제 증가수: " + increaseClearCnt);
-            Log.i("STAT_", "사망자 증가수: " + increaseDeathCnt);
+            //파싱 정상적으로 안되는 경우, 주석 풀고 테스트
+//            for (int i = 0; i < SUBTRACT_DAY; i++) {
+//                Log.i("STAT_", "--- [ " + stateDateArr[i] + " ] ---");
+//                Log.i("STAT_", "확진환자: " + decideCntArr[i]);
+//                Log.i("STAT_", "검사중: " + examCntArr[i]);
+//                Log.i("STAT_", "격리해제: " + clearCntArr[i]);
+//                Log.i("STAT_", "사망자: " + deathCntArr[i]);
+//                Log.i("STAT_", "-----------------------------------");
+//            }
+//            Log.i("STAT_", "확진환자 증가수: " + increaseDecideCnt);
+//            Log.i("STAT_", "검사중 증가수: " + increaseExamCnt);
+//            Log.i("STAT_", "격리해제 증가수: " + increaseClearCnt);
+//            Log.i("STAT_", "사망자 증가수: " + increaseDeathCnt);
 
             if (getActivity() != null) {
                 getActivity().runOnUiThread(new Runnable() {

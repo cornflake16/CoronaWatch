@@ -84,6 +84,8 @@
     <string name="item_stat_label">Statistics</string>
     <string name="item_graph_label">Graph</string>
     <string name="tv_source_label_kr">Source: Korean public institutions</string>
-    <string name="tv_source_label_world">Source: Johns Hopkins CSSE</string>
+    <string name="tv_source_label_world">Source: Korean public institutions</string>
+    <string name="parsing_world_data_error_msg">World data failed to load.</string>
+    <string name="parsing_server_data_error_msg">Failed to retrieve data due to a data delivery server issue.</string>
 
 </resources>

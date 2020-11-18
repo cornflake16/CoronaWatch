@@ -15,7 +15,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,18 +35,43 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tv_virus_name_label"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            android:text="@string/tv_virus_name"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.84"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+
+            <TextView
+                android:id="@+id/tv_virus_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_virus_name"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.875"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_standard_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_virus_name_label"
+                app:layout_constraintHorizontal_bias="0.125"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="기준일시: 2020-11-02 09시" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view"
@@ -54,7 +79,7 @@
             android:layout_height="2dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:background="#555555"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
@@ -275,10 +300,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="7.5dp"
+                android:text="@string/tv_source_label_kr"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_kr"
-                android:text="@string/tv_source_label_kr" />
+                app:layout_constraintTop_toBottomOf="@id/tv_label_kr" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -327,43 +352,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_world" />
 
             <TextView
-                android:id="@+id/tv_clear_label_world"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/tv_recovered_label"
-                android:textColor="#3F51B5"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.75"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease_world" />
-
-            <TextView
-                android:id="@+id/tv_clearCnt_world"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="#3F51B5"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_clear_label_world"
-                app:layout_constraintStart_toStartOf="@id/tv_clear_label_world"
-                app:layout_constraintTop_toBottomOf="@id/tv_clear_label_world"
-                tools:text="@string/_0" />
-
-            <TextView
-                android:id="@+id/tv_clearIncrease_world"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/tv_increase_expression_label"
-                android:textColor="#3F51B5"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_clearCnt_world"
-                app:layout_constraintStart_toStartOf="@id/tv_clearCnt_world"
-                app:layout_constraintTop_toBottomOf="@id/tv_clearCnt_world" />
-
-            <TextView
                 android:id="@+id/tv_death_label_world"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -372,7 +360,6 @@
                 android:textColor="#000000"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease_world" />
 
@@ -410,16 +397,16 @@
                 android:text="@string/tv_rate_of_increase_label"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_clearIncrease_world" />
+                app:layout_constraintTop_toBottomOf="@id/tv_deathIncrease_world" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="7.5dp"
+                android:text="@string/tv_source_label_world"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_label_world"
-                android:text="@string/tv_source_label_world" />
+                app:layout_constraintTop_toBottomOf="@id/tv_label_world" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
