@@ -1,11 +1,7 @@
 package com.team12.coronawatch;
 
 import android.annotation.SuppressLint;
-<<<<<<< HEAD
-import android.content.SharedPreferences;
-=======
 import android.content.Context;
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,14 +37,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 public class StatFragment extends Fragment {
-<<<<<<< HEAD
-    String UTF, urlBuilder;
-    String SERVICE_URL, SERVICE_KEY;
-    String decideCnt, examCnt, clearCnt, deathCnt;
-    String decideIncrease, examIncrease, clearIncrease, deathIncrease;
-
-    Button btnKorea, btnWorld;
-=======
     final static int SUBTRACT_DAY = 7;
     String UTF, krUrlBuilder, natUrlBuilder;
     String natSERVICE_URL, natSERVICE_KEY,
@@ -57,29 +45,11 @@ public class StatFragment extends Fragment {
     ConstraintLayout conLayoutKorea, conLayoutWorld;
     final DecimalFormat formatter;
     long totalNatDefCnt, totalNatDeathCnt;
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
     SimpleDateFormat dateFormat_year, dateFormat_month, dateFormat_day;
     Date time;
     String sYear, sMonth, sDay, today;
     int nYear, nMonth, nDay;
-<<<<<<< HEAD
-    int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    private TextView tv_decideCnt, tv_examCnt, tv_clearCnt, tv_deathCnt;
-    private TextView tv_decideIncrease, tv_examIncrease, tv_clearIncrease, tv_deathIncrease;
-
-    private void viewInit(View v) {
-        tv_decideCnt = v.findViewById(R.id.tv_decideCnt);
-        tv_examCnt = v.findViewById(R.id.tv_examCnt);
-        tv_clearCnt = v.findViewById(R.id.tv_clearCnt);
-        tv_deathCnt = v.findViewById(R.id.tv_deathCnt);
-        tv_decideIncrease = v.findViewById(R.id.tv_decideIncrease);
-        tv_examIncrease = v.findViewById(R.id.tv_examIncrease);
-        tv_clearIncrease = v.findViewById(R.id.tv_clearIncrease);
-        tv_deathIncrease = v.findViewById(R.id.tv_deathIncrease);
-        btnKorea = v.findViewById(R.id.btn_korea);
-        btnWorld = v.findViewById(R.id.btn_world);
-=======
     static int[] days = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     TextView tv_decideCnt, tv_examCnt, tv_clearCnt, tv_deathCnt;
     TextView tv_decideIncrease, tv_examIncrease, tv_clearIncrease, tv_deathIncrease;
@@ -105,7 +75,6 @@ public class StatFragment extends Fragment {
         vm.btnWorld = v.findViewById(R.id.btn_world);
         conLayoutKorea = v.findViewById(R.id.constraintLayout_kr);
         conLayoutWorld = v.findViewById(R.id.constraintLayout_world);
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
     }
 
     public StatFragment() {
@@ -199,15 +168,12 @@ public class StatFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-=======
         vm = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
     }
 
     @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
@@ -216,48 +182,6 @@ public class StatFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stat, container, false);
         viewInit(view);
-<<<<<<< HEAD
-        if (savedInstanceState == null) {
-            SharedPreferences prefs = this.getActivity().getSharedPreferences("tvInfo", 0);
-
-            decideCnt = prefs.getString("decideCnt", "");
-            examCnt = prefs.getString("examCnt", "");
-            clearCnt = prefs.getString("clearCnt", "");
-            deathCnt = prefs.getString("deathCnt", "");
-            decideIncrease = prefs.getString("decideIncrease", "");
-            examIncrease = prefs.getString("examIncrease", "");
-            clearIncrease = prefs.getString("clearIncrease", "");
-            deathIncrease = prefs.getString("deathIncrease", "");
-
-            tv_decideCnt.setText(decideCnt);
-            tv_examCnt.setText(examCnt);
-            tv_clearCnt.setText(clearCnt);
-            tv_deathCnt.setText(deathCnt);
-            tv_decideIncrease.setText(decideIncrease);
-            tv_examIncrease.setText(examIncrease);
-            tv_clearIncrease.setText(clearIncrease);
-            tv_deathIncrease.setText(deathIncrease);
-        }
-        if (tv_decideCnt.getText().toString().equals("")) {
-            XMLParse();
-        }
-
-        final Drawable eraseBg = getResources().getDrawable(R.drawable.btn_stroke);
-        final Drawable drawBg = getResources().getDrawable(R.drawable.btn_stroke_checked);
-        btnKorea.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnKorea.setBackground(drawBg);
-                btnWorld.setBackground(eraseBg);
-            }
-        });
-
-        btnWorld.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btnKorea.setBackground(eraseBg);
-                btnWorld.setBackground(drawBg);
-=======
         XMLParse();
 
         final Drawable eraseBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke);
@@ -285,59 +209,19 @@ public class StatFragment extends Fragment {
                 conLayoutKorea.setVisibility(View.INVISIBLE);
                 conLayoutWorld.setVisibility(View.VISIBLE);
                 vm.btnFlag = true;
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
             }
         });
         return view;
     }
 
-<<<<<<< HEAD
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        SharedPreferences prefs = this.getActivity().getSharedPreferences("tvInfo", 0);
-
-        @SuppressLint("CommitPrefEdits")
-        SharedPreferences.Editor editor = prefs.edit();
-
-        decideCnt = tv_decideCnt.getText().toString();
-        examCnt = tv_examCnt.getText().toString();
-        clearCnt = tv_clearCnt.getText().toString();
-        deathCnt = tv_deathCnt.getText().toString();
-        decideIncrease = tv_decideIncrease.getText().toString();
-        examIncrease = tv_examIncrease.getText().toString();
-        clearIncrease = tv_clearIncrease.getText().toString();
-        deathIncrease = tv_deathIncrease.getText().toString();
-
-        editor.putString("decideCnt", decideCnt);
-        editor.putString("examCnt", examCnt);
-        editor.putString("clearCnt", clearCnt);
-        editor.putString("deathCnt", deathCnt);
-        editor.putString("decideIncrease", decideIncrease);
-        editor.putString("examIncrease", examIncrease);
-        editor.putString("clearIncrease", clearIncrease);
-        editor.putString("deathIncrease", deathIncrease);
-        editor.apply();
-=======
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
     }
 
     private void XMLParse() {
         try {
-<<<<<<< HEAD
-            urlBuilder = SERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + SERVICE_KEY + /*Service Key*/
-                    "&" + URLEncoder.encode("pageNo", UTF) + "=" + URLEncoder.encode("1", UTF) + /*페이지번호*/
-                    "&" + URLEncoder.encode("numOfRows", UTF) + "=" + URLEncoder.encode("10", UTF) + /*한 페이지 결과 수*/
-                    "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo, UTF) + /*검색할 생성일 범위의 시작*/
-                    "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(today, UTF);/*URL*//*검색할 생성일 범위의 종료*/
-            Log.i("INFO_URL", "URL:" + urlBuilder);
-            Thread thread = new CoronaXMLParser();
-            thread.start();
-=======
             krUrlBuilder = krSERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + krSERVICE_KEY + /*Service Key*/
                     "&" + URLEncoder.encode("pageNo", UTF) + "=" + URLEncoder.encode("1", UTF) + /*페이지번호*/
                     "&" + URLEncoder.encode("numOfRows", UTF) + "=" + URLEncoder.encode("10", UTF) + /*한 페이지 결과 수*/
@@ -355,7 +239,6 @@ public class StatFragment extends Fragment {
             threadNat = new NationalXMLParser();
             threadKr.start();
             threadNat.start();
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         } catch (Exception e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -451,12 +334,7 @@ public class StatFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-<<<<<<< HEAD
-    class CoronaXMLParser extends Thread {
-        protected final static int SUBTRACT_DAY = 7;   //금일 기준으로 n일 전까지의 데이터를 얻기 위한 빼기 연산에 사용하는 상수 값
-=======
     class KoreaXMLParser extends Thread {
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         String[] stateDateArr = new String[SUBTRACT_DAY];
         int[] decideCntArr = new int[SUBTRACT_DAY];
         int[] examCntArr = new int[SUBTRACT_DAY];
@@ -468,17 +346,10 @@ public class StatFragment extends Fragment {
         @Override
         public void run() {
             Log.i("INFO_IS_JOIN", "is in doInBackground? => yes");
-<<<<<<< HEAD
-            Log.i("INFO_PARAMETER", "strings[0] => " + urlBuilder);
-            Document doc = null;
-            try {
-                URL url = new URL(urlBuilder);
-=======
             Log.i("INFO_PARAMETER", "strings[0] => " + krUrlBuilder);
             Document doc = null;
             try {
                 URL url = new URL(krUrlBuilder);
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
                 Log.i("INFO_URL", "URL: " + url);
                 DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -487,11 +358,6 @@ public class StatFragment extends Fragment {
             } catch (IOException | SAXException | ParserConfigurationException e) {
                 Log.d("KoreaXMLParser()", e.getMessage());
             }
-<<<<<<< HEAD
-
-            final DecimalFormat formatter = new DecimalFormat("###,###");
-=======
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             assert doc != null;
             Element body = (Element) doc.getElementsByTagName("body").item(0);
@@ -547,29 +413,6 @@ public class StatFragment extends Fragment {
                     }
                 });
             }
-<<<<<<< HEAD
-            Log.i("STAT_", "확진환자 증가수: " + increaseDecideCnt);
-            Log.i("STAT_", "검사중 증가수: " + increaseExamCnt);
-            Log.i("STAT_", "격리해제 증가수: " + increaseClearCnt);
-            Log.i("STAT_", "사망자 증가수: " + increaseDeathCnt);
-
-            if (getActivity() != null) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tv_decideCnt.setText("" + formatter.format(decideCntArr[0]));
-                        tv_examCnt.setText("" + formatter.format(examCntArr[0]));
-                        tv_clearCnt.setText("" + formatter.format(clearCntArr[0]));
-                        tv_deathCnt.setText("" + formatter.format(deathCntArr[0]));
-                        tv_decideIncrease.setText(formatter.format(increaseDecideCnt) + " ▲");
-                        tv_examIncrease.setText(formatter.format(increaseExamCnt) + " ▲");
-                        tv_clearIncrease.setText(formatter.format(increaseClearCnt) + " ▲");
-                        tv_deathIncrease.setText(formatter.format(increaseDeathCnt) + " ▲");
-                    }
-                });
-            }
-=======
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         }
     }
 }

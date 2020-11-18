@@ -13,10 +13,7 @@ import android.view.ViewGroup;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
-<<<<<<< HEAD
-=======
 import com.naver.maps.map.MapFragment;
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
@@ -24,15 +21,6 @@ import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.util.FusedLocationSource;
 
-<<<<<<< HEAD
-public class MapsFragment extends Fragment implements OnMapReadyCallback {
-    //지도 관련 변수
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
-    private FusedLocationSource locationSource;
-    private LocationManager locationManager;
-    private MapView naverMap;
-
-=======
 import java.util.Objects;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
@@ -42,7 +30,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private LocationManager locationManager;
     private MapView naverMap;
 
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
     private void init(View v) {
     }
 
@@ -50,12 +37,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Required empty public constructor
     }
 
-<<<<<<< HEAD
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-=======
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -74,7 +55,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         NaverMapSdk.getInstance(requireActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
     }
 
     @Override
@@ -95,11 +75,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_maps, container, false);
 //        init(v);
-<<<<<<< HEAD
-        naverMap = (MapView) v.findViewById(R.id.map_view);
-=======
+
         naverMap = v.findViewById(R.id.map_view);
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         naverMap.onCreate(savedInstanceState);
         naverMap.getMapAsync(this);
         return v;
@@ -127,11 +104,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         });
 
         // 줌 범위 제한
-<<<<<<< HEAD
-        naverMap.setMinZoom(5.0);   //최소
-=======
         naverMap.setMinZoom(6.0);   //최소
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         naverMap.setMaxZoom(18.0);  //최대용
     }
 }

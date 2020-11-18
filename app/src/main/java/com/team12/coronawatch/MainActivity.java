@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
-<<<<<<< HEAD
 import android.content.SharedPreferences;
-=======
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -58,12 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
-    public boolean isNetworkConnected(Context context)
-    {
-=======
     public boolean isNetworkConnected(Context context) {
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -80,12 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-<<<<<<< HEAD
-    private void networkCheck()
-    {
-=======
     private void networkCheck() {
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         if (isNetworkConnected(getApplicationContext())) {
             Log.i("Network connection: ", "disconnected");
             Toast.makeText(getApplicationContext(), R.string.toast_check_network_msg,

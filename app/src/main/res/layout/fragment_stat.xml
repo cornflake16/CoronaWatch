@@ -15,11 +15,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="150dp"
             android:layout_height="150dp"
-<<<<<<< HEAD
-            android:layout_marginTop="50dp"
-=======
             android:layout_marginTop="40dp"
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -149,10 +145,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-<<<<<<< HEAD
-                android:text="@string/_0"
-=======
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
                 android:textColor="#FF0000"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -201,21 +193,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-<<<<<<< HEAD
-                android:text="@string/_0"
-                android:textColor="#FFC107"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_exam_label"
-                app:layout_constraintStart_toStartOf="@id/tv_exam_label"
-                app:layout_constraintTop_toBottomOf="@id/tv_exam_label" />
-=======
                 android:textColor="#FFC107"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_exam_label_kr"
                 app:layout_constraintStart_toStartOf="@id/tv_exam_label_kr"
                 app:layout_constraintTop_toBottomOf="@id/tv_exam_label_kr"
                 tools:text="@string/_0" />
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             <TextView
                 android:id="@+id/tv_examIncrease_kr"
@@ -247,21 +230,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-<<<<<<< HEAD
-                android:text="@string/_0"
-                android:textColor="#3F51B5"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_clear_label"
-                app:layout_constraintStart_toStartOf="@id/tv_clear_label"
-                app:layout_constraintTop_toBottomOf="@id/tv_clear_label" />
-=======
                 android:textColor="#3F51B5"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_clear_label_kr"
                 app:layout_constraintStart_toStartOf="@id/tv_clear_label_kr"
                 app:layout_constraintTop_toBottomOf="@id/tv_clear_label_kr"
                 tools:text="@string/_0" />
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             <TextView
                 android:id="@+id/tv_clearIncrease_kr"
@@ -292,21 +266,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-<<<<<<< HEAD
-                android:text="@string/_0"
-                android:textColor="#000000"
-                android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_death_label"
-                app:layout_constraintStart_toStartOf="@id/tv_death_label"
-                app:layout_constraintTop_toBottomOf="@id/tv_death_label" />
-=======
                 android:textColor="#000000"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_death_label_kr"
                 app:layout_constraintStart_toStartOf="@id/tv_death_label_kr"
                 app:layout_constraintTop_toBottomOf="@id/tv_death_label_kr"
                 tools:text="@string/_0" />
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             <TextView
                 android:id="@+id/tv_deathIncrease_kr"
@@ -329,9 +294,6 @@
                 android:text="@string/tv_rate_of_increase_label"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< HEAD
-                app:layout_constraintTop_toTopOf="parent"/>
-=======
                 app:layout_constraintTop_toBottomOf="@id/tv_clearIncrease_kr" />
 
             <TextView
