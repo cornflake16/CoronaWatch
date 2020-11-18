@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.content.SharedPreferences;
+=======
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -17,10 +21,13 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.naver.maps.map.NaverMapSdk;
 
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity {
     private long backPressedTime = 0;
     private Fragment selectedFragment;
+    int beforeId;
 
     private void init() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nv);
@@ -31,7 +38,12 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment).commit();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void AppFinish() {
+        moveTaskToBack(true);                        // 태스크를 백그라운드로 이동
+        finishAndRemoveTask();                        // 액티비티 종료 + 태스크 리스트에서 지우기
+        android.os.Process.killProcess(android.os.Process.myPid());    // 앱 프로세스 종료
+    }
+
     @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
@@ -39,17 +51,19 @@ public class MainActivity extends AppCompatActivity {
 
         long FINISH_INTERVAL_TIME = 3000;
         if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
-            moveTaskToBack(true);                        // 태스크를 백그라운드로 이동
-            finishAndRemoveTask();                        // 액티비티 종료 + 태스크 리스트에서 지우기
-            android.os.Process.killProcess(android.os.Process.myPid());    // 앱 프로세스 종료
+            AppFinish();
         } else {
             backPressedTime = tempTime;
             Snackbar.make(findViewById(R.id.layout_fragment), R.string.sbar_again_back_press_msg, Snackbar.LENGTH_SHORT).show();
         }
     }
 
+<<<<<<< HEAD
     public boolean isNetworkConnected(Context context)
     {
+=======
+    public boolean isNetworkConnected(Context context) {
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         NetworkInfo mobile = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -66,8 +80,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+<<<<<<< HEAD
     private void networkCheck()
     {
+=======
+    private void networkCheck() {
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
         if (isNetworkConnected(getApplicationContext())) {
             Log.i("Network connection: ", "disconnected");
             Toast.makeText(getApplicationContext(), R.string.toast_check_network_msg,
@@ -97,9 +115,12 @@ public class MainActivity extends AppCompatActivity {
                     } else if (id == R.id.graphFragment) {
                         selectedFragment = new GraphFragment();
                     }
-                    if (selectedFragment != null) {
+                    if (selectedFragment != null && id != beforeId) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.layout_fragment,
-                                selectedFragment).commit();
+                                selectedFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                        beforeId = id;
+                    } else {
+                        return false;
                     }
                     return true;
                 }

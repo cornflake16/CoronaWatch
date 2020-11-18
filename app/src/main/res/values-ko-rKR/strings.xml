@@ -80,5 +80,12 @@
 
     <string name="or">또는</string>
     <string name="_0">-</string>
+    <string name="item_maps_label">지도</string>
+    <string name="item_stat_label">통계</string>
+    <string name="item_graph_label">그래프</string>
+    <string name="tv_source_label_kr">출처: 공공데이터포털</string>
+    <string name="tv_source_label_world">출처: 공공데이터포털</string>
+    <string name="parsing_world_data_error_msg">세계 데이터 불러오기 실패</string>
+    <string name="parsing_server_data_error_msg">데이터 전송 서버 문제로 인해 세계 데이터를 불러오지 못했습니다.</string>
 
 </resources>

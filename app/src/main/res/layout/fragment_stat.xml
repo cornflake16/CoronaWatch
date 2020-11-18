@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context=".StatFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -14,7 +15,11 @@
             android:id="@+id/constraintLayout"
             android:layout_width="150dp"
             android:layout_height="150dp"
+<<<<<<< HEAD
             android:layout_marginTop="50dp"
+=======
+            android:layout_marginTop="40dp"
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,18 +39,43 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            android:text="@string/tv_virus_name"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.84"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+
+            <TextView
+                android:id="@+id/tv_virus_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_virus_name"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.875"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_standard_date_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_virus_name_label"
+                app:layout_constraintHorizontal_bias="0.125"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="기준일시: 2020-11-02 09시" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/view"
@@ -53,13 +83,13 @@
             android:layout_height="2dp"
             android:layout_centerInParent="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:background="#555555"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/constraintLayout_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -95,16 +125,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
+            android:id="@+id/constraintLayout_kr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:paddingBottom="20dp"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout_btn"
             tools:layout_editor_absoluteX="1dp">
 
             <TextView
-                android:id="@+id/totalTextView"
+                android:id="@+id/tv_decideCnt_label_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tv_confirmed_label"
@@ -112,22 +142,26 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/constraintLayout3" />
+                app:layout_constraintTop_toTopOf="@id/constraintLayout_kr" />
 
             <TextView
-                android:id="@+id/tv_decideCnt"
+                android:id="@+id/tv_decideCnt_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+<<<<<<< HEAD
                 android:text="@string/_0"
+=======
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
                 android:textColor="#FF0000"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/totalTextView" />
+                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_label_kr"
+                tools:text="@string/_0" />
 
             <TextView
-                android:id="@+id/tv_decideIncrease"
+                android:id="@+id/tv_decideIncrease_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -136,7 +170,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt" />
+                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_kr" />
 
             <View
                 android:id="@+id/view2"
@@ -144,13 +178,13 @@
                 android:layout_height="75dp"
                 android:layout_centerInParent="true"
                 android:background="#555555"
-                app:layout_constraintBottom_toTopOf="@+id/tv_death_label"
-                app:layout_constraintEnd_toStartOf="@+id/tv_clearCnt"
-                app:layout_constraintStart_toEndOf="@+id/tv_examCnt"
-                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_death_label_kr"
+                app:layout_constraintEnd_toStartOf="@+id/tv_clearCnt_kr"
+                app:layout_constraintStart_toEndOf="@+id/tv_examCnt_kr"
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease_kr" />
 
             <TextView
-                android:id="@+id/tv_exam_label"
+                android:id="@+id/tv_exam_label_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -160,34 +194,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.25"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_decideIncrease" />
+                app:layout_constraintTop_toBottomOf="@id/tv_decideIncrease_kr" />
 
             <TextView
-                android:id="@+id/tv_examCnt"
+                android:id="@+id/tv_examCnt_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+<<<<<<< HEAD
                 android:text="@string/_0"
                 android:textColor="#FFC107"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_exam_label"
                 app:layout_constraintStart_toStartOf="@id/tv_exam_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_exam_label" />
+=======
+                android:textColor="#FFC107"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_exam_label_kr"
+                app:layout_constraintStart_toStartOf="@id/tv_exam_label_kr"
+                app:layout_constraintTop_toBottomOf="@id/tv_exam_label_kr"
+                tools:text="@string/_0" />
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             <TextView
-                android:id="@+id/tv_examIncrease"
+                android:id="@+id/tv_examIncrease_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/tv_increase_expression_label"
                 android:textColor="#FFC107"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_examCnt"
-                app:layout_constraintStart_toStartOf="@id/tv_examCnt"
-                app:layout_constraintTop_toBottomOf="@id/tv_examCnt" />
+                app:layout_constraintEnd_toEndOf="@id/tv_examCnt_kr"
+                app:layout_constraintStart_toStartOf="@id/tv_examCnt_kr"
+                app:layout_constraintTop_toBottomOf="@id/tv_examCnt_kr" />
 
             <TextView
-                android:id="@+id/tv_clear_label"
+                android:id="@+id/tv_clear_label_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -197,34 +240,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.75"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease_kr" />
 
             <TextView
-                android:id="@+id/tv_clearCnt"
+                android:id="@+id/tv_clearCnt_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+<<<<<<< HEAD
                 android:text="@string/_0"
                 android:textColor="#3F51B5"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_clear_label"
                 app:layout_constraintStart_toStartOf="@id/tv_clear_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_clear_label" />
+=======
+                android:textColor="#3F51B5"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_clear_label_kr"
+                app:layout_constraintStart_toStartOf="@id/tv_clear_label_kr"
+                app:layout_constraintTop_toBottomOf="@id/tv_clear_label_kr"
+                tools:text="@string/_0" />
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             <TextView
-                android:id="@+id/tv_clearIncrease"
+                android:id="@+id/tv_clearIncrease_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/tv_increase_expression_label"
                 android:textColor="#3F51B5"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_clearCnt"
-                app:layout_constraintStart_toStartOf="@id/tv_clearCnt"
-                app:layout_constraintTop_toBottomOf="@id/tv_clearCnt" />
+                app:layout_constraintEnd_toEndOf="@id/tv_clearCnt_kr"
+                app:layout_constraintStart_toStartOf="@id/tv_clearCnt_kr"
+                app:layout_constraintTop_toBottomOf="@id/tv_clearCnt_kr" />
 
             <TextView
-                android:id="@+id/tv_death_label"
+                android:id="@+id/tv_death_label_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="130dp"
@@ -233,43 +285,167 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease_kr" />
 
             <TextView
-                android:id="@+id/tv_deathCnt"
+                android:id="@+id/tv_deathCnt_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+<<<<<<< HEAD
                 android:text="@string/_0"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="@id/tv_death_label"
                 app:layout_constraintStart_toStartOf="@id/tv_death_label"
                 app:layout_constraintTop_toBottomOf="@id/tv_death_label" />
+=======
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_death_label_kr"
+                app:layout_constraintStart_toStartOf="@id/tv_death_label_kr"
+                app:layout_constraintTop_toBottomOf="@id/tv_death_label_kr"
+                tools:text="@string/_0" />
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
             <TextView
-                android:id="@+id/tv_deathIncrease"
+                android:id="@+id/tv_deathIncrease_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/tv_increase_expression_label"
                 android:textColor="#000000"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@id/tv_deathCnt"
-                app:layout_constraintStart_toStartOf="@id/tv_deathCnt"
-                app:layout_constraintTop_toBottomOf="@id/tv_deathCnt" />
+                app:layout_constraintEnd_toEndOf="@id/tv_deathCnt_kr"
+                app:layout_constraintStart_toStartOf="@id/tv_deathCnt_kr"
+                app:layout_constraintTop_toBottomOf="@id/tv_deathCnt_kr" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tv_label_kr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="350dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginTop="115dp"
+                android:padding="7.5dp"
                 android:text="@string/tv_rate_of_increase_label"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
                 app:layout_constraintTop_toTopOf="parent"/>
+=======
+                app:layout_constraintTop_toBottomOf="@id/tv_clearIncrease_kr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="7.5dp"
+                android:text="@string/tv_source_label_kr"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_kr" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout_world"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="25dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayout_kr"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout_btn">
+
+            <TextView
+                android:id="@+id/tv_decideCnt_label_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_confirmed_label"
+                android:textColor="#FF0000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/constraintLayout_world" />
+
+            <TextView
+                android:id="@+id/tv_decideCnt_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#FF0000"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_label_world"
+                tools:text="@string/_0" />
+
+            <TextView
+                android:id="@+id/tv_decideIncrease_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/tv_increase_expression_label"
+                android:textColor="#FF0000"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_world" />
+
+            <TextView
+                android:id="@+id/tv_death_label_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/tv_deaths_label"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_decideIncrease_world" />
+
+            <TextView
+                android:id="@+id/tv_deathCnt_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_death_label_world"
+                app:layout_constraintStart_toStartOf="@id/tv_death_label_world"
+                app:layout_constraintTop_toBottomOf="@id/tv_death_label_world"
+                tools:text="@string/_0" />
+
+            <TextView
+                android:id="@+id/tv_deathIncrease_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/tv_increase_expression_label"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/tv_deathCnt_world"
+                app:layout_constraintStart_toStartOf="@id/tv_deathCnt_world"
+                app:layout_constraintTop_toBottomOf="@id/tv_deathCnt_world" />
+
+
+            <TextView
+                android:id="@+id/tv_label_world"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="115dp"
+                android:padding="7.5dp"
+                android:text="@string/tv_rate_of_increase_label"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_deathIncrease_world" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="7.5dp"
+                android:text="@string/tv_source_label_world"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_label_world" />
+>>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
