@@ -8,6 +8,7 @@
     tools:context=".StatFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_super"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -58,7 +59,7 @@
 
 
             <TextView
-                android:id="@+id/tv_standard_date_label"
+                android:id="@+id/tv_state_date_kr_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -69,7 +70,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="기준일시: 2020-11-02 09시" />
+                tools:text="2020-11-02 09시 기준" />
+
+            <TextView
+                android:id="@+id/tv_state_date_nat_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="3dp"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@id/tv_virus_name_label"
+                app:layout_constraintHorizontal_bias="0.125"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -126,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:paddingBottom="20dp"
+            android:visibility="visible"
             app:layout_constraintTop_toBottomOf="@id/constraintLayout_btn"
             tools:layout_editor_absoluteX="1dp">
 
@@ -334,10 +350,24 @@
                 android:layout_marginTop="10dp"
                 android:textColor="#FF0000"
                 android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_decideIncrease_world"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_label_world"
                 tools:text="@string/_0" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/pb_decideCnt_world"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#FF0000"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_decideIncrease_world"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_decideCnt_label_world" />
 
             <TextView
                 android:id="@+id/tv_decideIncrease_world"
@@ -370,10 +400,24 @@
                 android:layout_marginTop="10dp"
                 android:textColor="#000000"
                 android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_deathIncrease_world"
                 app:layout_constraintEnd_toEndOf="@id/tv_death_label_world"
                 app:layout_constraintStart_toStartOf="@id/tv_death_label_world"
                 app:layout_constraintTop_toBottomOf="@id/tv_death_label_world"
                 tools:text="@string/_0" />
+
+            <androidx.core.widget.ContentLoadingProgressBar
+                android:id="@+id/pb_deathCnt_world"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_deathIncrease_world"
+                app:layout_constraintEnd_toEndOf="@id/tv_death_label_world"
+                app:layout_constraintStart_toStartOf="@id/tv_death_label_world"
+                app:layout_constraintTop_toBottomOf="@id/tv_death_label_world" />
 
             <TextView
                 android:id="@+id/tv_deathIncrease_world"
@@ -407,8 +451,53 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_label_world" />
->>>>>>> cfa98d9bfc1550f9da16dc98b33a33e579bb8d2a
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout_kr">
+
+            <TableRow tools:ignore="UselessParent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    tools:text="번호" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    tools:text="국가명" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    tools:text="확진자 수" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    tools:text="사망자 수" />
+            </TableRow>
+        </TableLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
