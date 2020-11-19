@@ -1,7 +1,5 @@
 package com.team12.coronawatch;
 
-import android.util.Log;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,7 +17,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-class NationInfo {
+class NationInfo implements Comparable<NationInfo> {
     private String areaNm;          //지역(대륙)명
     private String areaNmEn;        //지역명_영문
     private String nationNm;        //국가명
@@ -93,6 +91,15 @@ class NationInfo {
         this.createDt = createDt;
     }
 
+    @Override
+    public int compareTo(NationInfo o) {
+        if (this.natDefCnt < o.getNatDefCnt()) {
+            return -1;
+        } else if (this.natDefCnt > o.getNatDefCnt()) {
+            return 1;
+        }
+        return 0;
+    }
 }
 
 class CoronaNationalStatus {
@@ -146,7 +153,7 @@ class CoronaNationalStatus {
         SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/" +
                 "getCovid19NatInfStateJson";
         SERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdl" +
-                "Vu%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";  //보건복지부_코로나19_국내_발생현황_일반인증키(UTF-8)
+                "Vu%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";  //보건복지부_코로나19_해외_발생현황_일반인증키(UTF-8)
 
         dateFormatForComp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         dateFormat_year = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -237,10 +244,10 @@ class CoronaNationalStatus {
                         "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(nYesterday), UTF) + /*검색할 생성일 범위의 시작*/
                         "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(nToday), UTF);/*URL*//*검색할 생성일 범위의 종료*/
                 if (i == 1) {
-                    Log.i("CoronaNatClass: ", "INFO_URL - URL:" + urlBuilder);
+                    System.out.println("INFO_URL - URL:" + urlBuilder);
                 }
             } catch (Exception e) {
-                Log.i("CoronaNatClass: ", "Exception: " + e.getMessage());
+                System.out.println("Exception: " + e.getMessage());
             }
 
             Document doc = null;
@@ -251,7 +258,7 @@ class CoronaNationalStatus {
                 doc = dBuilder.parse(new InputSource(url.openStream()));
                 doc.getDocumentElement().normalize();
             } catch (IOException | SAXException | ParserConfigurationException e) {
-                Log.i("CoronaNatClass: ", "CoronaNationalStatus()" + e.getMessage());
+                System.out.println("CoronaNationalStatus()" + e.getMessage());
             }
 
             assert doc != null;
@@ -278,8 +285,8 @@ class CoronaNationalStatus {
 
     public void parseXML() {
         loadXML();
-        Log.i("CoronaNatClass: ", "서버기준 오늘: " + stdTodayFromServer);
-        Log.i("CoronaNatClass: ", "서버기준 어제: " + stdYestFromServer);
+        System.out.println("서버기준 오늘: " + stdTodayFromServer);
+        System.out.println("서버기준 어제: " + stdYestFromServer);
         int i = 0;
         while (true) {
             NationInfo nationInfo = new NationInfo();
@@ -314,21 +321,21 @@ class CoronaNationalStatus {
 
             natInfoList.add(nationInfo);
         }
+        natInfoList.sort(Collections.reverseOrder());
 
         int n = 0;
         todayTotalNatDefCnt = todayTotalNatDeathCnt = 0;
         for (NationInfo natInfo : natInfoList) {
-            //테스트할 때만 로그 출력을 위해 주석해제
-//            Log.i("CoronaNatClass: ", "----------------------------------------");
-//            Log.i("CoronaNatClass: ", "#" + ++n);
-//            Log.i("CoronaNatClass: ", "지역명: " + natInfo.getAreaNm());
-//            Log.i("CoronaNatClass: ", "지역명_영문: " + natInfo.getAreaNmEn());
-//            Log.i("CoronaNatClass: ", "국가명: " + natInfo.getNationNm());
-//            Log.i("CoronaNatClass: ", "국가명_영문: " + natInfo.getNationNmEn());
-//            Log.i("CoronaNatClass: ", "확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
-//            Log.i("CoronaNatClass: ", "사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
-//            Log.i("CoronaNatClass: ", "확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
-//            Log.i("CoronaNatClass: ", "등록일: " + natInfo.getCreateDt().substring(0, 19));
+            System.out.println("----------------------------------------");
+            System.out.println("#" + ++n);
+            System.out.println("지역명: " + natInfo.getAreaNm());
+            System.out.println("지역명_영문: " + natInfo.getAreaNmEn());
+            System.out.println("국가명: " + natInfo.getNationNm());
+            System.out.println("국가명_영문: " + natInfo.getNationNmEn());
+            System.out.println("확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
+            System.out.println("사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
+            System.out.println("확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
+            System.out.println("등록일: " + natInfo.getCreateDt().substring(0, 19));
 
             if (stdTodayFromServer.equals(natInfo.getCreateDt().substring(0, 10))) {
                 todayTotalNatDefCnt += natInfo.getNatDefCnt();
@@ -343,7 +350,7 @@ class CoronaNationalStatus {
         natDefIncCnt = (todayTotalNatDefCnt - yestTotalDefCnt);
         natDeathIncCnt = (todayTotalNatDeathCnt - yestNatDeathCnt);
         newFormatStateDate = stateDate.substring(0, 4) + '-' + stateDate.substring(6, 8)
-                + '-' + stateDate.substring(10, 12) + ' ' + stateDate.substring(14, 16) + "시 기준(세계)";
+                + '-' + stateDate.substring(10, 12) + ' ' + stateDate.substring(14, 16) + "시";
 
         newFmt_todayTotNatDefCnt = formatter.format(todayTotalNatDefCnt);
         newFmt_todayTotNatDeathCnt = formatter.format(todayTotalNatDeathCnt);
@@ -352,15 +359,21 @@ class CoronaNationalStatus {
     }
 
     public void printInfo() {
-        Log.i("CoronaNatClass: ", "----------------------------------------");
-        Log.i("CoronaNatClass: ", "[ 정리 ]");
-        Log.i("CoronaNatClass: ", "기준일시: " + newFormatStateDate);
-        Log.i("CoronaNatClass: ", "현재 시간: " + nHour + "시(24시기준)");
-        Log.i("CoronaNatClass: ", "총 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
-        Log.i("CoronaNatClass: ", "총 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
-        Log.i("CoronaNatClass: ", "총 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
-        Log.i("CoronaNatClass: ", "총 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
-        Log.i("CoronaNatClass: ", "감염국가 수: " + totalDefNatCnt);
+        System.out.println("----------------------------------------");
+        System.out.println("[ 정리 ]");
+        System.out.println("기준일시: " + newFormatStateDate + '\n');
+        System.out.println("(총합)");
+        System.out.println(" - 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
+        System.out.println(" - 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
+        System.out.println(" - 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
+        System.out.println(" - 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
+        System.out.println(" - 감염국가 수: " + totalDefNatCnt);
+    }
+
+    public void main(String[] args) {
+        init();
+        parseXML();
+        printInfo();
     }
 }
 
