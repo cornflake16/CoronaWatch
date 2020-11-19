@@ -318,7 +318,7 @@ class CoronaNationalStatus {
         int n = 0;
         todayTotalNatDefCnt = todayTotalNatDeathCnt = 0;
         for (NationInfo natInfo : natInfoList) {
-            //로그 출력시 데이터 수신 속도가 느려지므로, 테스트를 제외할 경우엔 주석처리 유지
+            //테스트할 때만 로그 출력을 위해 주석해제
 //            Log.i("CoronaNatClass: ", "----------------------------------------");
 //            Log.i("CoronaNatClass: ", "#" + ++n);
 //            Log.i("CoronaNatClass: ", "지역명: " + natInfo.getAreaNm());
@@ -361,12 +361,6 @@ class CoronaNationalStatus {
         Log.i("CoronaNatClass: ", "총 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
         Log.i("CoronaNatClass: ", "총 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
         Log.i("CoronaNatClass: ", "감염국가 수: " + totalDefNatCnt);
-    }
-
-    public void main(String[] args) {
-        init();
-        parseXML();
-        printInfo();
     }
 }
 
