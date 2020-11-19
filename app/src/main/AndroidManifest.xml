@@ -23,7 +23,8 @@
             android:name="com.naver.maps.map.cwouczl691"
             android:value="cwouczl691" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                  android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
