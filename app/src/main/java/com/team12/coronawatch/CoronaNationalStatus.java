@@ -1,4 +1,4 @@
-package com.api.corona.national;
+package com.team12.coronawatch;
 /*
     @title 공공데이터포털_보건복지부_코로나_해외발생현황_API_사용_샘플코드
     @author 윤낙원
@@ -326,21 +326,21 @@ class CoronaNationalStatus {
             natInfoList.add(nationInfo);
         }
         //국가별로 확진자 수에 따라 리스트 내림차순 정렬
-        natInfoList.sort(Collections.reverseOrder());
+        Collections.reverse(natInfoList);
 
         int n = 0;
         todayTotalNatDefCnt = todayTotalNatDeathCnt = 0;
         for (NationInfo natInfo : natInfoList) {
-            System.out.println("----------------------------------------");
-            System.out.println("#" + ++n);
-            System.out.println("지역명: " + natInfo.getAreaNm());
-            System.out.println("지역명_영문: " + natInfo.getAreaNmEn());
-            System.out.println("국가명: " + natInfo.getNationNm());
-            System.out.println("국가명_영문: " + natInfo.getNationNmEn());
-            System.out.println("확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
-            System.out.println("사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
-            System.out.println("확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
-            System.out.println("등록일: " + natInfo.getCreateDt().substring(0, 19));
+//            System.out.println("----------------------------------------");
+//            System.out.println("#" + ++n);
+//            System.out.println("지역명: " + natInfo.getAreaNm());
+//            System.out.println("지역명_영문: " + natInfo.getAreaNmEn());
+//            System.out.println("국가명: " + natInfo.getNationNm());
+//            System.out.println("국가명_영문: " + natInfo.getNationNmEn());
+//            System.out.println("확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
+//            System.out.println("사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
+//            System.out.println("확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
+//            System.out.println("등록일: " + natInfo.getCreateDt().substring(0, 19));
 
             if (stdTodayFromServer.equals(natInfo.getCreateDt().substring(0, 10))) {
                 todayTotalNatDefCnt += natInfo.getNatDefCnt();
@@ -363,23 +363,18 @@ class CoronaNationalStatus {
         newFmt_natDeathIncCnt = formatter.format((natDeathIncCnt));
     }
 
-    public void printInfo() {
-        System.out.println("----------------------------------------");
-        System.out.println("[ 정리 ]");
-        System.out.println("기준일시: " + newFormatStateDate + '\n');
-        System.out.println("(총합)");
-        System.out.println(" - 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
-        System.out.println(" - 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
-        System.out.println(" - 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
-        System.out.println(" - 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
-        System.out.println(" - 감염국가 수: " + totalDefNatCnt);
-    }
-
-    public void main(String[] args) {
-        init();
-        parseXML();
-        printInfo();
-    }
+    //주석은 테스트할 때만 해제하는 것을 권장
+//    public void printInfo() {
+//        System.out.println("----------------------------------------");
+//        System.out.println("[ 정리 ]");
+//        System.out.println("기준일시: " + newFormatStateDate + '\n');
+//        System.out.println("(총합)");
+//        System.out.println(" - 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
+//        System.out.println(" - 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
+//        System.out.println(" - 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
+//        System.out.println(" - 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
+//        System.out.println(" - 감염국가 수: " + totalDefNatCnt);
+//    }
 }
 
 
