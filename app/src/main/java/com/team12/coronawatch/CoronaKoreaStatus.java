@@ -306,13 +306,13 @@ class CoronaKoreaStatus {
         }
 
         for (DailyInfo dailyInfo : dailyInfoList) {
-
-            Log.i("CoronaKRClass: ", "----------------------------------------");
-            Log.i("CoronaKRClass: ", "등록일자: " + dailyInfo.getCreateDt().substring(0, 19) + '\n');
-            Log.i("CoronaKRClass: ", "확진자 수(누적): " + formatter.format(dailyInfo.getDecideCnt()) + "명");
-            Log.i("CoronaKRClass: ", "검사진행 수(누적): " + formatter.format(dailyInfo.getExamCnt()) + "명");
-            Log.i("CoronaKRClass: ", "격리해제 수(누적): " + formatter.format(dailyInfo.getClearCnt()) + "명");
-            Log.i("CoronaKRClass: ", "사망자 수(누적): " + formatter.format(dailyInfo.getDeathCnt()) + "명");
+            //테스트할 때만 로그 출력을 위해 주석해제
+//            Log.i("CoronaKRClass: ", "----------------------------------------");
+//            Log.i("CoronaKRClass: ", "등록일자: " + dailyInfo.getCreateDt().substring(0, 19) + '\n');
+//            Log.i("CoronaKRClass: ", "확진자 수(누적): " + formatter.format(dailyInfo.getDecideCnt()) + "명");
+//            Log.i("CoronaKRClass: ", "검사진행 수(누적): " + formatter.format(dailyInfo.getExamCnt()) + "명");
+//            Log.i("CoronaKRClass: ", "격리해제 수(누적): " + formatter.format(dailyInfo.getClearCnt()) + "명");
+//            Log.i("CoronaKRClass: ", "사망자 수(누적): " + formatter.format(dailyInfo.getDeathCnt()) + "명");
 
             createDtList.add(dailyInfo.getCreateDt().substring(0, 19));
             createDtTimeList.add(dailyInfo.getCreateDt().substring(0, 13));
