@@ -71,23 +71,23 @@ class DailyInfo {
 }
 
 class CoronaKoreaStatus {
-    final static double WEEKDAY_NUMBER = 7.0;
+    final  double WEEKDAY_NUMBER = 7.0;
     //URL 관련 변수
-    private String urlBuilder;
-    private String UTF;
-    private String SERVICE_URL;
-    private String SERVICE_KEY;
+    public String urlBuilder;
+    public String UTF;
+    public String SERVICE_URL;
+    public String SERVICE_KEY;
 
     //포맷 변수
-    private DecimalFormat formatter;
+    public DecimalFormat formatter;
     public SimpleDateFormat dateFormatForComp, dateFormat_year, dateFormat_month, dateFormat_day, dateFormat_hour;
 
     //날짜 및 시간관련 변수
     public Date time;
     public String sStateDt = "-";
     public String sYear, sMonth, sDay, sHour, sToday, sYesterday, sTwoDayAgo;
-    private String stdYestFromServer, stdTodayFromServer;
-    private int[] days;
+    public String stdYestFromServer, stdTodayFromServer;
+    public int[] days;
     public int nYear, nMonth, nDay, nHour;
 
     //정보 변수(다른 곳에 활용할때는 이 변수들을 활용하면 됨)
@@ -119,7 +119,7 @@ class CoronaKoreaStatus {
     //파싱 관련 변수
     Element body, items, item;
     Node decideCnt, examCnt, clearCnt, deathCnt, createDt, stdDt;
-    private ArrayList<DailyInfo> dailyInfoList;
+    public ArrayList<DailyInfo> dailyInfoList;
 
     void init() {
         UTF = "UTF-8";
