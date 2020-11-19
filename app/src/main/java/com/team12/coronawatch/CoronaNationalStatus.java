@@ -318,16 +318,17 @@ class CoronaNationalStatus {
         int n = 0;
         todayTotalNatDefCnt = todayTotalNatDeathCnt = 0;
         for (NationInfo natInfo : natInfoList) {
-            Log.i("CoronaNatClass: ", "----------------------------------------");
-            Log.i("CoronaNatClass: ", "#" + ++n);
-            Log.i("CoronaNatClass: ", "지역명: " + natInfo.getAreaNm());
-            Log.i("CoronaNatClass: ", "지역명_영문: " + natInfo.getAreaNmEn());
-            Log.i("CoronaNatClass: ", "국가명: " + natInfo.getNationNm());
-            Log.i("CoronaNatClass: ", "국가명_영문: " + natInfo.getNationNmEn());
-            Log.i("CoronaNatClass: ", "확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
-            Log.i("CoronaNatClass: ", "사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
-            Log.i("CoronaNatClass: ", "확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
-            Log.i("CoronaNatClass: ", "등록일: " + natInfo.getCreateDt().substring(0, 19));
+            //로그 출력시 데이터 수신 속도가 느려지므로, 테스트를 제외할 경우엔 주석처리 유지
+//            Log.i("CoronaNatClass: ", "----------------------------------------");
+//            Log.i("CoronaNatClass: ", "#" + ++n);
+//            Log.i("CoronaNatClass: ", "지역명: " + natInfo.getAreaNm());
+//            Log.i("CoronaNatClass: ", "지역명_영문: " + natInfo.getAreaNmEn());
+//            Log.i("CoronaNatClass: ", "국가명: " + natInfo.getNationNm());
+//            Log.i("CoronaNatClass: ", "국가명_영문: " + natInfo.getNationNmEn());
+//            Log.i("CoronaNatClass: ", "확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
+//            Log.i("CoronaNatClass: ", "사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
+//            Log.i("CoronaNatClass: ", "확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
+//            Log.i("CoronaNatClass: ", "등록일: " + natInfo.getCreateDt().substring(0, 19));
 
             if (stdTodayFromServer.equals(natInfo.getCreateDt().substring(0, 10))) {
                 todayTotalNatDefCnt += natInfo.getNatDefCnt();
