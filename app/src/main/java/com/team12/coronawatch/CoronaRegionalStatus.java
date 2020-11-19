@@ -161,7 +161,8 @@ class CoronaRegionalStatus {
         UTF = "UTF-8";
         SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/" +
                 "getCovid19SidoInfStateJson";
-        SERVICE_KEY = "=";  //보건복지부_코로나19_국내_시_도별_발생현황_일반인증키(UTF-8)
+        SERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdl" +
+                "Vu%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";  //보건복지부_코로나19_국내_시_도별_발생현황_일반인증키(UTF-8)
 
         dateFormatForComp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         dateFormat_year = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -353,17 +354,18 @@ class CoronaRegionalStatus {
         Collections.sort(regionInfoList.subList(0, regionInfoList.size() - 1));
 
         for (RegionInfo regionInfo : regionInfoList) {
-            System.out.println("----------------------------------------");
-            System.out.println("등록일시: " + regionInfo.getCreateDt().substring(0, 19));
-            System.out.println("수정일시: " + regionInfo.getUpdateDt());
-            System.out.println("지역명: " + regionInfo.getGubun());
-            System.out.println("지역명(영문): " + regionInfo.getGubunEn() + '\n');
-            System.out.println("(누적)");
-            System.out.println(" - 확진자 수: " + formatter.format(regionInfo.getDefCnt())
-                    + "명(+" + regionInfo.getIncDec() + ")");
-            System.out.println(" - 격리해제 수: " + formatter.format(regionInfo.getIsolClearCnt()) + "명");
-            System.out.println(" - 격리중 환자 수: " + formatter.format(regionInfo.getIsolIngCnt()) + "명");
-            System.out.println(" - 사망자 수: " + formatter.format(regionInfo.getDeathCnt()) + "명");
+            //주석은 테스트할 때만 해제하는 것을 권장
+//            System.out.println("----------------------------------------");
+//            System.out.println("등록일시: " + regionInfo.getCreateDt().substring(0, 19));
+//            System.out.println("수정일시: " + regionInfo.getUpdateDt());
+//            System.out.println("지역명: " + regionInfo.getGubun());
+//            System.out.println("지역명(영문): " + regionInfo.getGubunEn() + '\n');
+//            System.out.println("(누적)");
+//            System.out.println(" - 확진자 수: " + formatter.format(regionInfo.getDefCnt())
+//                    + "명(+" + regionInfo.getIncDec() + ")");
+//            System.out.println(" - 격리해제 수: " + formatter.format(regionInfo.getIsolClearCnt()) + "명");
+//            System.out.println(" - 격리중 환자 수: " + formatter.format(regionInfo.getIsolIngCnt()) + "명");
+//            System.out.println(" - 사망자 수: " + formatter.format(regionInfo.getDeathCnt()) + "명");
 
             gubunList.add(regionInfo.getGubun());
             gubunEnList.add(regionInfo.getGubunEn());
@@ -377,6 +379,6 @@ class CoronaRegionalStatus {
         }
     }
 
-//     public void printInfo() {
-//     }
+//    public void printInfo() {
+//    }
 }
