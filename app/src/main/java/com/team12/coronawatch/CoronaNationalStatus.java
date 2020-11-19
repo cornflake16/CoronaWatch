@@ -1,4 +1,9 @@
-package com.team12.coronawatch;
+package com.api.corona.national;
+/*
+    @title 공공데이터포털_보건복지부_코로나_해외발생현황_API_사용_샘플코드
+    @author 윤낙원
+    @date 2020-11-19
+ */
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -234,8 +239,7 @@ class CoronaNationalStatus {
     }
 
     public void loadXML() {
-        int nYesterday = 1,
-                nToday = 0;
+        int nYesterday = 1, nToday = 0;
         for (int i = 0; i < 2; i++) {
             try {
                 urlBuilder = SERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + SERVICE_KEY + /*Service Key*/
@@ -321,6 +325,7 @@ class CoronaNationalStatus {
 
             natInfoList.add(nationInfo);
         }
+        //국가별로 확진자 수에 따라 리스트 내림차순 정렬
         natInfoList.sort(Collections.reverseOrder());
 
         int n = 0;
