@@ -375,44 +375,45 @@ class CoronaKoreaStatus {
         newFmt_deathAvgIncCntForAWeek = formatter.format(deathAvgIncCntForAWeek);
     }
 
-    public void printInfo() {
-        Log.i("CoronaKRClass: ", "----------------------------------------");
-        Log.i("CoronaKRClass: ", "[정보 정리]");
-        Log.i("CoronaKRClass: ", "\t(확진자)");
-        Log.i("CoronaKRClass: ", "\t\t - 확진자 수(누적): " + formatter.format(decideCntList.get(0)) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - 확진자 증가 수(전일 대비): " + formatter.format(decideIncCnt) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
-                + formatter.format(decideTotIncCntForAWeek) + "명의 확진자 추가");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
-                + formatter.format(decideAvgIncCntForAWeek) + "명의 확진자 추가");
-        Log.i("CoronaKRClass: ", "---");
-
-        Log.i("CoronaKRClass: ", "\t(검사진행)");
-        Log.i("CoronaKRClass: ", "\t\t - 검사진행 수(누적): " + formatter.format(examCntList.get(0)) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - 검사진행 증가 수(전일 대비): " + formatter.format(examIncCnt) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
-                + formatter.format(examTotIncCntForAWeek) + "명의 검사자 추가");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
-                + formatter.format(examAvgIncCntForAWeek) + "명의 검사자 추가");
-        Log.i("CoronaKRClass: ", "---");
-
-        Log.i("CoronaKRClass: ", "\t(격리해제)");
-        Log.i("CoronaKRClass: ", "\t\t - 격리해제 수(누적): " + formatter.format(clearCntList.get(0)) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - 격리해제 증가 수(전일 대비): " + formatter.format(clearIncCnt) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
-                + formatter.format(clearTotIncCntForAWeek) + "명의 격리해제 추가");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
-                + formatter.format(clearAvgIncCntForAWeek) + "명의 격리해제 추가");
-        Log.i("CoronaKRClass: ", "---");
-
-        Log.i("CoronaKRClass: ", "\t(사망자)");
-        Log.i("CoronaKRClass: ", "\t\t - 사망자 수(누적): " + formatter.format(deathCntList.get(0)) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - 사망자 증가 수(전일 대비): " + formatter.format(deathIncCnt) + "명");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
-                + formatter.format(deathTotIncCntForAWeek) + "명의 사망자 추가");
-        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
-                + formatter.format(deathAvgIncCntForAWeek) + "명의 사망자 추가");
-        Log.i("CoronaKRClass: ", "---");
-        Log.i("CoronaKRClass: ", "" + todayStateDate);
-    }
+    //주석은 테스트할 때만 해제하는 것을 권장
+//    public void printInfo() {
+//        Log.i("CoronaKRClass: ", "----------------------------------------");
+//        Log.i("CoronaKRClass: ", "[정보 정리]");
+//        Log.i("CoronaKRClass: ", "\t(확진자)");
+//        Log.i("CoronaKRClass: ", "\t\t - 확진자 수(누적): " + formatter.format(decideCntList.get(0)) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - 확진자 증가 수(전일 대비): " + formatter.format(decideIncCnt) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
+//                + formatter.format(decideTotIncCntForAWeek) + "명의 확진자 추가");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
+//                + formatter.format(decideAvgIncCntForAWeek) + "명의 확진자 추가");
+//        Log.i("CoronaKRClass: ", "---");
+//
+//        Log.i("CoronaKRClass: ", "\t(검사진행)");
+//        Log.i("CoronaKRClass: ", "\t\t - 검사진행 수(누적): " + formatter.format(examCntList.get(0)) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - 검사진행 증가 수(전일 대비): " + formatter.format(examIncCnt) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
+//                + formatter.format(examTotIncCntForAWeek) + "명의 검사자 추가");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
+//                + formatter.format(examAvgIncCntForAWeek) + "명의 검사자 추가");
+//        Log.i("CoronaKRClass: ", "---");
+//
+//        Log.i("CoronaKRClass: ", "\t(격리해제)");
+//        Log.i("CoronaKRClass: ", "\t\t - 격리해제 수(누적): " + formatter.format(clearCntList.get(0)) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - 격리해제 증가 수(전일 대비): " + formatter.format(clearIncCnt) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
+//                + formatter.format(clearTotIncCntForAWeek) + "명의 격리해제 추가");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
+//                + formatter.format(clearAvgIncCntForAWeek) + "명의 격리해제 추가");
+//        Log.i("CoronaKRClass: ", "---");
+//
+//        Log.i("CoronaKRClass: ", "\t(사망자)");
+//        Log.i("CoronaKRClass: ", "\t\t - 사망자 수(누적): " + formatter.format(deathCntList.get(0)) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - 사망자 증가 수(전일 대비): " + formatter.format(deathIncCnt) + "명");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
+//                + formatter.format(deathTotIncCntForAWeek) + "명의 사망자 추가");
+//        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
+//                + formatter.format(deathAvgIncCntForAWeek) + "명의 사망자 추가");
+//        Log.i("CoronaKRClass: ", "---");
+//        Log.i("CoronaKRClass: ", "" + todayStateDate);
+//    }
 }
