@@ -1,13 +1,6 @@
 package com.team12.coronawatch;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -16,12 +9,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.naver.maps.map.NaverMapSdk;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private long backPressedTime = 0;
     private Fragment mFragment, sFragment, gFragment;
     int beforeId;
@@ -87,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         networkCheck(); //사용자에게 네트워크 연결을 요청 -> 미 연결시 앱 종료
         init();
+
     }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -149,4 +148,8 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+
+
+
 }

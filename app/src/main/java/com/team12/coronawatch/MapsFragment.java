@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -36,6 +38,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private FusedLocationSource locationSource;
     private MapView covidMap;
+//    private pushData pushData;
     //임시마크
     private Marker covidArea1 = new Marker();
     private Marker covidArea2 = new Marker();
@@ -43,6 +46,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private Context context = getContext();
     private LocationManager locationManager;
     private static final int REQUEST_CODE_LOCATION = 2;
+    private Button isDanger;
+    NotificationCompat.Builder mBuilder;
 //    Criteria criteria = new Criteria();
 //    private long startTime = -1;
 //    private Location beforeLocation;
@@ -73,8 +78,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         NaverMapSdk.getInstance(requireActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-
-
+        mBuilder = new NotificationCompat.Builder(getActivity()).setDefaults(Notification.DEFAULT_SOUND).setContentText("위험지역입니다, 벗어나세요").setAutoCancel(true).setSmallIcon(R.drawable.icon_maps);
     }
 
     @Override
@@ -101,13 +105,34 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         covidMap.onCreate(savedInstanceState);
         covidMap.getMapAsync(this);
 
+        isDanger = v.findViewById(R.id.button);
+        isDanger.setOnClickListener(new Button.OnClickListener(){
+            public void onClick(View view){
+                //사용자의 위치 수신을 위한 세팅
+                locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+                //사용자의 현재 위치
+                Location userLocation = getMyLocation();
+                if( userLocation != null ) {
+                    double latitude = userLocation.getLatitude();
+                    double longitude = userLocation.getLongitude();
+                    System.out.println("////////////현재 내 위치값 : "+latitude+","+longitude);
+                    if(getDistance(latitude, longitude, covidArea1.getPosition().latitude, covidArea1.getPosition().longitude)<500){
+                        Toast.makeText(getActivity(),"위험지역 토스트메세지",Toast.LENGTH_SHORT).show();
+                        //알림부분
+                        NotificationManager mNotificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                        mNotificationManager.notify(1, mBuilder.build());
+
+                    }
+                }
+            }
+        });
+
         return v;
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         //카메라 위치 및 각도 조정
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle("위험지역").setContentText("위험지역입니다. 마스크를 꼭 써주세요").setDefaults(Notification.DEFAULT_SOUND).setAutoCancel(true);
         CameraPosition cameraPosition = new CameraPosition(
                 new LatLng(37.65, 126.97),   // 위치 지정(제주도)
                 9,                                     // 줌 레벨
@@ -135,23 +160,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         setMark(covidArea2, 37.5895, 126.99, naverMap);
         setMark(covidArea3, 37.48, 126.84, naverMap);
 
-        //사용자의 위치 수신을 위한 세팅
-        locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
-        //사용자의 현재 위치
-        Location userLocation = getMyLocation();
-        if( userLocation != null ) {
-            double latitude = userLocation.getLatitude();
-            double longitude = userLocation.getLongitude();
-            System.out.println("////////////현재 내 위치값 : "+latitude+","+longitude);
-            //만약 거리가 원의 범위보다 멀다면 알림 x, 원 안이라면 알림 O
-            if(getDistance(latitude, longitude, covidArea1.getPosition().latitude, covidArea1.getPosition().longitude)<500){
-                NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                //알림부분
-                //               mNotificationManager.notify(0, mBuilder.build());
-
-            }
-        }
-
 //        covidArea1.setOnClickListener(new Overlay.OnClickListener() {
 //            @Override
 //            public boolean onClick(@NonNull Overlay overlay) {
@@ -169,19 +177,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 //        });
 
     }
-//실시간 gps 위치
-//    public void onLocationChanged(Location location){
-//        if(startTime==-1)
-//            startTime=location.getTime();
-//        float distance[] = new float[1];
-//        Location.distanceBetween(beforeLocation.getLatitude(), beforeLocation.getLongitude(), location.getLatitude(), location.getLongitude(), distance);
-//        long delay = location.getTime() - startTime;
-//        double speed = distance[0]/delay;
-//        double speedKMH = speed * 3600;
-//
-//        // 전 위치 저장.
-//        beforeLocation = location;
-//    }
+
 
     //마커 생성 함수
     private void setMark(Marker marker, double lat, double lng, NaverMap naverMap){
@@ -209,6 +205,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 double lat = currentLocation.getLatitude();
             }
         }
+
         return currentLocation;
     }
 
@@ -221,4 +218,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         d = Math.sqrt(yd+xd);
         return d;
     }
+
+//    public interface  pushData{
+//        void positionSet(double lat, double lng);
+//    }
+//
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if(context instanceof pushData){
+//            pushData = (pushData) context;
+//        }
+//        else{
+//            throw new RuntimeException(context.toString() + "@@@");
+//        }
+//    }
+//
+//    public void onDetach(){
+//        super.onDetach();
+//        pushData = null;
+//    }
 }
