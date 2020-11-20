@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
@@ -19,6 +20,9 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
+import com.naver.maps.map.overlay.InfoWindow;
+import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.Objects;
@@ -28,7 +32,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private FusedLocationSource locationSource;
     private LocationManager locationManager;
-    private MapView naverMap;
+    private MapView covidMap;
+    private static NaverMap naverMap;
+//    private Marker covidArea1 = new Marker();
+//    private Context context = getContext();
+
+
 
     private void init(View v) {
     }
@@ -55,6 +64,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         NaverMapSdk.getInstance(requireActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+
+
     }
 
     @Override
@@ -62,7 +74,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         super.onActivityCreated(savedInstanceState);
     }
 
-
+    //뷰 생성
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,17 +88,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         ViewGroup v = (ViewGroup) inflater.inflate(R.layout.fragment_maps, container, false);
 //        init(v);
 
-        naverMap = v.findViewById(R.id.map_view);
-        naverMap.onCreate(savedInstanceState);
-        naverMap.getMapAsync(this);
+        covidMap = v.findViewById(R.id.map_view);
+        covidMap.onCreate(savedInstanceState);
+        covidMap.getMapAsync(this);
+
+
+
+
         return v;
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        //위치 및 각도 조정
+        //카메라 위치 및 각도 조정
         CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(33.38, 126.55),   // 위치 지정
+                new LatLng(33.38, 126.55),   // 위치 지정(제주도)
                 9,                                     // 줌 레벨
                 0,                                       // 기울임 각도
                 0                                     // 방향
@@ -106,5 +122,31 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // 줌 범위 제한
         naverMap.setMinZoom(6.0);   //최소
         naverMap.setMaxZoom(18.0);  //최대용
+
+        //마커 생성
+//        setMark(covidArea1, 37.5670135, 126.9483740);
+//        covidArea1.setOnClickListener(new Overlay.OnClickListener() {
+//            @Override
+//            public boolean onClick(@NonNull Overlay overlay) {
+//                InfoWindow infoWindow = new InfoWindow();
+//                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
+//                    @NonNull
+//                    @Override
+//                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
+//                        return "정보창내용";
+//                    }
+//                });
+//                infoWindow.open(covidArea1);
+//                return false;
+//            }
+//        });
+
     }
+
+    //마커 생성 함수
+    private void setMark(Marker marker, double lat, double lng){
+        marker.setPosition(new LatLng(lat, lng));
+        marker.setMap(naverMap);
+    }
+
 }
