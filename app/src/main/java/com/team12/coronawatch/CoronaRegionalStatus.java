@@ -151,7 +151,7 @@ class CoronaRegionalStatus {
      */
     ArrayList<String> gubunList, gubunEnList;
     ArrayList<Long> defCntList, isolClearCntList, isolIngCntList, deathCntList;
-    ArrayList<Integer> incDecList;
+    ArrayList<Integer> defIncList;
     ArrayList<String> createDtList, updateDtList;
 
     //파싱 관련 변수
@@ -159,6 +159,10 @@ class CoronaRegionalStatus {
     String resultCode;
     Node gubun, gubunEn, defCnt, isolClearCnt, isolIngCnt, deathCnt, incDec, createDt, updateDt;
     ArrayList<RegionInfo> regionInfoList;
+
+    CoronaRegionalStatus() {
+        init();
+    }
 
     void init() {
         UTF = "UTF-8";
@@ -206,7 +210,7 @@ class CoronaRegionalStatus {
         isolIngCntList = new ArrayList<>();
         isolClearCntList = new ArrayList<>();
         deathCntList = new ArrayList<>();
-        incDecList = new ArrayList<>();
+        defIncList = new ArrayList<>();
         createDtList = new ArrayList<>();
         updateDtList = new ArrayList<>();
     }
@@ -384,7 +388,7 @@ class CoronaRegionalStatus {
             isolIngCntList.add(regionInfo.getIsolIngCnt());
             isolClearCntList.add(regionInfo.getIsolClearCnt());
             deathCntList.add(regionInfo.getDeathCnt());
-            incDecList.add(regionInfo.getIncDec());
+            defIncList.add(regionInfo.getIncDec());
             createDtList.add(regionInfo.getCreateDt());
             updateDtList.add(regionInfo.getUpdateDt());
         }

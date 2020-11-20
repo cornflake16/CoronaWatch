@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -15,6 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.ContentLoadingProgressBar;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatFragment extends Fragment {
     ConstraintLayout conLayoutKorea, conLayoutWorld;
@@ -24,7 +30,8 @@ public class StatFragment extends Fragment {
     TextView tv_decideCnt_world, tv_deathCnt_world;
     TextView tv_decideIncrease_world, tv_deathIncrease_world;
     TextView tv_state_date_kr_label, tv_state_date_nat_label;
-    TableLayout tableLayout;
+    ListView listView;
+    CustomAdapter adapter;
     CoronaKoreaStatus coronaKoreaStatus;
     CoronaNationalStatus coronaNationalStatus;
     KoreaXMLParser threadKr;
@@ -53,7 +60,17 @@ public class StatFragment extends Fragment {
         btnWorld = v.findViewById(R.id.btn_world);
         conLayoutKorea = v.findViewById(R.id.constraintLayout_kr);
         conLayoutWorld = v.findViewById(R.id.constraintLayout_world);
-        tableLayout = v.findViewById(R.id.tableLayout);
+        
+        // 통계 탭 하단 리스트뷰 동작 관련
+        listView = v.findViewById(R.id.listView);
+        ArrayList<CustomList> regions = new ArrayList<>();
+        // 데이터 하드코딩으로 삽입하는 부분
+        regions.add(new CustomList("서울", 500, 2000, 50, 1500, 300));
+        regions.add(new CustomList("경기", 250, 1000, 25, 750, 150));
+        regions.add(new CustomList("대구", 250, 1000, 25, 750, 150));
+        adapter = new CustomAdapter(regions);
+        listView.setAdapter(adapter);
+        listViewSetHeight(adapter, listView); // 높이 지정 함수 호출
 
         pb_decideCnt_world = v.findViewById(R.id.pb_decideCnt_world);
         pb_deathCnt_world = v.findViewById(R.id.pb_deathCnt_world);
@@ -191,5 +208,19 @@ public class StatFragment extends Fragment {
                 });
             }
         }
+    }
+
+    // 스크롤뷰 내부의 리스트뷰 Height 지정
+    private static void listViewSetHeight(BaseAdapter adapter, ListView listView) {
+        int totalHeight = 0;
+        for(int i = 0; i < adapter.getCount(); i++) {
+            View item = adapter.getView(i, null, listView);
+            item.measure(0, 0);
+            totalHeight += item.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }
