@@ -1,42 +1,40 @@
 package com.team12.coronawatch;
 
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraPosition;
-import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.NaverMapSdk;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
-import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import java.util.Objects;
+//AVD GSP 사용 방법
+//AVD 실행후 ctl+shift+L
+//원하는 위치 선택후 set location 버튼 클릭
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
     //지도 관련 변수
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private FusedLocationSource locationSource;
-    private LocationManager locationManager;
+//    private LocationManager locationManager;
     private MapView covidMap;
-    private static NaverMap naverMap;
-//    private Marker covidArea1 = new Marker();
-//    private Context context = getContext();
-
+    private Marker covidArea1 = new Marker();
+    private Context context = getContext();
+//    Criteria criteria = new Criteria();
+//    private long startTime = -1;
+//    private Location beforeLocation;
+//    private Location curLocation;
 
 
     private void init(View v) {
@@ -60,13 +58,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //initializing maps object
-//        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         NaverMapSdk.getInstance(requireActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
-
-
-
     }
 
     @Override
@@ -79,7 +73,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //initializing maps object
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+//        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         NaverMapSdk.getInstance(getActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
@@ -92,9 +86,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         covidMap.onCreate(savedInstanceState);
         covidMap.getMapAsync(this);
 
-
-
-
+        //setMark(covidArea1, 37.5670135, 126.9483740);
         return v;
     }
 
@@ -124,7 +116,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setMaxZoom(18.0);  //최대용
 
         //마커 생성
-//        setMark(covidArea1, 37.5670135, 126.9483740);
+        covidArea1.setPosition(new LatLng(37.38, 126.94));
+        covidArea1.setMap(naverMap);
+
 //        covidArea1.setOnClickListener(new Overlay.OnClickListener() {
 //            @Override
 //            public boolean onClick(@NonNull Overlay overlay) {
@@ -142,11 +136,24 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 //        });
 
     }
+//실시간 gps 위치
+//    public void onLocationChanged(Location location){
+//        if(startTime==-1)
+//            startTime=location.getTime();
+//        float distance[] = new float[1];
+//        Location.distanceBetween(beforeLocation.getLatitude(), beforeLocation.getLongitude(), location.getLatitude(), location.getLongitude(), distance);
+//        long delay = location.getTime() - startTime;
+//        double speed = distance[0]/delay;
+//        double speedKMH = speed * 3600;
+//
+//        // 전 위치 저장.
+//        beforeLocation = location;
+//    }
 
-    //마커 생성 함수
-    private void setMark(Marker marker, double lat, double lng){
-        marker.setPosition(new LatLng(lat, lng));
-        marker.setMap(naverMap);
-    }
+//    //마커 생성 함수
+//    private void setMark(Marker marker, double lat, double lng){
+//        marker.setPosition(new LatLng(lat, lng));
+//        marker.setMap(naverMap);
+//    }
 
 }

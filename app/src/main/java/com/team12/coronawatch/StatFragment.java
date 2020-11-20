@@ -134,7 +134,7 @@ public class StatFragment extends Fragment {
         public void run() {
             coronaKoreaStatus.loadXML();
             coronaKoreaStatus.parseXML();
-            coronaKoreaStatus.printInfo();
+            //coronaKoreaStatus.printInfo();
 
             //UI 제어
             if (getActivity() != null) {
@@ -171,7 +171,7 @@ public class StatFragment extends Fragment {
             pb_deathCnt_world.show();
             coronaNationalStatus.loadXML();
             coronaNationalStatus.parseXML();
-            coronaNationalStatus.printInfo();
+            //coronaNationalStatus.printInfo();
 
             //UI 제어
             if (getActivity() != null) {
