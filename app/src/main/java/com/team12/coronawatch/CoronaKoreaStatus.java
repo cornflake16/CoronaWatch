@@ -71,7 +71,7 @@ class DailyInfo {
 }
 
 class CoronaKoreaStatus {
-    final  double WEEKDAY_NUMBER = 7.0;
+    final double WEEKDAY_NUMBER = 7.0;
     //URL 관련 변수
     public String urlBuilder;
     public String UTF;
@@ -117,7 +117,8 @@ class CoronaKoreaStatus {
 
 
     //파싱 관련 변수
-    Element body, items, item;
+    Element header, body, items, item;
+    String resultCode;
     Node decideCnt, examCnt, clearCnt, deathCnt, createDt, stdDt;
     public ArrayList<DailyInfo> dailyInfoList;
 
@@ -125,8 +126,8 @@ class CoronaKoreaStatus {
         UTF = "UTF-8";
         SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/" +
                 "getCovid19InfStateJson";
-        SERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdl" +
-                "Vu%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";  //보건복지부_코로나19_국내_발생현황_일반인증키(UTF-8)
+        SERVICE_KEY = "=kC3ljqNBvF0D3D0MgwkBdzUlKztg0V2yJ%2BVkvqsymD0dJNuZmK%" +
+                "2B3LGpamas7GkxZJM07ADoSl6WR%2BdJODqB7sg%3D%3D";  //보건복지부_코로나19_국내_발생현황_일반인증키(UTF-8)
 
         dateFormatForComp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         dateFormat_year = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -219,7 +220,7 @@ class CoronaKoreaStatus {
         return date;
     }
 
-    protected void loadXML() {
+    protected boolean loadXML() {
         int nWeekAgo = 7,
                 nToday = 0;
         for (int i = 0; i < 2; i++) {
@@ -245,11 +246,19 @@ class CoronaKoreaStatus {
                 doc = dBuilder.parse(new InputSource(url.openStream()));
                 doc.getDocumentElement().normalize();
             } catch (IOException | SAXException | ParserConfigurationException e) {
-                Log.i("CoronaKRClass: ", "CoronaNationalStatus()" + e.getMessage());
+                Log.i("CoronaKRClass", e.getMessage());
             }
             Log.i("CORONA_KR: ", "" + url);
             Log.i("CORONA_KR: ", "" + doc);
-            assert doc != null;
+            if (doc == null) {
+                return false;
+            }
+            header = (Element) doc.getElementsByTagName("header").item(0);
+            resultCode = header.getElementsByTagName("resultCode").item(0)
+                    .getChildNodes().item(0).getNodeValue();
+            if (!CoronaNationalStatus.isParseError(resultCode)) {
+                return false;
+            }
             body = (Element) doc.getElementsByTagName("body").item(0);
             items = (Element) body.getElementsByTagName("items").item(0);
             item = (Element) items.getElementsByTagName("item").item(0);
@@ -270,6 +279,7 @@ class CoronaKoreaStatus {
                 }
             }
         }
+        return true;
     }
 
     public void parseXML() {
