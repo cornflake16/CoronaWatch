@@ -1,12 +1,20 @@
 package com.team12.coronawatch;
 
+import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import com.naver.maps.geometry.LatLng;
@@ -27,10 +35,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     //지도 관련 변수
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private FusedLocationSource locationSource;
-//    private LocationManager locationManager;
     private MapView covidMap;
+    //임시마크
     private Marker covidArea1 = new Marker();
+    private Marker covidArea2 = new Marker();
+    private Marker covidArea3 = new Marker();
     private Context context = getContext();
+    private LocationManager locationManager;
+    private static final int REQUEST_CODE_LOCATION = 2;
 //    Criteria criteria = new Criteria();
 //    private long startTime = -1;
 //    private Location beforeLocation;
@@ -61,6 +73,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         NaverMapSdk.getInstance(requireActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+
     }
 
     @Override
@@ -74,6 +88,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         //initializing maps object
 //        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
         NaverMapSdk.getInstance(getActivity()).setClient(new NaverMapSdk.NaverCloudPlatformClient(
                 "cwouczl691"));
         locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
@@ -86,15 +101,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         covidMap.onCreate(savedInstanceState);
         covidMap.getMapAsync(this);
 
-        //setMark(covidArea1, 37.5670135, 126.9483740);
         return v;
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         //카메라 위치 및 각도 조정
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context).setContentTitle("위험지역").setContentText("위험지역입니다. 마스크를 꼭 써주세요").setDefaults(Notification.DEFAULT_SOUND).setAutoCancel(true);
         CameraPosition cameraPosition = new CameraPosition(
-                new LatLng(33.38, 126.55),   // 위치 지정(제주도)
+                new LatLng(37.65, 126.97),   // 위치 지정(제주도)
                 9,                                     // 줌 레벨
                 0,                                       // 기울임 각도
                 0                                     // 방향
@@ -115,9 +130,27 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         naverMap.setMinZoom(6.0);   //최소
         naverMap.setMaxZoom(18.0);  //최대용
 
-        //마커 생성
-        covidArea1.setPosition(new LatLng(37.38, 126.94));
-        covidArea1.setMap(naverMap);
+        //setMark 함수 이용 확진자 방문 좌표를 알 경우 마크 생성 가능
+        setMark(covidArea1, 37.38, 126.94, naverMap);
+        setMark(covidArea2, 37.5895, 126.99, naverMap);
+        setMark(covidArea3, 37.48, 126.84, naverMap);
+
+        //사용자의 위치 수신을 위한 세팅
+        locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+        //사용자의 현재 위치
+        Location userLocation = getMyLocation();
+        if( userLocation != null ) {
+            double latitude = userLocation.getLatitude();
+            double longitude = userLocation.getLongitude();
+            System.out.println("////////////현재 내 위치값 : "+latitude+","+longitude);
+            //만약 거리가 원의 범위보다 멀다면 알림 x, 원 안이라면 알림 O
+            if(getDistance(latitude, longitude, covidArea1.getPosition().latitude, covidArea1.getPosition().longitude)<500){
+                NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                //알림부분
+                //               mNotificationManager.notify(0, mBuilder.build());
+
+            }
+        }
 
 //        covidArea1.setOnClickListener(new Overlay.OnClickListener() {
 //            @Override
@@ -150,10 +183,42 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 //        beforeLocation = location;
 //    }
 
-//    //마커 생성 함수
-//    private void setMark(Marker marker, double lat, double lng){
-//        marker.setPosition(new LatLng(lat, lng));
-//        marker.setMap(naverMap);
-//    }
+    //마커 생성 함수
+    private void setMark(Marker marker, double lat, double lng, NaverMap naverMap){
+        marker.setPosition(new LatLng(lat, lng));
+        marker.setMap(naverMap);
+    }
 
+    /*사용자의 위치를 수신*/
+    private Location getMyLocation() {
+        Location currentLocation = null;
+        // Register the listener with the Location Manager to receive location updates
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            System.out.println("////////////사용자에게 권한 요청이 필요함");
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, this.REQUEST_CODE_LOCATION);
+            getMyLocation(); //이건 써도되고 안써도 되지만 권한 승인하면 즉시 위치값 받아옴
+        }
+        else {
+            System.out.println("////////////사용자에게 권한 요청이 필요하지않음");
+
+            // 수동으로 위치 구하기
+            String locationProvider = LocationManager.GPS_PROVIDER;
+            currentLocation = locationManager.getLastKnownLocation(locationProvider);
+            if (currentLocation != null) {
+                double lng = currentLocation.getLongitude();
+                double lat = currentLocation.getLatitude();
+            }
+        }
+        return currentLocation;
+    }
+
+    //두 좌표사이 거리
+    static double getDistance(double x, double y, double x1, double y1) {
+        double d;
+        int xd, yd;
+        yd = (int) Math.pow((y1-y),2);
+        xd = (int) Math.pow((x1-x),2);
+        d = Math.sqrt(yd+xd);
+        return d;
+    }
 }
