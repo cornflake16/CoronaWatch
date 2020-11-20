@@ -20,7 +20,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class GraphFragment extends Fragment {
