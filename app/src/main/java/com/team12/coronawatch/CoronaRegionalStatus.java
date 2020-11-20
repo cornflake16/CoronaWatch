@@ -261,7 +261,14 @@ class CoronaRegionalStatus {
     }
 
     protected boolean loadXML() {
-        int nWeekAgo = 0,
+        /*
+          금일을 기준으로 한 데이터를 수신하더라도 nWeekAgo, nToday 값이 일치하면 안됨.
+          자정 ~ 업데이트 시점(다음 날)에 특정 element 를 수신하는데 널 포인터 예외가 날 수 있으므로,
+          항상 (nWeekAgo - nToday > 0)을 만족해야함. 요청 받은 값을 리스트에 넣을 때,
+          금일을 기준으로 한 값만 도출하기 위해, 조건문을 사용하여 서버로부터 요청 받은 등록일자(요소)의 일자 부분과
+          Date 클래스를 사용하여 얻은 금일의 일자(포맷을 일치시켜서 비교)가 일치하는 경우에만 값을 삽입하도록 하면됨
+         */
+        int nWeekAgo = 1,
                 nToday = 0;
         for (int i = 0; i < 2; i++) {
             try {
@@ -305,7 +312,7 @@ class CoronaRegionalStatus {
             if (i == 0) {
                 if (!sTmpCreateDt.substring(0, 10).equals(sToday)) {
                     System.out.println(sTmpCreateDt.substring(0, 10) + "-" + sToday);
-                    nWeekAgo = 1;
+                    nWeekAgo = 2;
                     nToday = 1;
                     stdYestFromServer = sTwoDayAgo;
                     stdTodayFromServer = sYesterday;
