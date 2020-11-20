@@ -5,6 +5,8 @@ package com.team12.coronawatch;
     @date 2020-11-19
  */
 
+import android.util.Log;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -148,7 +150,8 @@ class CoronaNationalStatus {
     String newFormatStateDate;
 
     //파싱관련 변수
-    Element body, items, item;
+    Element header, body, items, item;
+    String resultCode;
     Node areaNm, areaNmEn, nationNm, nationNmEn, natDefCnt, natDeathCnt, natDeathRate, createDt, stdDt;
     ArrayList<NationInfo> natInfoList = new ArrayList<>();
 
@@ -157,8 +160,8 @@ class CoronaNationalStatus {
         UTF = "UTF-8";
         SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/" +
                 "getCovid19NatInfStateJson";
-        SERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdl" +
-                "Vu%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";  //보건복지부_코로나19_해외_발생현황_일반인증키(UTF-8)
+        SERVICE_KEY = "=kC3ljqNBvF0D3D0MgwkBdzUlKztg0V2yJ%2BVkvqsymD0dJNuZmK%" +
+                "2B3LGpamas7GkxZJM07ADoSl6WR%2BdJODqB7sg%3D%3D";  //보건복지부_코로나19_해외_발생현황_일반인증키(UTF-8)
 
         dateFormatForComp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         dateFormat_year = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -238,7 +241,72 @@ class CoronaNationalStatus {
         return date;
     }
 
-    public void loadXML() {
+    public static void printParseErrorMsg(String resultCode, String errMsg) {
+        Log.i("parseResultCode: ", resultCode + " - " + errMsg);
+
+    }
+
+    public static boolean isParseError(String resultCode) {
+        switch (resultCode) {
+            case "0":
+                printParseErrorMsg(resultCode, "정상");
+                break;
+            case "1":
+                printParseErrorMsg(resultCode, "어플리케이션 에러");
+                break;
+            case "2":
+                printParseErrorMsg(resultCode, "데이터베이스 에러");
+                break;
+            case "3":
+                printParseErrorMsg(resultCode, "데이터 없음 에러");
+                break;
+            case "4":
+                printParseErrorMsg(resultCode, "HTTP 에러");
+                break;
+            case "5":
+                printParseErrorMsg(resultCode, "서비스 연결실패 에러");
+                break;
+            case "10":
+                printParseErrorMsg(resultCode, "잘못된 요청 파라미터 에러");
+                break;
+            case "11":
+                printParseErrorMsg(resultCode, "필수요청 파라미터가 없음");
+                break;
+            case "12":
+                printParseErrorMsg(resultCode, "해당 오픈 API 서비스가 없거나 폐기됨");
+                break;
+            case "20":
+                printParseErrorMsg(resultCode, "서비스 접근 거부");
+                break;
+            case "21":
+                printParseErrorMsg(resultCode, "일시적으로 사용할 수 없는 서비스 키");
+                break;
+            case "22":
+                printParseErrorMsg(resultCode, "서비스 요청제한 횟수 초과");
+                break;
+            case "30":
+                printParseErrorMsg(resultCode, "등록되지 않은 서비스 키");
+                break;
+            case "31":
+                printParseErrorMsg(resultCode, "기한 만료된 서비스키");
+                break;
+            case "32":
+                printParseErrorMsg(resultCode, "등록되지 않은 IP");
+                break;
+            case "33":
+                printParseErrorMsg(resultCode, "서명되지 않은 호출");
+                break;
+            case "99":
+                printParseErrorMsg(resultCode, "기타 에러");
+                break;
+            default:
+                printParseErrorMsg(resultCode, "정상 수신");
+                return true;
+        }
+        return false;
+    }
+
+    protected boolean loadXML() {
         int nYesterday = 1, nToday = 0;
         for (int i = 0; i < 2; i++) {
             try {
@@ -248,10 +316,10 @@ class CoronaNationalStatus {
                         "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(nYesterday), UTF) + /*검색할 생성일 범위의 시작*/
                         "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(nToday), UTF);/*URL*//*검색할 생성일 범위의 종료*/
                 if (i == 1) {
-                    System.out.println("INFO_URL - URL:" + urlBuilder);
+                    Log.i("loadXML()", urlBuilder);
                 }
             } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
+                Log.i("loadXML()", e.getMessage());
             }
 
             Document doc = null;
@@ -262,16 +330,26 @@ class CoronaNationalStatus {
                 doc = dBuilder.parse(new InputSource(url.openStream()));
                 doc.getDocumentElement().normalize();
             } catch (IOException | SAXException | ParserConfigurationException e) {
-                System.out.println("CoronaNationalStatus()" + e.getMessage());
+                Log.i("CoronaNatClass", e.getMessage());
+            }
+            Node tmpCreateDt;
+            String sTmpCreateDt;
+            if (doc == null) {
+                return false;
+            }
+            header = (Element) doc.getElementsByTagName("header").item(0);
+            resultCode = header.getElementsByTagName("resultCode").item(0)
+                    .getChildNodes().item(0).getNodeValue();
+            if (!isParseError(resultCode)) {
+                return false;
             }
 
-            assert doc != null;
             body = (Element) doc.getElementsByTagName("body").item(0);
             items = (Element) body.getElementsByTagName("items").item(0);
             item = (Element) items.getElementsByTagName("item").item(0);
 
-            Node tmpCreateDt = item.getElementsByTagName("createDt").item(0);
-            String sTmpCreateDt = tmpCreateDt.getChildNodes().item(0).getNodeValue();
+            tmpCreateDt = item.getElementsByTagName("createDt").item(0);
+            sTmpCreateDt = tmpCreateDt.getChildNodes().item(0).getNodeValue();
             if (i == 0) {
                 if (!sTmpCreateDt.substring(0, 10).equals(sToday)) {
                     nYesterday = 2;
@@ -285,12 +363,13 @@ class CoronaNationalStatus {
                 }
             }
         }
+        return true;
     }
 
-    public void parseXML() {
+    protected void parseXML() {
         loadXML();
-        System.out.println("서버기준 오늘: " + stdTodayFromServer);
-        System.out.println("서버기준 어제: " + stdYestFromServer);
+//        Log.i("서버기준 오늘: " + stdTodayFromServer);
+//        Log.i("서버기준 어제: " + stdYestFromServer);
         int i = 0;
         while (true) {
             NationInfo nationInfo = new NationInfo();
@@ -331,16 +410,16 @@ class CoronaNationalStatus {
         int n = 0;
         todayTotalNatDefCnt = todayTotalNatDeathCnt = 0;
         for (NationInfo natInfo : natInfoList) {
-//            System.out.println("----------------------------------------");
-//            System.out.println("#" + ++n);
-//            System.out.println("지역명: " + natInfo.getAreaNm());
-//            System.out.println("지역명_영문: " + natInfo.getAreaNmEn());
-//            System.out.println("국가명: " + natInfo.getNationNm());
-//            System.out.println("국가명_영문: " + natInfo.getNationNmEn());
-//            System.out.println("확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
-//            System.out.println("사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
-//            System.out.println("확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
-//            System.out.println("등록일: " + natInfo.getCreateDt().substring(0, 19));
+//            Log.i("----------------------------------------");
+//            Log.i("#" + ++n);
+//            Log.i("지역명: " + natInfo.getAreaNm());
+//            Log.i("지역명_영문: " + natInfo.getAreaNmEn());
+//            Log.i("국가명: " + natInfo.getNationNm());
+//            Log.i("국가명_영문: " + natInfo.getNationNmEn());
+//            Log.i("확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
+//            Log.i("사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
+//            Log.i("확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
+//            Log.i("등록일: " + natInfo.getCreateDt().substring(0, 19));
 
             if (stdTodayFromServer.equals(natInfo.getCreateDt().substring(0, 10))) {
                 todayTotalNatDefCnt += natInfo.getNatDefCnt();
@@ -355,7 +434,7 @@ class CoronaNationalStatus {
         natDefIncCnt = (todayTotalNatDefCnt - yestTotalDefCnt);
         natDeathIncCnt = (todayTotalNatDeathCnt - yestNatDeathCnt);
         newFormatStateDate = stateDate.substring(0, 4) + '-' + stateDate.substring(6, 8)
-                + '-' + stateDate.substring(10, 12) + ' ' + stateDate.substring(14, 16) + "시";
+                + '-' + stateDate.substring(10, 12) + ' ' + stateDate.substring(14, 16) + "시 기준(세계)";
 
         newFmt_todayTotNatDefCnt = formatter.format(todayTotalNatDefCnt);
         newFmt_todayTotNatDeathCnt = formatter.format(todayTotalNatDeathCnt);
@@ -365,15 +444,15 @@ class CoronaNationalStatus {
 
     //주석은 테스트할 때만 해제하는 것을 권장
 //    public void printInfo() {
-//        System.out.println("----------------------------------------");
-//        System.out.println("[ 정리 ]");
-//        System.out.println("기준일시: " + newFormatStateDate + '\n');
-//        System.out.println("(총합)");
-//        System.out.println(" - 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
-//        System.out.println(" - 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
-//        System.out.println(" - 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
-//        System.out.println(" - 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
-//        System.out.println(" - 감염국가 수: " + totalDefNatCnt);
+//        Log.i("----------------------------------------");
+//        Log.i("[ 정리 ]");
+//        Log.i("기준일시: " + newFormatStateDate + '\n');
+//        Log.i("(총합)");
+//        Log.i(" - 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
+//        Log.i(" - 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
+//        Log.i(" - 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
+//        Log.i(" - 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
+//        Log.i(" - 감염국가 수: " + totalDefNatCnt);
 //    }
 }
 
