@@ -1,5 +1,7 @@
 package com.team12.coronawatch;
 
+import android.util.Log;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -153,7 +155,8 @@ class CoronaRegionalStatus {
     ArrayList<String> createDtList, updateDtList;
 
     //파싱 관련 변수
-    Element body, items, item;
+    Element header, body, items, item;
+    String resultCode;
     Node gubun, gubunEn, defCnt, isolClearCnt, isolIngCnt, deathCnt, incDec, createDt, updateDt;
     ArrayList<RegionInfo> regionInfoList;
 
@@ -161,8 +164,8 @@ class CoronaRegionalStatus {
         UTF = "UTF-8";
         SERVICE_URL = "http://openapi.data.go.kr/openapi/service/rest/Covid19/" +
                 "getCovid19SidoInfStateJson";
-        SERVICE_KEY = "=1S8z1o0Mg6QxYGxG5z3Efb87G2YqofNJcnFv4L47ru7gPncj2MRdl" +
-                "Vu%2BK6uitzbqYnf6BSl19%2FXCXMuqtrXx8w%3D%3D";  //보건복지부_코로나19_국내_시_도별_발생현황_일반인증키(UTF-8)
+        SERVICE_KEY = "=kC3ljqNBvF0D3D0MgwkBdzUlKztg0V2yJ%2BVkvqsymD0dJNuZmK%" +
+                "2B3LGpamas7GkxZJM07ADoSl6WR%2BdJODqB7sg%3D%3D";  //보건복지부_코로나19_국내_시_도별_발생현황_일반인증키(UTF-8)
 
         dateFormatForComp = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         dateFormat_year = new SimpleDateFormat("yyyy", Locale.getDefault());
@@ -253,7 +256,7 @@ class CoronaRegionalStatus {
         return date;
     }
 
-    public void loadXML() {
+    protected boolean loadXML() {
         int nWeekAgo = 0,
                 nToday = 0;
         for (int i = 0; i < 2; i++) {
@@ -264,10 +267,10 @@ class CoronaRegionalStatus {
                         "&" + URLEncoder.encode("startCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(nWeekAgo), UTF) + /*검색할 생성일 범위의 시작*/
                         "&" + URLEncoder.encode("endCreateDt", UTF) + "=" + URLEncoder.encode(dayAgo(nToday), UTF);/*URL*//*검색할 생성일 범위의 종료*/
                 if (i == 1) {
-                    System.out.println("INFO_URL - URL:" + urlBuilder);
+                    Log.i("loadXML()", urlBuilder);
                 }
             } catch (Exception e) {
-                System.out.println("Exception: " + e.getMessage());
+                Log.i("loadXML()", e.getMessage());
             }
 
             Document doc = null;
@@ -278,10 +281,17 @@ class CoronaRegionalStatus {
                 doc = dBuilder.parse(new InputSource(url.openStream()));
                 doc.getDocumentElement().normalize();
             } catch (IOException | SAXException | ParserConfigurationException e) {
-                System.out.println("CoronaRegionalStatus()" + e.getMessage());
+                Log.i("CoronaRegClass", e.getMessage());
             }
-
-            assert doc != null;
+            if (doc == null) {
+                return false;
+            }
+            header = (Element) doc.getElementsByTagName("head").item(0);
+            resultCode = header.getElementsByTagName("resultCode").item(0)
+                    .getChildNodes().item(0).getNodeValue();
+            if (!CoronaNationalStatus.isParseError(resultCode)) {
+                return false;
+            }
             body = (Element) doc.getElementsByTagName("body").item(0);
             items = (Element) body.getElementsByTagName("items").item(0);
             item = (Element) items.getElementsByTagName("item").item(0);
@@ -302,12 +312,13 @@ class CoronaRegionalStatus {
                 }
             }
         }
+        return true;
     }
 
-    public void parseXML() {
+    protected void parseXML() {
         loadXML();
-        System.out.println("서버기준 오늘: " + stdTodayFromServer);
-        System.out.println("서버기준 어제: " + stdYestFromServer);
+        Log.i("parseXML()", stdTodayFromServer);
+        Log.i("parseXML()", stdYestFromServer);
         int i = 0;
         while (true) {
             RegionInfo regionInfo = new RegionInfo();
@@ -355,17 +366,17 @@ class CoronaRegionalStatus {
 
         for (RegionInfo regionInfo : regionInfoList) {
             //주석은 테스트할 때만 해제하는 것을 권장
-//            System.out.println("----------------------------------------");
-//            System.out.println("등록일시: " + regionInfo.getCreateDt().substring(0, 19));
-//            System.out.println("수정일시: " + regionInfo.getUpdateDt());
-//            System.out.println("지역명: " + regionInfo.getGubun());
-//            System.out.println("지역명(영문): " + regionInfo.getGubunEn() + '\n');
-//            System.out.println("(누적)");
-//            System.out.println(" - 확진자 수: " + formatter.format(regionInfo.getDefCnt())
+//            Log.i("----------------------------------------");
+//            Log.i("등록일시: " + regionInfo.getCreateDt().substring(0, 19));
+//            Log.i("수정일시: " + regionInfo.getUpdateDt());
+//            Log.i("지역명: " + regionInfo.getGubun());
+//            Log.i("지역명(영문): " + regionInfo.getGubunEn() + '\n');
+//            Log.i("(누적)");
+//            Log.i(" - 확진자 수: " + formatter.format(regionInfo.getDefCnt())
 //                    + "명(+" + regionInfo.getIncDec() + ")");
-//            System.out.println(" - 격리해제 수: " + formatter.format(regionInfo.getIsolClearCnt()) + "명");
-//            System.out.println(" - 격리중 환자 수: " + formatter.format(regionInfo.getIsolIngCnt()) + "명");
-//            System.out.println(" - 사망자 수: " + formatter.format(regionInfo.getDeathCnt()) + "명");
+//            Log.i(" - 격리해제 수: " + formatter.format(regionInfo.getIsolClearCnt()) + "명");
+//            Log.i(" - 격리중 환자 수: " + formatter.format(regionInfo.getIsolIngCnt()) + "명");
+//            Log.i(" - 사망자 수: " + formatter.format(regionInfo.getDeathCnt()) + "명");
 
             gubunList.add(regionInfo.getGubun());
             gubunEnList.add(regionInfo.getGubunEn());
