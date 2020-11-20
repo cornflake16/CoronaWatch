@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/constraintLayout_phase"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="40dp"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout">
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout_phase">
 
             <TextView
                 android:id="@+id/tv_virus_name_label"
@@ -97,7 +97,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="30dp"
             android:background="#555555"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout_phase" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout_btn"
@@ -456,20 +456,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout_kr">
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout_kr"
+            android:orientation="vertical">
 
             <ListView
-                android:id="@+id/listView"
+                android:id="@+id/listView_kr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:clickable="false"
                 android:choiceMode="none"
+                android:clickable="false"
+                android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
                 tools:ignore="NestedScrolling" />
+
+<!--            <ListView-->
+<!--                android:id="@+id/listView_world"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:choiceMode="none"-->
+<!--                android:visibility="invisible"-->
+<!--                android:clickable="false"-->
+<!--                android:focusable="false"-->
+<!--                android:focusableInTouchMode="false"-->
+<!--                android:longClickable="false"-->
+<!--                tools:ignore="NestedScrolling" />-->
 
         </LinearLayout>
 
