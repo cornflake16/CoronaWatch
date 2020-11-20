@@ -148,12 +148,11 @@ public class MainActivity extends AppCompatActivity{
                     return true;
                 }
             };
-<<<<<<< HEAD
+
 
 
 
 
 }
-=======
-}
->>>>>>> 999fbe1eb2053e04d8d447f50292a9f7414fdbe4
+
+
