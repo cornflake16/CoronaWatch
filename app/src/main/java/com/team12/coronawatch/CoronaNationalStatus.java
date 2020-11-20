@@ -1,4 +1,9 @@
 package com.team12.coronawatch;
+/*
+    @title 공공데이터포털_보건복지부_코로나_해외발생현황_API_사용_샘플코드
+    @author 윤낙원
+    @date 2020-11-19
+ */
 
 import android.util.Log;
 
@@ -454,3 +459,5 @@ class CoronaNationalStatus {
 //        Log.i(" - 감염국가 수: " + totalDefNatCnt);
 //    }
 }
+
+
