@@ -76,6 +76,7 @@
         app:layout_constraintEnd_toEndOf="@id/defBarChart"
         app:layout_constraintStart_toStartOf="@id/defBarChart"
         app:layout_constraintTop_toTopOf="@id/defBarChart" />
+    
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/deathIncBarChart"
         android:layout_width="0dp"
