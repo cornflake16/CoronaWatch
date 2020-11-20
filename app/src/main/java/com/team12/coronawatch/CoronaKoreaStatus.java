@@ -23,18 +23,18 @@ import javax.xml.parsers.ParserConfigurationException;
 
 
 class DailyInfo {
-    private long decideCnt;     //확진자 수
+    private long defCnt;     //확진자 수
     private long examCnt;       //검사진행 수
     private long clearCnt;      //격리해제 수
     private long deathCnt;      //사망자 수
     private String createDt;    //등록일시
 
-    public long getDecideCnt() {
-        return decideCnt;
+    public long getDefCnt() {
+        return defCnt;
     }
 
-    public void setDecideCnt(long decideCnt) {
-        this.decideCnt = decideCnt;
+    public void setDefCnt(long defCnt) {
+        this.defCnt = defCnt;
     }
 
     public long getExamCnt() {
@@ -96,11 +96,12 @@ class CoronaKoreaStatus {
         createDtList: 일자별 등록일자가 들어 있는 리스트 (ex. 2020-11-19)
         createDtTimeList: 일자별 등록일시가 들어 있는 리스트 (ex. 2020-11-19 09)
         $(x)CntList: 일자별로 x 항목의 값(수치)들을 저장해놓은 리스트(인덱스가 낮을수록 최신 일자의 데이터)
-        $(x)CntToTal: 일주일
         $(x)IncCnt: 금일 기준 전일 대비 x 항목의 증가 값
         $(x)IncCntList: 일자별로 전일대비 증가 값들을 저장해놓은 리스트_총 (day-1)개의 값이 저장되야함 -> ex)8일기준 7개
         $(x)TotIncCntForAWeek: 한 주 동안의 x 항목의 증가 값들의 총합
         $(x)AvgIncCntForAWeek: 한 주 동안의 x 항목의 증가 값들의 평균 값
+        decideTotForWeek: 한 주 동안의 확진자 수 총합
+        decideAvgForWeek: 한 주 동안의 확진자 수 평균 값
     */
     public String todayStateDate;
     public ArrayList<String> createDtList, createDtTimeList;
@@ -114,6 +115,8 @@ class CoronaKoreaStatus {
     public String newFmt_todayExamCnt, newFmt_examIncCnt, newFmt_examTotIncCntForAWeek, newFmt_examAvgIncCntForAWeek;
     public String newFmt_todayClearCnt, newFmt_clearIncCnt, newFmt_clearTotIncCntForAWeek, newFmt_clearAvgIncCntForAWeek;
     public String newFmt_todayDeathCnt, newFmt_deathIncCnt, newFmt_deathTotIncCntForAWeek, newFmt_deathAvgIncCntForAWeek;
+    public int decideTotForWeek;
+    public double decideAvgForWeek;
 
     //파싱 관련 변수
     Element header, body, items, item;
@@ -309,7 +312,7 @@ class CoronaKoreaStatus {
             deathCnt = item.getElementsByTagName("deathCnt").item(0);    //사망자 수(일별)
             createDt = item.getElementsByTagName("createDt").item(0);    //등록일시
 
-            dailyInfo.setDecideCnt(Long.parseLong(decideCnt.getChildNodes().item(0).getNodeValue()));
+            dailyInfo.setDefCnt(Long.parseLong(decideCnt.getChildNodes().item(0).getNodeValue()));
             dailyInfo.setExamCnt(Long.parseLong(examCnt.getChildNodes().item(0).getNodeValue()));
             dailyInfo.setClearCnt(Long.parseLong(clearCnt.getChildNodes().item(0).getNodeValue()));
             dailyInfo.setDeathCnt(Long.parseLong(deathCnt.getChildNodes().item(0).getNodeValue()));
@@ -318,11 +321,12 @@ class CoronaKoreaStatus {
             dailyInfoList.add(dailyInfo);
         }
 
+        int n = 0;
         for (DailyInfo dailyInfo : dailyInfoList) {
 //            테스트할 때만 로그 출력을 위해 주석해제
             Log.i("CoronaKRClass: ", "----------------------------------------");
             Log.i("CoronaKRClass: ", "등록일자: " + dailyInfo.getCreateDt().substring(0, 19) + '\n');
-            Log.i("CoronaKRClass: ", "확진자 수(누적): " + formatter.format(dailyInfo.getDecideCnt()) + "명");
+            Log.i("CoronaKRClass: ", "확진자 수(누적): " + formatter.format(dailyInfo.getDefCnt()) + "명");
             Log.i("CoronaKRClass: ", "검사진행 수(누적): " + formatter.format(dailyInfo.getExamCnt()) + "명");
             Log.i("CoronaKRClass: ", "격리해제 수(누적): " + formatter.format(dailyInfo.getClearCnt()) + "명");
             Log.i("CoronaKRClass: ", "사망자 수(누적): " + formatter.format(dailyInfo.getDeathCnt()) + "명");
@@ -330,13 +334,17 @@ class CoronaKoreaStatus {
             createDtList.add(dailyInfo.getCreateDt().substring(0, 19));
             createDtTimeList.add(dailyInfo.getCreateDt().substring(0, 13));
             //일자별로 각 항목의 값(수치)들을 저장
-            decideCntList.add(dailyInfo.getDecideCnt());
+            decideCntList.add(dailyInfo.getDefCnt());
             examCntList.add(dailyInfo.getExamCnt());
             clearCntList.add(dailyInfo.getClearCnt());
             deathCntList.add(dailyInfo.getDeathCnt());
 
+            if (n++ != 7) {
+                decideTotForWeek += dailyInfo.getDefCnt();
+            }
             todayStateDate = createDtTimeList.get(0) + "시 기준(국내)";
         }
+        decideAvgForWeek = decideTotForWeek / 7.0;
 
         //한 주 동안의 증가 값들을 구하기 위한 반복문
         for (int j = 0; j < WEEKDAY_NUMBER - 1; j++) {
@@ -405,9 +413,9 @@ class CoronaKoreaStatus {
 //        Log.i("CoronaKRClass: ", "\t\t - 검사진행 수(누적): " + formatter.format(examCntList.get(0)) + "명");
 //        Log.i("CoronaKRClass: ", "\t\t - 검사진행 증가 수(전일 대비): " + formatter.format(examIncCnt) + "명");
 //        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 총합 "
-//                + formatter.format(examTotIncCntForAWeek) + "명의 검사자 추가");
+//                + formatter.format(examTotIncCntForAWeek) + "명의 검사진행 추가");
 //        Log.i("CoronaKRClass: ", "\t\t - " + (int) WEEKDAY_NUMBER + "일 평균 "
-//                + formatter.format(examAvgIncCntForAWeek) + "명의 검사자 추가");
+//                + formatter.format(examAvgIncCntForAWeek) + "명의 검사진행 추가");
 //        Log.i("CoronaKRClass: ", "---");
 //
 //        Log.i("CoronaKRClass: ", "\t(격리해제)");
