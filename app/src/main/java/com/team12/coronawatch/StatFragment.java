@@ -138,7 +138,7 @@ public class StatFragment extends Fragment {
                 conLayoutWorld.setVisibility(View.VISIBLE);
                 tv_state_date_kr_label.setVisibility(View.INVISIBLE);
                 tv_state_date_nat_label.setVisibility(View.VISIBLE);
-                listView_kr.setVisibility(View.INVISIBLE);
+                listView_kr.setVisibility(View.GONE);
 //                listView_world.setVisibility(View.VISIBLE);
             }
         });
