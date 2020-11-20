@@ -95,48 +95,48 @@ public class MainActivity extends AppCompatActivity{
                     int id = item.getItemId();
                     // FragmentManager에 선택한 Fragment가 없으면 add 해주고, 해당 Fragment를 show, 다른 Fragment는 hide
                     if (id == R.id.mapsFragment) {
-                        if(mFragment == null) {
+                        if (mFragment == null) {
                             mFragment = new MapsFragment();
                             getSupportFragmentManager().beginTransaction().add(R.id.layout_fragment,
                                     mFragment).commit();
                         }
-                        if(mFragment != null)
+                        if (mFragment != null)
                             getSupportFragmentManager().beginTransaction().show(mFragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                        if(sFragment != null)
+                        if (sFragment != null)
                             getSupportFragmentManager().beginTransaction().hide(sFragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                        if(gFragment != null)
+                                    .setTransition(FragmentTransaction.TRANSIT_NONE).commit();
+                        if (gFragment != null)
                             getSupportFragmentManager().beginTransaction().hide(gFragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                                    .setTransition(FragmentTransaction.TRANSIT_NONE).commit();
                     } else if (id == R.id.statFragment) {
-                        if(sFragment == null) {
+                        if (sFragment == null) {
                             sFragment = new StatFragment();
                             getSupportFragmentManager().beginTransaction().add(R.id.layout_fragment,
                                     sFragment).commit();
                         }
-                        if(mFragment != null)
+                        if (mFragment != null)
                             getSupportFragmentManager().beginTransaction().hide(mFragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                        if(sFragment != null)
+                        if (sFragment != null)
                             getSupportFragmentManager().beginTransaction().show(sFragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                        if(gFragment != null)
+                                    .setTransition(FragmentTransaction.TRANSIT_NONE).commit();
+                        if (gFragment != null)
                             getSupportFragmentManager().beginTransaction().hide(gFragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                                    .setTransition(FragmentTransaction.TRANSIT_NONE).commit();
                     } else if (id == R.id.graphFragment) {
-                        if(gFragment == null) {
+                        if (gFragment == null) {
                             gFragment = new GraphFragment();
                             getSupportFragmentManager().beginTransaction().add(R.id.layout_fragment,
                                     gFragment).commit();
                         }
-                        if(mFragment != null)
+                        if (mFragment != null)
                             getSupportFragmentManager().beginTransaction().hide(mFragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                        if(sFragment != null)
+                        if (sFragment != null)
                             getSupportFragmentManager().beginTransaction().hide(sFragment)
-                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
-                        if(gFragment != null)
+                                    .setTransition(FragmentTransaction.TRANSIT_NONE).commit();
+                        if (gFragment != null)
                             getSupportFragmentManager().beginTransaction().show(gFragment)
                                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
                     }
@@ -148,8 +148,12 @@ public class MainActivity extends AppCompatActivity{
                     return true;
                 }
             };
+<<<<<<< HEAD
 
 
 
 
 }
+=======
+}
+>>>>>>> 999fbe1eb2053e04d8d447f50292a9f7414fdbe4

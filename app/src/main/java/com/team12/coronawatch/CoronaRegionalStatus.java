@@ -290,7 +290,7 @@ class CoronaRegionalStatus {
             if (doc == null) {
                 return false;
             }
-            header = (Element) doc.getElementsByTagName("head").item(0);
+            header = (Element) doc.getElementsByTagName("header").item(0);
             resultCode = header.getElementsByTagName("resultCode").item(0)
                     .getChildNodes().item(0).getNodeValue();
             if (!CoronaNationalStatus.isParseError(resultCode)) {
@@ -363,9 +363,6 @@ class CoronaRegionalStatus {
 
             regionInfoList.add(regionInfo);
         }
-        //검역 요소가 있는 인덱스의 값과 리스트의 맨 마지막의 값을 스와핑 후에
-        //시도별 확진자 수(defCnt)에 따라 regionInfoList 재 정렬
-        Collections.swap(regionInfoList, 0, regionInfoList.size() - 1);
         Collections.sort(regionInfoList.subList(0, regionInfoList.size() - 1));
 
         for (RegionInfo regionInfo : regionInfoList) {
