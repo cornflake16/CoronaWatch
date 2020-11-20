@@ -290,7 +290,7 @@ class CoronaRegionalStatus {
             if (doc == null) {
                 return false;
             }
-            header = (Element) doc.getElementsByTagName("head").item(0);
+            header = (Element) doc.getElementsByTagName("header").item(0);
             resultCode = header.getElementsByTagName("resultCode").item(0)
                     .getChildNodes().item(0).getNodeValue();
             if (!CoronaNationalStatus.isParseError(resultCode)) {
