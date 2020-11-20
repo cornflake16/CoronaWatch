@@ -321,7 +321,6 @@ class CoronaKoreaStatus {
             dailyInfoList.add(dailyInfo);
         }
 
-        int n = 0;
         for (DailyInfo dailyInfo : dailyInfoList) {
 //            테스트할 때만 로그 출력을 위해 주석해제
             Log.i("CoronaKRClass: ", "----------------------------------------");
@@ -339,20 +338,21 @@ class CoronaKoreaStatus {
             clearCntList.add(dailyInfo.getClearCnt());
             deathCntList.add(dailyInfo.getDeathCnt());
 
-            if (n++ != 7) {
-                decideTotForWeek += dailyInfo.getDefCnt();
-            }
             todayStateDate = createDtTimeList.get(0) + "시 기준(국내)";
         }
-        decideAvgForWeek = decideTotForWeek / 7.0;
 
         //한 주 동안의 증가 값들을 구하기 위한 반복문
-        for (int j = 0; j < WEEKDAY_NUMBER - 1; j++) {
+        for (int j = 0; j < WEEKDAY_NUMBER; j++) {
             decideIncCntList.add(decideCntList.get(j) - decideCntList.get(j + 1));
             examIncCntList.add(examCntList.get(j) - examCntList.get(j + 1));
             clearIncCntList.add(clearCntList.get(j) - clearCntList.get(j + 1));
             deathIncCntList.add(deathCntList.get(j) - deathCntList.get(j + 1));
+
+            if (j != 7) {
+                decideTotForWeek += decideIncCntList.get(j);
+            }
         }
+        decideAvgForWeek = decideTotForWeek / 7.0;
 
         //금일 기준 전일 대비 증가 값을 구하기 위한 연산
         decideIncCnt = decideIncCntList.get(0);
