@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 
@@ -165,7 +166,7 @@ public class GraphFragment extends Fragment {
                         defBDS.setValueTextSize(10f);
                         defBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
 
-                        BarDataSet defIncBDS = new BarDataSet(defIncCntBE, "전일 대비 확진자 증가 수(명)");
+                        BarDataSet defIncBDS = new BarDataSet(defIncCntBE, "전일 대비 확진자 증감 수(명)");
                         defIncBDS.setColor(Color.parseColor("#CCE65100"));
                         defIncBDS.setValueTextColor(Color.BLACK);
                         defIncBDS.setValueTextSize(10f);
@@ -177,7 +178,7 @@ public class GraphFragment extends Fragment {
                         examBDS.setValueTextSize(10f);
                         examBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
 
-                        BarDataSet examIncBDS = new BarDataSet(examIncCntBE, "전일 대비 검사진행 증가 수(명)");
+                        BarDataSet examIncBDS = new BarDataSet(examIncCntBE, "전일 대비 검사진행 증감 수(명)");
                         examIncBDS.setColor(Color.parseColor("#CCE65100"));
                         examIncBDS.setValueTextColor(Color.BLACK);
                         examIncBDS.setValueTextSize(10f);
@@ -189,7 +190,7 @@ public class GraphFragment extends Fragment {
                         clearBDS.setValueTextSize(10f);
                         clearBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
 
-                        BarDataSet clearIncBDS = new BarDataSet(clearIncCntBE, "전일 대비 격리해제 증가 수(명)");
+                        BarDataSet clearIncBDS = new BarDataSet(clearIncCntBE, "전일 대비 격리해제 증감 수(명)");
                         clearIncBDS.setColor(Color.parseColor("#CCE65100"));
                         clearIncBDS.setValueTextColor(Color.BLACK);
                         clearIncBDS.setValueTextSize(10f);
@@ -201,7 +202,7 @@ public class GraphFragment extends Fragment {
                         deathBDS.setValueTextSize(10f);
                         deathBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
 
-                        BarDataSet deathIncBDS = new BarDataSet(deathIncCntBE, "전일 대비 사망자 증가 수(명)");
+                        BarDataSet deathIncBDS = new BarDataSet(deathIncCntBE, "전일 대비 사망자 증감 수(명)");
                         deathIncBDS.setColor(Color.parseColor("#CCE65100"));
                         deathIncBDS.setValueTextColor(Color.BLACK);
                         deathIncBDS.setValueTextSize(10f);
@@ -220,16 +221,16 @@ public class GraphFragment extends Fragment {
                         defBarChart.setData(defBD);
                         defBarChart.getDescription().setText("일주일간 확진자 수 그래프");
                         defBarChart.getDescription().setTextSize(11f);
-                        defBarChart.animateX(2000);
+                        defBarChart.animateY(3000);
                         defBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         defBarChart.getXAxis().setTextSize(12f);
                         defBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
 
                         defIncBarChart.setFitBars(true);
                         defIncBarChart.setData(defIncBD);
-                        defIncBarChart.getDescription().setText("일주일간 확진자 증가 수 그래프");
+                        defIncBarChart.getDescription().setText("일주일간 확진자 증감 그래프");
                         defIncBarChart.getDescription().setTextSize(11f);
-                        defIncBarChart.animateX(2000);
+                        defIncBarChart.animateY(3000);
                         defIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         defIncBarChart.getXAxis().setTextSize(12f);
                         defIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
@@ -237,7 +238,7 @@ public class GraphFragment extends Fragment {
                         examBarChart.setFitBars(true);
                         examBarChart.setData(examBD);
                         examBarChart.getDescription().setText("일주일간 검사진행 수 그래프");
-                        examBarChart.animateX(2000);
+                        examBarChart.animateY(3000);
                         examBarChart.getDescription().setTextSize(11f);
                         examBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         examBarChart.getXAxis().setTextSize(12f);
@@ -245,9 +246,9 @@ public class GraphFragment extends Fragment {
 
                         examIncBarChart.setFitBars(true);
                         examIncBarChart.setData(examIncBD);
-                        examIncBarChart.getDescription().setText("일주일간 검사진행 증가 수 그래프");
+                        examIncBarChart.getDescription().setText("일주일간 검사진행 증감 그래프");
                         examIncBarChart.getDescription().setTextSize(11f);
-                        examIncBarChart.animateX(2000);
+                        examIncBarChart.animateY(3000);
                         examIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         examIncBarChart.getXAxis().setTextSize(12f);
                         examIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
@@ -255,7 +256,7 @@ public class GraphFragment extends Fragment {
                         clearBarChart.setFitBars(true);
                         clearBarChart.setData(clearBD);
                         clearBarChart.getDescription().setText("일주일간 격리해제 수 그래프");
-                        clearBarChart.animateX(2000);
+                        clearBarChart.animateY(3000);
                         clearBarChart.getDescription().setTextSize(11f);
                         clearBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         clearBarChart.getXAxis().setTextSize(12f);
@@ -263,17 +264,22 @@ public class GraphFragment extends Fragment {
 
                         clearIncBarChart.setFitBars(true);
                         clearIncBarChart.setData(clearIncBD);
-                        clearIncBarChart.getDescription().setText("일주일간 격리해제 증가 수 그래프");
+                        clearIncBarChart.getDescription().setText("일주일간 격리해제 증감 그래프");
                         clearIncBarChart.getDescription().setTextSize(11f);
-                        clearIncBarChart.animateX(2000);
+                        clearIncBarChart.animateY(3000);
                         clearIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         clearIncBarChart.getXAxis().setTextSize(12f);
-                        clearIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
+                        clearIncBarChart.getXAxis().setValueFormatter(new ValueFormatter() {
+                            @Override
+                            public String getFormattedValue(float value) {
+                                return super.getFormattedValue(value);
+                            }
+                        });
 
                         deathBarChart.setFitBars(true);
                         deathBarChart.setData(deathBD);
                         deathBarChart.getDescription().setText("일주일간 사망자 수 그래프");
-                        deathBarChart.animateX(2000);
+                        deathBarChart.animateY(3000);
                         deathBarChart.getDescription().setTextSize(11f);
                         deathBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         deathBarChart.getXAxis().setTextSize(12f);
@@ -281,9 +287,9 @@ public class GraphFragment extends Fragment {
 
                         deathIncBarChart.setFitBars(true);
                         deathIncBarChart.setData(deathIncBD);
-                        deathIncBarChart.getDescription().setText("일주일간 사망자 증가 수 그래프");
+                        deathIncBarChart.getDescription().setText("일주일간 사망자 증감 그래프");
                         deathIncBarChart.getDescription().setTextSize(11f);
-                        deathIncBarChart.animateX(2000);
+                        deathIncBarChart.animateY(3000);
                         deathIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         deathIncBarChart.getXAxis().setTextSize(12f);
                         deathIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
