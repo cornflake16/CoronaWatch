@@ -221,7 +221,6 @@ public class GraphFragment extends Fragment {
                         defBarChart.setData(defBD);
                         defBarChart.getDescription().setText("일주일간 확진자 수 그래프");
                         defBarChart.getDescription().setTextSize(11f);
-                        defBarChart.animateY(3000);
                         defBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         defBarChart.getXAxis().setTextSize(12f);
                         defBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
@@ -230,7 +229,6 @@ public class GraphFragment extends Fragment {
                         defIncBarChart.setData(defIncBD);
                         defIncBarChart.getDescription().setText("일주일간 확진자 증감 그래프");
                         defIncBarChart.getDescription().setTextSize(11f);
-                        defIncBarChart.animateY(3000);
                         defIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         defIncBarChart.getXAxis().setTextSize(12f);
                         defIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
@@ -238,7 +236,6 @@ public class GraphFragment extends Fragment {
                         examBarChart.setFitBars(true);
                         examBarChart.setData(examBD);
                         examBarChart.getDescription().setText("일주일간 검사진행 수 그래프");
-                        examBarChart.animateY(3000);
                         examBarChart.getDescription().setTextSize(11f);
                         examBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         examBarChart.getXAxis().setTextSize(12f);
@@ -248,7 +245,6 @@ public class GraphFragment extends Fragment {
                         examIncBarChart.setData(examIncBD);
                         examIncBarChart.getDescription().setText("일주일간 검사진행 증감 그래프");
                         examIncBarChart.getDescription().setTextSize(11f);
-                        examIncBarChart.animateY(3000);
                         examIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         examIncBarChart.getXAxis().setTextSize(12f);
                         examIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
@@ -256,7 +252,6 @@ public class GraphFragment extends Fragment {
                         clearBarChart.setFitBars(true);
                         clearBarChart.setData(clearBD);
                         clearBarChart.getDescription().setText("일주일간 격리해제 수 그래프");
-                        clearBarChart.animateY(3000);
                         clearBarChart.getDescription().setTextSize(11f);
                         clearBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         clearBarChart.getXAxis().setTextSize(12f);
@@ -266,7 +261,6 @@ public class GraphFragment extends Fragment {
                         clearIncBarChart.setData(clearIncBD);
                         clearIncBarChart.getDescription().setText("일주일간 격리해제 증감 그래프");
                         clearIncBarChart.getDescription().setTextSize(11f);
-                        clearIncBarChart.animateY(3000);
                         clearIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         clearIncBarChart.getXAxis().setTextSize(12f);
                         clearIncBarChart.getXAxis().setValueFormatter(new ValueFormatter() {
@@ -279,7 +273,6 @@ public class GraphFragment extends Fragment {
                         deathBarChart.setFitBars(true);
                         deathBarChart.setData(deathBD);
                         deathBarChart.getDescription().setText("일주일간 사망자 수 그래프");
-                        deathBarChart.animateY(3000);
                         deathBarChart.getDescription().setTextSize(11f);
                         deathBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         deathBarChart.getXAxis().setTextSize(12f);
@@ -289,7 +282,6 @@ public class GraphFragment extends Fragment {
                         deathIncBarChart.setData(deathIncBD);
                         deathIncBarChart.getDescription().setText("일주일간 사망자 증감 그래프");
                         deathIncBarChart.getDescription().setTextSize(11f);
-                        deathIncBarChart.animateY(3000);
                         deathIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                         deathIncBarChart.getXAxis().setTextSize(12f);
                         deathIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
