@@ -6,16 +6,24 @@
 
     <string name="tv_increase_expression_label">▲</string>
     <string name="tv_rate_of_increase_label">전일 대비 증가 ▲</string>
-    <string name="tv_confirmed_label">확진환자</string>
-    <string name="tv_testing_label">검사중</string>
+    <string name="tv_confirmed_label">확진자</string>
+    <string name="tv_testing_label">검사진행</string>
     <string name="tv_recovered_label">격리해제</string>
     <string name="tv_deaths_label">사망자</string>
+    <string name="tv_confirmed_increase_label">확진자 증감</string>
+    <string name="tv_testing_increase_label">검사진행 증감</string>
+    <string name="tv_recovered_increase_label">격리해제 증감</string>
+    <string name="tv_deaths_increase_label">사망자 증감</string>
+
     <string name="tv_virus_name">COVID - 19</string>
     <string name="tv_virus_level1">1단계</string>
     <string name="tv_virus_level2">1.5단계</string>
     <string name="tv_virus_level3">2단계</string>
     <string name="tv_virus_level4">2.5단계</string>
     <string name="tv_virus_level5">3단계</string>
+
+    <string name="tv_source_label_kr">출처: 공공데이터포털</string>
+    <string name="tv_source_label_world">출처: 공공데이터포털</string>
 
     <string name="hint_signIn_id">이메일 계정</string>
     <string name="hint_signIn_pw">비밀번호</string>
@@ -80,11 +88,11 @@
 
     <string name="or">또는</string>
     <string name="_0">-</string>
+
     <string name="item_maps_label">지도</string>
     <string name="item_stat_label">통계</string>
     <string name="item_graph_label">그래프</string>
-    <string name="tv_source_label_kr">출처: 공공데이터포털</string>
-    <string name="tv_source_label_world">출처: 공공데이터포털</string>
+
     <string name="parsing_world_data_error_msg">세계 데이터 불러오기 실패</string>
     <string name="parsing_server_data_error_msg">데이터 전송 서버 문제로 인해 세계 데이터를 불러오지 못했습니다.</string>
 
