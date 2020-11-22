@@ -9,6 +9,11 @@
     <string name="tv_testing_label">testing</string>
     <string name="tv_recovered_label">recovered</string>
     <string name="tv_deaths_label">deaths</string>
+    <string name="tv_confirmed_increase_label">confirmed inc</string>
+    <string name="tv_testing_increase_label">testing inc</string>
+    <string name="tv_recovered_increase_label">recovered inc</string>
+    <string name="tv_deaths_increase_label">deaths inc</string>
+
     <string name="tv_virus_name">COVID - 19</string>
     <string name="tv_virus_level1">CONCERN</string>
     <string name="tv_virus_level2">CAUTION</string>
