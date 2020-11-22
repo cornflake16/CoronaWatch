@@ -58,6 +58,7 @@
         app:layout_constraintEnd_toEndOf="@id/defBarChart"
         app:layout_constraintStart_toStartOf="@id/defBarChart"
         app:layout_constraintTop_toTopOf="@id/defBarChart" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/examIncBarChart"
         android:layout_width="0dp"
@@ -67,6 +68,7 @@
         app:layout_constraintEnd_toEndOf="@id/defBarChart"
         app:layout_constraintStart_toStartOf="@id/defBarChart"
         app:layout_constraintTop_toTopOf="@id/defBarChart" />
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/clearIncBarChart"
         android:layout_width="0dp"
@@ -76,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="@id/defBarChart"
         app:layout_constraintStart_toStartOf="@id/defBarChart"
         app:layout_constraintTop_toTopOf="@id/defBarChart" />
-    
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/deathIncBarChart"
         android:layout_width="0dp"
@@ -98,8 +100,8 @@
         app:layout_constraintHeight_min="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="200dp"
-        app:layout_constraintWidth_min="125dp"
+        app:layout_constraintWidth_max="160dp"
+        app:layout_constraintWidth_min="160dp"
         app:layout_constraintWidth_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
