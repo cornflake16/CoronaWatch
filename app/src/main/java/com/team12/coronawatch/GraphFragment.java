@@ -18,7 +18,6 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.util.ArrayList;
@@ -29,6 +28,8 @@ public class GraphFragment extends Fragment {
             defIncBarChart, examIncBarChart, clearIncBarChart, deathIncBarChart;
     CoronaKoreaStatus coronaKRStatus;
     KoreaXMLParser koreaXMLParser;
+    ArrayList<BarChart> bcList;
+    ArrayAdapter<?> aa_items;
 
     public GraphFragment() {
         // Required empty public constructor
@@ -45,7 +46,6 @@ public class GraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_graph, container, false);
-        koreaXMLParser.start();
         spinner = v.findViewById(R.id.spinner);
         defBarChart = v.findViewById(R.id.defBarChart);
         defIncBarChart = v.findViewById(R.id.defIncBarChart);
@@ -57,11 +57,11 @@ public class GraphFragment extends Fragment {
         deathIncBarChart = v.findViewById(R.id.deathIncBarChart);
 
         String[] items = getResources().getStringArray(R.array.graph_tab);
-        final ArrayAdapter aa_items = new ArrayAdapter<>(getActivity(),
+        aa_items = new ArrayAdapter<>(getActivity(),
                 R.layout.support_simple_spinner_dropdown_item, items);
         spinner.setAdapter(aa_items);
 
-        final ArrayList<BarChart> bcList = new ArrayList<>();
+        bcList = new ArrayList<>();
         bcList.add(defBarChart);
         bcList.add(defIncBarChart);
         bcList.add(examBarChart);
@@ -70,6 +70,8 @@ public class GraphFragment extends Fragment {
         bcList.add(clearIncBarChart);
         bcList.add(deathBarChart);
         bcList.add(deathIncBarChart);
+
+        koreaXMLParser.start();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -101,10 +103,6 @@ public class GraphFragment extends Fragment {
             } else {
                 return;
             }
-
-            //테스트할때만 로그 출력을 위해 주석해제
-            //coronaKRStatus.printInfo();
-
             //UI 제어
             if (getActivity() != null) {
                 getActivity().runOnUiThread(new Runnable() {
@@ -160,131 +158,76 @@ public class GraphFragment extends Fragment {
                                             createDtList.get(i).substring(8, 10)), deathIncCntList.get(i)));
                         }
 
-                        BarDataSet defBDS = new BarDataSet(defCntBE, "확진자 수(명)");
-                        defBDS.setColor(Color.parseColor("#CCE65100"));
-                        defBDS.setValueTextColor(Color.BLACK);
-                        defBDS.setValueTextSize(10f);
-                        defBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        BarDataSet defBDS, defIncBDS, examBDS, examIncBDS,
+                                clearBDS, clearIncBDS, deathBDS, deathIncBDS;
+                        ArrayList<BarDataSet> bdsList = new ArrayList<>();
 
-                        BarDataSet defIncBDS = new BarDataSet(defIncCntBE, "전일 대비 확진자 증감 수(명)");
-                        defIncBDS.setColor(Color.parseColor("#CCE65100"));
-                        defIncBDS.setValueTextColor(Color.BLACK);
-                        defIncBDS.setValueTextSize(10f);
-                        defIncBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        defBDS = new BarDataSet(defCntBE, "확진자 수(명)");
+                        defIncBDS = new BarDataSet(defIncCntBE, "전일 대비 확진자 증감 수(명)");
+                        examBDS = new BarDataSet(examCntBE, "검사진행 수(명)");
+                        examIncBDS = new BarDataSet(examIncCntBE, "전일 대비 검사진행 증감 수(명)");
+                        clearBDS = new BarDataSet(clearCntBE, "격리해제 수(명)");
+                        clearIncBDS = new BarDataSet(clearIncCntBE, "전일 대비 격리해제 증감 수(명)");
+                        deathBDS = new BarDataSet(deathCntBE, "사망자 수(명)");
+                        deathIncBDS = new BarDataSet(deathIncCntBE, "전일 대비 사망자 증감 수(명)");
 
-                        BarDataSet examBDS = new BarDataSet(examCntBE, "검사진행 수(명)");
-                        examBDS.setColor(Color.parseColor("#CCE65100"));
-                        examBDS.setValueTextColor(Color.BLACK);
-                        examBDS.setValueTextSize(10f);
-                        examBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        bdsList.add(defBDS);
+                        bdsList.add(defIncBDS);
+                        bdsList.add(examBDS);
+                        bdsList.add(examIncBDS);
+                        bdsList.add(clearBDS);
+                        bdsList.add(clearIncBDS);
+                        bdsList.add(deathBDS);
+                        bdsList.add(deathIncBDS);
 
-                        BarDataSet examIncBDS = new BarDataSet(examIncCntBE, "전일 대비 검사진행 증감 수(명)");
-                        examIncBDS.setColor(Color.parseColor("#CCE65100"));
-                        examIncBDS.setValueTextColor(Color.BLACK);
-                        examIncBDS.setValueTextSize(10f);
-                        examIncBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        for (BarDataSet bds : bdsList) {
+                            bds.setColor(Color.parseColor("#CCE65100"));
+                            bds.setValueTextColor(Color.BLACK);
+                            bds.setValueTextSize(10f);
+                            bds.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        }
 
-                        BarDataSet clearBDS = new BarDataSet(clearCntBE, "격리해제 수(명)");
-                        clearBDS.setColor(Color.parseColor("#CCE65100"));
-                        clearBDS.setValueTextColor(Color.BLACK);
-                        clearBDS.setValueTextSize(10f);
-                        clearBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        BarData defBD, defIncBD, examBD, examIncBD,
+                                clearBD, clearIncBD, deathBD, deathIncBD;
 
-                        BarDataSet clearIncBDS = new BarDataSet(clearIncCntBE, "전일 대비 격리해제 증감 수(명)");
-                        clearIncBDS.setColor(Color.parseColor("#CCE65100"));
-                        clearIncBDS.setValueTextColor(Color.BLACK);
-                        clearIncBDS.setValueTextSize(10f);
-                        clearIncBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        defBD = new BarData(defBDS);
+                        defIncBD = new BarData(defIncBDS);
+                        examBD = new BarData(examBDS);
+                        examIncBD = new BarData(examIncBDS);
+                        clearBD = new BarData(clearBDS);
+                        clearIncBD = new BarData(clearIncBDS);
+                        deathBD = new BarData(deathBDS);
+                        deathIncBD = new BarData(deathIncBDS);
 
-                        BarDataSet deathBDS = new BarDataSet(deathCntBE, "사망자 수(명)");
-                        deathBDS.setColor(Color.parseColor("#CCE65100"));
-                        deathBDS.setValueTextColor(Color.BLACK);
-                        deathBDS.setValueTextSize(10f);
-                        deathBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
+                        ArrayList<BarData> bdList = new ArrayList<>();
+                        bdList.add(defBD);
+                        bdList.add(defIncBD);
+                        bdList.add(examBD);
+                        bdList.add(examIncBD);
+                        bdList.add(clearBD);
+                        bdList.add(clearIncBD);
+                        bdList.add(deathBD);
+                        bdList.add(deathIncBD);
 
-                        BarDataSet deathIncBDS = new BarDataSet(deathIncCntBE, "전일 대비 사망자 증감 수(명)");
-                        deathIncBDS.setColor(Color.parseColor("#CCE65100"));
-                        deathIncBDS.setValueTextColor(Color.BLACK);
-                        deathIncBDS.setValueTextSize(10f);
-                        deathIncBDS.setValueTypeface(Typeface.DEFAULT_BOLD);
-
-                        BarData defBD = new BarData(defBDS);
-                        BarData defIncBD = new BarData(defIncBDS);
-                        BarData examBD = new BarData(examBDS);
-                        BarData examIncBD = new BarData(examIncBDS);
-                        BarData clearBD = new BarData(clearBDS);
-                        BarData clearIncBD = new BarData(clearIncBDS);
-                        BarData deathBD = new BarData(deathBDS);
-                        BarData deathIncBD = new BarData(deathIncBDS);
-
-                        defBarChart.setFitBars(true);
-                        defBarChart.setData(defBD);
-                        defBarChart.getDescription().setText("일주일간 확진자 수 그래프");
-                        defBarChart.getDescription().setTextSize(11f);
-                        defBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        defBarChart.getXAxis().setTextSize(12f);
-                        defBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
-
-                        defIncBarChart.setFitBars(true);
-                        defIncBarChart.setData(defIncBD);
-                        defIncBarChart.getDescription().setText("일주일간 확진자 증감 그래프");
-                        defIncBarChart.getDescription().setTextSize(11f);
-                        defIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        defIncBarChart.getXAxis().setTextSize(12f);
-                        defIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
-
-                        examBarChart.setFitBars(true);
-                        examBarChart.setData(examBD);
-                        examBarChart.getDescription().setText("일주일간 검사진행 수 그래프");
-                        examBarChart.getDescription().setTextSize(11f);
-                        examBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        examBarChart.getXAxis().setTextSize(12f);
-                        examBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
-
-                        examIncBarChart.setFitBars(true);
-                        examIncBarChart.setData(examIncBD);
-                        examIncBarChart.getDescription().setText("일주일간 검사진행 증감 그래프");
-                        examIncBarChart.getDescription().setTextSize(11f);
-                        examIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        examIncBarChart.getXAxis().setTextSize(12f);
-                        examIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
-
-                        clearBarChart.setFitBars(true);
-                        clearBarChart.setData(clearBD);
-                        clearBarChart.getDescription().setText("일주일간 격리해제 수 그래프");
-                        clearBarChart.getDescription().setTextSize(11f);
-                        clearBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        clearBarChart.getXAxis().setTextSize(12f);
-                        clearBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
-
-                        clearIncBarChart.setFitBars(true);
-                        clearIncBarChart.setData(clearIncBD);
-                        clearIncBarChart.getDescription().setText("일주일간 격리해제 증감 그래프");
-                        clearIncBarChart.getDescription().setTextSize(11f);
-                        clearIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        clearIncBarChart.getXAxis().setTextSize(12f);
-                        clearIncBarChart.getXAxis().setValueFormatter(new ValueFormatter() {
+                        ValueFormatter vf_date = new ValueFormatter() {
                             @Override
                             public String getFormattedValue(float value) {
-                                return super.getFormattedValue(value);
+                                String s = Float.toString(value);
+                                return s.substring(0, 2) + "/" + s.substring(2, 4);
                             }
-                        });
+                        };
 
-                        deathBarChart.setFitBars(true);
-                        deathBarChart.setData(deathBD);
-                        deathBarChart.getDescription().setText("일주일간 사망자 수 그래프");
-                        deathBarChart.getDescription().setTextSize(11f);
-                        deathBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        deathBarChart.getXAxis().setTextSize(12f);
-                        deathBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
-
-                        deathIncBarChart.setFitBars(true);
-                        deathIncBarChart.setData(deathIncBD);
-                        deathIncBarChart.getDescription().setText("일주일간 사망자 증감 그래프");
-                        deathIncBarChart.getDescription().setTextSize(11f);
-                        deathIncBarChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                        deathIncBarChart.getXAxis().setTextSize(12f);
-                        deathIncBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(createDtList));
+                        int i = 0;
+                        for (BarChart bc : bcList) {
+                            bc.setFitBars(true);
+                            bc.setData(bdList.get(i++));
+                            bc.setTouchEnabled(false);
+                            bc.getDescription().setText("일주일간 확진자 수 그래프");
+                            bc.getDescription().setTextSize(11f);
+                            bc.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            bc.getXAxis().setTextSize(10f);
+                            bc.getXAxis().setValueFormatter(vf_date);
+                        }
                     }
                 });
             }
