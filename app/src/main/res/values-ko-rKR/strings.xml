@@ -7,9 +7,11 @@
     <string name="tv_increase_expression_label">▲</string>
     <string name="tv_decrease_expression_label">▼</string>
     <string name="tv_rate_of_variation_label">전일 대비 증감 ▲▼</string>
+    <string name="tv_region_label">지역</string>
     <string name="tv_confirmed_label">확진자</string>
     <string name="tv_testing_label">검사진행</string>
     <string name="tv_recovered_label">격리해제</string>
+    <string name="tv_isolating_label">격리 중</string>
     <string name="tv_deaths_label">사망자</string>
     <string name="tv_confirmed_increase_label">확진자 증감</string>
     <string name="tv_testing_increase_label">검사진행 증감</string>
