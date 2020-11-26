@@ -6,8 +6,10 @@
     <string name="tv_increase_expression_label">▲</string>
     <string name="tv_decrease_expression_label">▼</string>
     <string name="tv_rate_of_variation_label">increase and decrease ▲ ▼</string>
+    <string name="tv_region_label">region</string>
     <string name="tv_confirmed_label">confirmed</string>
     <string name="tv_testing_label">testing</string>
+    <string name="tv_isolating_label">isolating</string>
     <string name="tv_recovered_label">recovered</string>
     <string name="tv_deaths_label">deaths</string>
     <string name="tv_confirmed_increase_label">confirmed inc</string>
