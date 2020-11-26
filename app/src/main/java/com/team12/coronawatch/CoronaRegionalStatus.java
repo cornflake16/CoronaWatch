@@ -137,6 +137,7 @@ class CoronaRegionalStatus {
     //날짜 및 시간관련 변수
     Date time;
     String sYear, sMonth, sDay, sHour, sToday, sYesterday, sTwoDayAgo;
+    boolean serverTodayFlag;
     String stdYestFromServer, stdTodayFromServer;
     int[] days;
     int nYear, nMonth, nDay, nHour;
@@ -197,9 +198,9 @@ class CoronaRegionalStatus {
         nDay = Integer.parseInt(sDay);
         nHour = Integer.parseInt(sHour);
 
-        sToday = dayAgo(0);
-        sToday = sToday.substring(0, 4) + '-'
-                + sToday.substring(4, 6) + '-' + sToday.substring(6, 8);
+        sToday = sYear + '-'
+                + sMonth + '-' + sDay;
+
         sYesterday = dayAgo(1);
         sYesterday = sYesterday.substring(0, 4) + '-'
                 + sYesterday.substring(4, 6) + '-' + sYesterday.substring(6, 8);
@@ -266,8 +267,9 @@ class CoronaRegionalStatus {
     }
 
     protected boolean loadXML() {
-        int nWeekAgo = 0,
+        int nWeekAgo = 1,
                 nToday = 0;
+        serverTodayFlag = true;
         for (int i = 0; i < 2; i++) {
             try {
                 urlBuilder = SERVICE_URL + "?" + URLEncoder.encode("ServiceKey", UTF) + SERVICE_KEY + /*Service Key*/
@@ -310,8 +312,9 @@ class CoronaRegionalStatus {
             if (i == 0) {
                 if (!sTmpCreateDt.substring(0, 10).equals(sToday)) {
                     System.out.println(sTmpCreateDt.substring(0, 10) + "-" + sToday);
-                    nWeekAgo = 1;
+                    nWeekAgo = 2;
                     nToday = 1;
+                    serverTodayFlag = false;
                     stdYestFromServer = sTwoDayAgo;
                     stdTodayFromServer = sYesterday;
                 } else {
@@ -371,31 +374,24 @@ class CoronaRegionalStatus {
         Collections.sort(regionInfoList.subList(0, regionInfoList.size() - 1));
 
         for (RegionInfo regionInfo : regionInfoList) {
-            //주석은 테스트할 때만 해제하는 것을 권장
-//            Log.i("----------------------------------------");
-//            Log.i("등록일시: " + regionInfo.getCreateDt().substring(0, 19));
-//            Log.i("수정일시: " + regionInfo.getUpdateDt());
-//            Log.i("지역명: " + regionInfo.getGubun());
-//            Log.i("지역명(영문): " + regionInfo.getGubunEn() + '\n');
-//            Log.i("(누적)");
-//            Log.i(" - 확진자 수: " + formatter.format(regionInfo.getDefCnt())
-//                    + "명(+" + regionInfo.getIncDec() + ")");
-//            Log.i(" - 격리해제 수: " + formatter.format(regionInfo.getIsolClearCnt()) + "명");
-//            Log.i(" - 격리중 환자 수: " + formatter.format(regionInfo.getIsolIngCnt()) + "명");
-//            Log.i(" - 사망자 수: " + formatter.format(regionInfo.getDeathCnt()) + "명");
+            Log.i("CoronaRegionalStatus: ", sToday);
+            Log.i("CoronaRegionalStatus: ", regionInfo.getCreateDt().substring(0, 10));
 
-            gubunList.add(regionInfo.getGubun());
-            gubunEnList.add(regionInfo.getGubunEn());
-            defCntList.add(regionInfo.getDefCnt());
-            isolIngCntList.add(regionInfo.getIsolIngCnt());
-            isolClearCntList.add(regionInfo.getIsolClearCnt());
-            deathCntList.add(regionInfo.getDeathCnt());
-            defIncList.add(regionInfo.getIncDec());
-            createDtList.add(regionInfo.getCreateDt());
-            updateDtList.add(regionInfo.getUpdateDt());
+            if(!serverTodayFlag) {
+                sToday = sYesterday;
+            }
+
+            if (regionInfo.getCreateDt().substring(0, 10).equals(sToday)) {
+                gubunList.add(regionInfo.getGubun());
+                gubunEnList.add(regionInfo.getGubunEn());
+                defCntList.add(regionInfo.getDefCnt());
+                isolIngCntList.add(regionInfo.getIsolIngCnt());
+                isolClearCntList.add(regionInfo.getIsolClearCnt());
+                deathCntList.add(regionInfo.getDeathCnt());
+                defIncList.add(regionInfo.getIncDec());
+                createDtList.add(regionInfo.getCreateDt());
+                updateDtList.add(regionInfo.getUpdateDt());
+            }
         }
     }
-
-//    public void printInfo() {
-//    }
 }
