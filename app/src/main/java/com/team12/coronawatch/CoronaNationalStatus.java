@@ -208,9 +208,9 @@ class CoronaNationalStatus {
         String date;
 
         if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {    //윤년 계산
-            days[1] = 29;
+            days[2] = 29;
         } else {
-            days[1] = 28;
+            days[2] = 28;
         }
 
         if (subNumber >= day) {
@@ -245,66 +245,62 @@ class CoronaNationalStatus {
         return date;
     }
 
-    public static void printParseErrorMsg(String resultCode, String errMsg) {
-        Log.i("parseResultCode: ", resultCode + " - " + errMsg);
-
-    }
 
     public static boolean isParseError(String resultCode) {
         switch (resultCode) {
             case "0":
-                printParseErrorMsg(resultCode, "정상");
+                Log.i("parseResult: ", "정상");
                 break;
             case "1":
-                printParseErrorMsg(resultCode, "어플리케이션 에러");
+                Log.i("parseResult: ", "어플리케이션 에러");
                 break;
             case "2":
-                printParseErrorMsg(resultCode, "데이터베이스 에러");
+                Log.i("parseResult: ", "데이터베이스 에러");
                 break;
             case "3":
-                printParseErrorMsg(resultCode, "데이터 없음 에러");
+                Log.i("parseResult: ", "데이터 없음 에러");
                 break;
             case "4":
-                printParseErrorMsg(resultCode, "HTTP 에러");
+                Log.i("parseResult: ", "HTTP 에러");
                 break;
             case "5":
-                printParseErrorMsg(resultCode, "서비스 연결실패 에러");
+                Log.i("parseResult: ", "서비스 연결실패 에러");
                 break;
             case "10":
-                printParseErrorMsg(resultCode, "잘못된 요청 파라미터 에러");
+                Log.i("parseResult: ", "잘못된 요청 파라미터 에러");
                 break;
             case "11":
-                printParseErrorMsg(resultCode, "필수요청 파라미터가 없음");
+                Log.i("parseResult: ", "필수요청 파라미터가 없음");
                 break;
             case "12":
-                printParseErrorMsg(resultCode, "해당 오픈 API 서비스가 없거나 폐기됨");
+                Log.i("parseResult: ", "해당 오픈 API 서비스가 없거나 폐기됨");
                 break;
             case "20":
-                printParseErrorMsg(resultCode, "서비스 접근 거부");
+                Log.i("parseResult: ", "서비스 접근 거부");
                 break;
             case "21":
-                printParseErrorMsg(resultCode, "일시적으로 사용할 수 없는 서비스 키");
+                Log.i("parseResult: ", "일시적으로 사용할 수 없는 서비스 키");
                 break;
             case "22":
-                printParseErrorMsg(resultCode, "서비스 요청제한 횟수 초과");
+                Log.i("parseResult: ", "서비스 요청제한 횟수 초과");
                 break;
             case "30":
-                printParseErrorMsg(resultCode, "등록되지 않은 서비스 키");
+                Log.i("parseResult: ", "등록되지 않은 서비스 키");
                 break;
             case "31":
-                printParseErrorMsg(resultCode, "기한 만료된 서비스키");
+                Log.i("parseResult: ", "기한 만료된 서비스키");
                 break;
             case "32":
-                printParseErrorMsg(resultCode, "등록되지 않은 IP");
+                Log.i("parseResult: ", "등록되지 않은 IP");
                 break;
             case "33":
-                printParseErrorMsg(resultCode, "서명되지 않은 호출");
+                Log.i("parseResult: ", "서명되지 않은 호출");
                 break;
             case "99":
-                printParseErrorMsg(resultCode, "기타 에러");
+                Log.i("parseResult: ", "기타 에러");
                 break;
             default:
-                printParseErrorMsg(resultCode, "정상 수신");
+                Log.i("parseResult: ", "정상 수신");
                 return true;
         }
         return false;
@@ -372,8 +368,6 @@ class CoronaNationalStatus {
 
     protected void parseXML() {
         loadXML();
-//        Log.i("서버기준 오늘: " + stdTodayFromServer);
-//        Log.i("서버기준 어제: " + stdYestFromServer);
         int i = 0;
         while (true) {
             NationInfo nationInfo = new NationInfo();
@@ -414,16 +408,6 @@ class CoronaNationalStatus {
         int n = 0;
         todayTotalNatDefCnt = todayTotalNatDeathCnt = 0;
         for (NationInfo natInfo : natInfoList) {
-//            Log.i("----------------------------------------");
-//            Log.i("#" + ++n);
-//            Log.i("지역명: " + natInfo.getAreaNm());
-//            Log.i("지역명_영문: " + natInfo.getAreaNmEn());
-//            Log.i("국가명: " + natInfo.getNationNm());
-//            Log.i("국가명_영문: " + natInfo.getNationNmEn());
-//            Log.i("확진자 수: " + formatter.format(natInfo.getNatDefCnt()) + "명");
-//            Log.i("사망자 수: " + formatter.format(natInfo.getNatDeathCnt()) + "명");
-//            Log.i("확진자 대비 사망률: " + Math.round(natInfo.getNatDeathRate() * 100) / 100.00 + "%");
-//            Log.i("등록일: " + natInfo.getCreateDt().substring(0, 19));
 
             if (stdTodayFromServer.equals(natInfo.getCreateDt().substring(0, 10))) {
                 todayTotalNatDefCnt += natInfo.getNatDefCnt();
@@ -445,19 +429,6 @@ class CoronaNationalStatus {
         newFmt_natDefIncCnt = formatter.format((natDefIncCnt));
         newFmt_natDeathIncCnt = formatter.format((natDeathIncCnt));
     }
-
-    //주석은 테스트할 때만 해제하는 것을 권장
-//    public void printInfo() {
-//        Log.i("----------------------------------------");
-//        Log.i("[ 정리 ]");
-//        Log.i("기준일시: " + newFormatStateDate + '\n');
-//        Log.i("(총합)");
-//        Log.i(" - 확진자 수: " + newFmt_todayTotNatDefCnt + "명");
-//        Log.i(" - 사망자 수: " + newFmt_todayTotNatDeathCnt + "명");
-//        Log.i(" - 확진자 증가 수(전일대비 기준): " + newFmt_natDefIncCnt + "명");
-//        Log.i(" - 사망자 증가 수(전일대비 기준): " + newFmt_natDeathIncCnt + "명");
-//        Log.i(" - 감염국가 수: " + totalDefNatCnt);
-//    }
 }
 
 
