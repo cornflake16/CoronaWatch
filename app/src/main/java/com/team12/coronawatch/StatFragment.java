@@ -33,9 +33,7 @@ public class StatFragment extends Fragment {
     TextView cv_region, cv_isol, cv_def, cv_clear, cv_death;
 
     ListView listView_kr;
-    //    ListView listView_world;
     CustomAdapterKR adapterKR;
-//    CustomAdapterNT adapterNT;
 
     CoronaKoreaStatus coronaKRStatus;
     CoronaRegionalStatus coronaRegStatus;
@@ -46,7 +44,7 @@ public class StatFragment extends Fragment {
     RegionalXMLParser threadRg;
 
     ContentLoadingProgressBar pb_defCnt_world, pb_deathCnt_world;
-
+    Drawable eraseBg, drawBg;
 
     public void viewInit(View v) {
         tv_phase = v.findViewById(R.id.tv_phase);
@@ -74,7 +72,6 @@ public class StatFragment extends Fragment {
         tv_state_date_nat_label = v.findViewById(R.id.tv_state_date_nat_label);
 
         listView_kr = v.findViewById(R.id.listView_kr);
-//        listView_world = v.findViewById(R.id.listView_world);
 
         btnKorea = v.findViewById(R.id.btn_korea);
         btnWorld = v.findViewById(R.id.btn_world);
@@ -87,14 +84,14 @@ public class StatFragment extends Fragment {
     }
 
     public StatFragment() {
-        coronaKRStatus = new CoronaKoreaStatus();
-        coronaRegStatus = new CoronaRegionalStatus();
-        coronaNatStatus = new CoronaNationalStatus();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        coronaKRStatus = new CoronaKoreaStatus();
+        coronaRegStatus = new CoronaRegionalStatus();
+        coronaNatStatus = new CoronaNationalStatus();
         threadKr = new KoreaXMLParser();
         threadNt = new NationalXMLParser();
         threadRg = new RegionalXMLParser();
@@ -110,11 +107,17 @@ public class StatFragment extends Fragment {
         threadNt.start();
         threadRg.start();
 
-        final Drawable eraseBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke);
-        final Drawable drawBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke_checked);
+        eraseBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke);
+        drawBg = StatFragment.this.getResources().getDrawable(R.drawable.btn_stroke_checked);
         btnKorea.setSelected(true);
         btnWorld.setSelected(false);
 
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         btnKorea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +127,6 @@ public class StatFragment extends Fragment {
                 conLayoutKorea.setVisibility(View.VISIBLE);
                 tv_state_date_nat_label.setVisibility(View.INVISIBLE);
                 tv_state_date_kr_label.setVisibility(View.VISIBLE);
-//                listView_world.setVisibility(View.GONE);
                 listView_kr.setVisibility(View.VISIBLE);
             }
         });
@@ -139,14 +141,12 @@ public class StatFragment extends Fragment {
                 tv_state_date_kr_label.setVisibility(View.INVISIBLE);
                 tv_state_date_nat_label.setVisibility(View.VISIBLE);
                 listView_kr.setVisibility(View.GONE);
-//                listView_world.setVisibility(View.VISIBLE);
             }
         });
-        return view;
     }
 
     // 스크롤뷰 내부의 리스트뷰 Height 지정
-    private static void listViewSetHeight(BaseAdapter adapter, ListView listView) {
+    private void listViewSetHeight(BaseAdapter adapter, ListView listView) {
         int totalHeight = 0;
         for (int i = 0; i < adapter.getCount(); i++) {
             View item = adapter.getView(i, null, listView);
@@ -204,13 +204,13 @@ public class StatFragment extends Fragment {
                         }
 
                         tv_defCnt.setText(coronaKRStatus.newFmt_todayDecideCnt);
-                        tv_defIncrease.setText(coronaKRStatus.newFmt_decideIncCnt + " ▲");
+                        incrOrdecr(tv_defIncrease, coronaKRStatus.newFmt_decideIncCnt);
                         tv_examCnt.setText(coronaKRStatus.newFmt_todayExamCnt);
-                        tv_examIncrease.setText(coronaKRStatus.newFmt_examIncCnt + " ▲");
+                        incrOrdecr(tv_examIncrease, coronaKRStatus.newFmt_examIncCnt);
                         tv_clearCnt.setText(coronaKRStatus.newFmt_todayClearCnt);
-                        tv_clearIncrease.setText(coronaKRStatus.newFmt_clearIncCnt + " ▲");
+                        incrOrdecr(tv_clearIncrease, coronaKRStatus.newFmt_clearIncCnt);
                         tv_deathCnt.setText(coronaKRStatus.newFmt_todayDeathCnt);
-                        tv_deathIncrease.setText(coronaKRStatus.newFmt_deathIncCnt + " ▲");
+                        incrOrdecr(tv_deathIncrease, coronaKRStatus.newFmt_deathIncCnt);
                         tv_state_date_kr_label.setText(coronaKRStatus.todayStateDate);
                     }
                 });
@@ -280,31 +280,23 @@ public class StatFragment extends Fragment {
                     public void run() {
                         pb_defCnt_world.hide();
                         tv_defCnt_world.setText("" + coronaNatStatus.newFmt_todayTotNatDefCnt);
-                        tv_defIncrease_world.setText(coronaNatStatus.newFmt_natDefIncCnt + " ▲");
+                        incrOrdecr(tv_defIncrease_world, coronaNatStatus.newFmt_natDefIncCnt);
                         pb_deathCnt_world.hide();
                         tv_deathCnt_world.setText("" + coronaNatStatus.newFmt_todayTotNatDeathCnt);
-                        tv_deathIncrease_world.setText(coronaNatStatus.newFmt_natDeathIncCnt + " ▲");
-
+                        incrOrdecr(tv_deathIncrease_world, coronaNatStatus.newFmt_natDeathIncCnt);
                         tv_state_date_nat_label.setText(coronaNatStatus.newFormatStateDate);
-//                        // 통계 탭 하단 리스트뷰 동작 관련
-//                        ArrayList<CustomList> nations = new ArrayList<>();
-//
-//                        // 데이터 하드코딩으로 삽입하는 부분
-//                        for (int i = 0; i < coronaRegStatus.gubunList.size(); i++) {
-//
-//                            nations.add(new CustomList(coronaRegStatus.gubunList.get(i),
-//                                    coronaRegStatus.isolIngCntList.get(i),
-//                                    coronaRegStatus.defCntList.get(i),
-//                                    coronaRegStatus.defIncList.get(i),
-//                                    coronaRegStatus.isolClearCntList.get(i),
-//                                    coronaRegStatus.deathCntList.get(i)));
-//                        }
-//                        adapterNT = new CustomAdapterNT(nations);
-//                        listView_world.setAdapter(adapterNT);
-//                        listViewSetHeight(adapterNT, listView_world); // 높이 지정 함수 호출
                     }
                 });
             }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void incrOrdecr(TextView tv, String s) {
+        if (Integer.parseInt(s.replaceAll(",", "")) >= 0) {
+            tv.setText(s + " ▲");
+        } else {
+            tv.setText(s.replaceAll("-", "") + " ▼");
         }
     }
 }
