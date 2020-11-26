@@ -307,7 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="115dp"
                 android:padding="7.5dp"
-                android:text="@string/tv_rate_of_increase_label"
+                android:text="@string/tv_rate_of_variation_label"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_clearIncrease_kr" />
@@ -438,7 +438,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="115dp"
                 android:padding="7.5dp"
-                android:text="@string/tv_rate_of_increase_label"
+                android:text="@string/tv_rate_of_variation_label"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_deathIncrease_world" />
@@ -470,18 +470,6 @@
                 android:focusableInTouchMode="false"
                 android:longClickable="false"
                 tools:ignore="NestedScrolling" />
-
-<!--            <ListView-->
-<!--                android:id="@+id/listView_world"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:choiceMode="none"-->
-<!--                android:visibility="invisible"-->
-<!--                android:clickable="false"-->
-<!--                android:focusable="false"-->
-<!--                android:focusableInTouchMode="false"-->
-<!--                android:longClickable="false"-->
-<!--                tools:ignore="NestedScrolling" />-->
 
         </LinearLayout>
 
